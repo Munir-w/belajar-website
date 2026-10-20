@@ -1,16 +1,31 @@
 
+/* =========================================
+   WEBSITE KELAS 3.B
+   UPTD SD NEGERI 1 TOWEA
+   TAHUN AJARAN 2026/2027
+   ========================================= */
+
 :root {
   --navy: #102a43;
   --blue: #1d4e89;
-  --light-blue: #eaf4ff;
+  --blue-light: #eaf4ff;
   --gold: #e8b04a;
-  --cream: #fffaf0;
   --white: #ffffff;
   --text: #243447;
   --muted: #607080;
   --border: #dce5ee;
+  --background: #f3f7fb;
   --shadow: 0 8px 24px rgba(16, 42, 67, 0.09);
+
+  --monday: #fff0f0;
+  --tuesday: #fff5df;
+  --wednesday: #e9f7eb;
+  --thursday: #e8f3ff;
+  --friday: #f3eaff;
+  --saturday: #e4f8f6;
 }
+
+/* ===== PENGATURAN DASAR ===== */
 
 * {
   box-sizing: border-box;
@@ -24,10 +39,28 @@ html {
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f3f7fb;
   color: var(--text);
+  background: var(--background);
   line-height: 1.7;
 }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--blue);
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+/* ===== HEADER / BERANDA ===== */
 
 .hero {
   min-height: 330px;
@@ -38,18 +71,28 @@ body {
   text-align: center;
   color: var(--white);
   background:
-    radial-gradient(circle at top right, rgba(232,176,74,.25), transparent 35%),
-    linear-gradient(135deg, #102a43, #1d4e89 65%, #276a9b);
+    radial-gradient(
+      circle at top right,
+      rgba(232, 176, 74, 0.25),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #102a43,
+      #1d4e89 65%,
+      #276a9b
+    );
 }
 
 .hero-content {
+  width: 100%;
   max-width: 850px;
 }
 
 .eyebrow {
   margin: 0 0 8px;
   color: #b47b1d;
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 2px;
 }
@@ -61,7 +104,7 @@ body {
 .hero h1 {
   margin: 8px 0;
   font-size: clamp(2rem, 5vw, 3.4rem);
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .hero-subtitle {
@@ -72,11 +115,13 @@ body {
 .year-badge {
   display: inline-block;
   padding: 7px 16px;
-  border: 1px solid rgba(255,255,255,.55);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 30px;
-  background: rgba(255,255,255,.12);
+  background: rgba(255, 255, 255, 0.12);
   font-weight: 700;
 }
+
+/* ===== NAVIGASI ===== */
 
 .navbar {
   position: sticky;
@@ -88,23 +133,25 @@ body {
   gap: 4px;
   padding: 10px 14px;
   background: var(--white);
-  box-shadow: 0 3px 12px rgba(16,42,67,.1);
+  box-shadow: 0 3px 12px rgba(16, 42, 67, 0.1);
 }
 
 .navbar a {
   padding: 9px 12px;
   color: var(--navy);
   text-decoration: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 700;
   border-radius: 8px;
-  transition: .2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .navbar a:hover {
   color: var(--white);
   background: var(--blue);
 }
+
+/* ===== KONTEN DAN BAGIAN ===== */
 
 .container {
   width: min(1160px, 92%);
@@ -126,7 +173,7 @@ body {
   margin: 0 0 8px;
   color: var(--navy);
   font-size: clamp(1.55rem, 3vw, 2.2rem);
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .section-heading > p:last-child {
@@ -137,9 +184,9 @@ body {
 .info-card,
 .org-node,
 .announcement {
-  background: var(--white);
   border: 1px solid var(--border);
   border-radius: 16px;
+  background: var(--white);
   box-shadow: var(--shadow);
 }
 
@@ -155,6 +202,8 @@ body {
   color: var(--muted);
 }
 
+/* ===== KARTU PROFIL ===== */
+
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -162,6 +211,7 @@ body {
 }
 
 .info-card {
+  min-width: 0;
   padding: 20px 16px;
   text-align: center;
 }
@@ -180,8 +230,10 @@ body {
 
 .info-card p {
   margin: 5px 0;
-  font-size: .93rem;
+  font-size: 0.93rem;
 }
+
+/* ===== STRUKTUR ORGANISASI ===== */
 
 .org-chart {
   padding: 24px;
@@ -193,19 +245,20 @@ body {
 
 .org-node {
   width: min(100%, 330px);
+  min-width: 0;
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid #d5a54c;
+  border-color: #d5a54c;
 }
 
 .org-role {
   display: block;
   padding: 8px 12px;
-  color: #fff;
+  color: var(--white);
   background: var(--navy);
-  font-size: .82rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: .8px;
+  letter-spacing: 0.8px;
 }
 
 .org-node strong {
@@ -219,7 +272,7 @@ body {
   margin: 0;
   padding: 0 14px 14px;
   color: var(--muted);
-  font-size: .87rem;
+  font-size: 0.87rem;
 }
 
 .org-line {
@@ -246,6 +299,8 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* ===== KOTAK CATATAN ===== */
+
 .notice {
   margin: 20px 0;
   padding: 16px 18px;
@@ -255,43 +310,61 @@ body {
   color: #59421c;
 }
 
+/* ===== SEMUA TABEL ===== */
+
 .table-wrap {
+  display: block;
   width: 100%;
+  max-width: 100%;
   margin: 20px 0;
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--white);
   box-shadow: var(--shadow);
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: .91rem;
+  font-size: 0.91rem;
 }
 
 th,
 td {
   padding: 12px 14px;
+  border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+}
+
+th:last-child,
+td:last-child {
+  border-right: 0;
 }
 
 thead th {
-  color: #fff;
+  color: var(--white);
   background: var(--navy);
-  white-space: nowrap;
+  font-weight: 700;
+}
+
+tbody tr:last-child td,
+tbody tr:last-child th {
+  border-bottom: 0;
 }
 
 tbody tr:nth-child(even) {
   background: #f6f9fc;
 }
 
-tbody tr:last-child td,
-tbody tr:last-child th {
-  border-bottom: 0;
+/* ===== TABEL DATA SISWA ===== */
+
+.student-table {
+  min-width: 360px;
 }
 
 .student-table th:first-child,
@@ -311,8 +384,8 @@ tbody tr:last-child th {
 .student-summary div {
   padding: 17px 10px;
   border-radius: 12px;
+  color: var(--white);
   background: var(--navy);
-  color: #fff;
   text-align: center;
 }
 
@@ -327,48 +400,192 @@ tbody tr:last-child th {
 }
 
 .student-summary span {
-  font-size: .85rem;
-}
-
-.schedule-table {
-  min-width: 980px;
-  font-size: .82rem;
-}
-
-.schedule-table th,
-.schedule-table td {
-  padding: 11px 10px;
-  text-align: center;
-}
-
-.schedule-table td:nth-child(2) {
-  white-space: nowrap;
-}
-
-.break-row td {
-  color: var(--navy);
-  background: #ffe9b5;
-  font-weight: 800;
-}
-
-.piket-table th:first-child {
-  width: 110px;
-  color: var(--navy);
-  white-space: nowrap;
-}
-
-.piket-table tbody th {
-  background: #eaf4ff;
+  font-size: 0.85rem;
 }
 
 .small-note {
   color: var(--muted);
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
+
+/* =========================================
+   TABEL JADWAL PELAJARAN
+   Setiap hari punya warna tersendiri.
+   ========================================= */
+
+.schedule-table {
+  width: 100%;
+  min-width: 1250px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.schedule-table th,
+.schedule-table td {
+  width: 165px;
+  padding: 12px 10px;
+  border: 1px solid #d7e1eb;
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-height: 1.55;
+}
+
+/* Kolom nomor jam */
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+  width: 60px;
+  font-weight: 700;
+}
+
+/* Kolom waktu */
+
+.schedule-table th:nth-child(2),
+.schedule-table td:nth-child(2) {
+  width: 125px;
+  white-space: nowrap;
+}
+
+/* Warna latar setiap hari */
+
+.schedule-table tbody td:nth-child(3) {
+  background: var(--monday);
+}
+
+.schedule-table tbody td:nth-child(4) {
+  background: var(--tuesday);
+}
+
+.schedule-table tbody td:nth-child(5) {
+  background: var(--wednesday);
+}
+
+.schedule-table tbody td:nth-child(6) {
+  background: var(--thursday);
+}
+
+.schedule-table tbody td:nth-child(7) {
+  background: var(--friday);
+}
+
+.schedule-table tbody td:nth-child(8) {
+  background: var(--saturday);
+}
+
+/* Judul hari tetap berwarna gelap */
+
+.schedule-table thead th {
+  color: var(--white);
+  background: var(--navy);
+  font-weight: 800;
+  white-space: normal;
+}
+
+/* Warna khusus baris istirahat */
+
+.schedule-table tbody tr.break-row td {
+  color: #49360b;
+  background: #ffe3a3;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Kolom waktu istirahat dapat melebar */
+
+.schedule-table .break-row td:first-child {
+  width: auto;
+}
+
+/* =========================================
+   TABEL JADWAL PIKET
+   Setiap baris hari punya warna tersendiri.
+   ========================================= */
+
+.piket-table {
+  width: 100%;
+  min-width: 650px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.piket-table th,
+.piket-table td {
+  padding: 15px;
+  border: 1px solid #d7e1eb;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.8;
+}
+
+.piket-table thead th {
+  color: var(--white);
+  background: var(--navy);
+  text-align: center;
+}
+
+.piket-table tbody th:first-child {
+  width: 120px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 800;
+}
+
+/* Senin */
+
+.piket-table tbody tr:nth-child(1) th,
+.piket-table tbody tr:nth-child(1) td {
+  background: var(--monday);
+}
+
+/* Selasa */
+
+.piket-table tbody tr:nth-child(2) th,
+.piket-table tbody tr:nth-child(2) td {
+  background: var(--tuesday);
+}
+
+/* Rabu */
+
+.piket-table tbody tr:nth-child(3) th,
+.piket-table tbody tr:nth-child(3) td {
+  background: var(--wednesday);
+}
+
+/* Kamis */
+
+.piket-table tbody tr:nth-child(4) th,
+.piket-table tbody tr:nth-child(4) td {
+  background: var(--thursday);
+}
+
+/* Jumat */
+
+.piket-table tbody tr:nth-child(5) th,
+.piket-table tbody tr:nth-child(5) td {
+  background: var(--friday);
+}
+
+/* Sabtu */
+
+.piket-table tbody tr:nth-child(6) th,
+.piket-table tbody tr:nth-child(6) td {
+  background: var(--saturday);
+}
+
+/* ===== KARTU TUGAS PIKET ===== */
 
 .task-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+/* ===== PENGUMUMAN ===== */
 
 .announcement {
   display: flex;
@@ -379,6 +596,7 @@ tbody tr:last-child th {
 }
 
 .announcement-icon {
+  flex-shrink: 0;
   font-size: 1.8rem;
 }
 
@@ -391,22 +609,30 @@ tbody tr:last-child th {
   margin: 0;
 }
 
+/* ===== BAGIAN PENUTUP ===== */
+
 .closing {
   padding: 30px 20px;
-  text-align: center;
-  background: var(--light-blue);
   border: 1px solid #c8def2;
+  background: var(--blue-light);
+  text-align: center;
+}
+
+.closing h2 {
+  color: var(--navy);
 }
 
 .closing p {
   margin-bottom: 0;
 }
 
+/* ===== FOOTER ===== */
+
 .footer {
   padding: 28px 18px;
-  text-align: center;
-  color: #fff;
+  color: var(--white);
   background: var(--navy);
+  text-align: center;
 }
 
 .footer p {
@@ -415,8 +641,12 @@ tbody tr:last-child th {
 
 .footer-small {
   color: #cbd8e5;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
+
+/* =========================================
+   TAMPILAN TABLET
+   ========================================= */
 
 @media (max-width: 850px) {
   .profile-grid,
@@ -429,13 +659,21 @@ tbody tr:last-child th {
   }
 
   .navbar a {
-    font-size: .83rem;
+    font-size: 0.83rem;
   }
 
   .org-chart {
     padding: 16px;
   }
+
+  .schedule-table {
+    min-width: 1250px;
+  }
 }
+
+/* =========================================
+   TAMPILAN HP
+   ========================================= */
 
 @media (max-width: 520px) {
   .hero {
@@ -468,7 +706,7 @@ tbody tr:last-child th {
   }
 
   .org-node strong {
-    font-size: .95rem;
+    font-size: 0.95rem;
   }
 
   .student-summary {
@@ -484,12 +722,27 @@ tbody tr:last-child th {
   }
 
   .student-summary span {
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 
-  th,
-  td {
-    padding: 10px;
+  .schedule-table {
+    min-width: 1250px;
+    font-size: 0.82rem;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 10px 8px;
+  }
+
+  .piket-table {
+    min-width: 650px;
+    font-size: 0.88rem;
+  }
+
+  .piket-table th,
+  .piket-table td {
+    padding: 12px 10px;
   }
 
   .announcement {
