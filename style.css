@@ -749,3 +749,79 @@ tbody tr:nth-child(even) {
     padding: 17px;
   }
 }
+
+/* LOGO DI BAGIAN ATAS WEBSITE */
+.hero-content {
+  width: min(100% - 32px, 1100px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 110px;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.hero-text {
+  min-width: 0;
+}
+
+.header-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+/* Agar judul tetap rapi */
+.hero-text h1 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Penyesuaian untuk tablet dan HP */
+@media (max-width: 700px) {
+  .hero-content {
+    width: calc(100% - 24px);
+    grid-template-columns: 58px minmax(0, 1fr) 58px;
+    gap: 8px;
+  }
+
+  .header-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(19px, 4.5vw, 28px);
+    line-height: 1.25;
+  }
+
+  .hero-text .eyebrow {
+    font-size: 10px;
+  }
+
+  .hero-text .hero-subtitle {
+    font-size: 12px;
+  }
+
+  .hero-text .year-badge {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-content {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 6px;
+  }
+
+  .header-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-text h1 {
+    font-size: 18px;
+  }
+}
