@@ -15,7 +15,9 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="id_ID">
   <meta property="og:title" content="Kelas 3.B | UPTD SD Negeri 1 Towea">
-  <meta property="og:description" content="Informasi kelas 3.B: profil, organisasi, jadwal pelajaran, jadwal piket, dan pengumuman.">
+  <meta property="og:description" content="Informasi kelas 3.B: profil, organisasi, jadwal pelajaran, jadwal piket, tata tertib, dan pengumuman.">
+  <meta property="og:url" content="https://munir-w.github.io/belajar-website/">
+  <meta property="og:image" content="https://munir-w.github.io/belajar-website/logo-muna.png">
 
   <link rel="icon" type="image/png" href="logo-muna.png">
   <link rel="stylesheet" href="style.css">
@@ -58,6 +60,8 @@
     <a href="#siswa">Data Siswa</a>
     <a href="#jadwal">Jadwal Pelajaran</a>
     <a href="#piket">Jadwal Piket</a>
+    <a href="#tatatertib">Tata Tertib</a>
+    <a href="#kalender">Kalender</a>
     <a href="#pengumuman">Pengumuman</a>
   </nav>
 
@@ -70,7 +74,8 @@
       <p>
         Website ini menjadi pusat informasi kelas, tempat siswa dan orang tua
         melihat profil kelas, struktur organisasi, daftar siswa, jadwal
-        pelajaran, jadwal piket, dan pengumuman penting.
+        pelajaran, jadwal piket, tata tertib, kalender kegiatan, dan
+        pengumuman penting.
       </p>
     </section>
 
@@ -275,6 +280,9 @@
         <strong>Waktu istirahat:</strong> 09.00–09.30 WITA.
       </div>
 
+      <!-- Diisi otomatis oleh JavaScript (lihat bagian bawah halaman) -->
+      <p class="today-note" id="info-hari-jadwal" hidden></p>
+
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel jadwal pelajaran, dapat digeser ke samping">
         <table class="schedule-table">
           <thead>
@@ -354,6 +362,9 @@
         sebelum dan sesudah kegiatan belajar.
       </div>
 
+      <!-- Diisi otomatis oleh JavaScript (lihat bagian bawah halaman) -->
+      <p class="today-note" id="info-hari-piket" hidden></p>
+
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel jadwal piket per hari">
         <table class="piket-table">
           <thead>
@@ -418,6 +429,103 @@
       </div>
     </section>
 
+    <!-- ===================== TATA TERTIB KELAS ===================== -->
+    <!-- Untuk menambah aturan: salin satu blok <li>...</li>, lalu ubah
+         judul dan kalimatnya. Nomornya otomatis. -->
+    <section id="tatatertib" class="section" aria-labelledby="judul-tatatertib">
+      <div class="section-heading">
+        <p class="eyebrow">KESEPAKATAN BERSAMA</p>
+        <h2 id="judul-tatatertib">Tata Tertib Kelas</h2>
+        <p>Aturan sederhana agar belajar di kelas 3.B tertib, aman, dan menyenangkan.</p>
+      </div>
+
+      <ol class="rules-list">
+        <li>
+          <div>
+            <strong>Hadir tepat waktu</strong>
+            <p>Tiba di sekolah sebelum jam pelajaran pertama dimulai pukul 06.45 WITA.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Berpakaian rapi dan sopan</strong>
+            <p>Memakai pakaian sesuai ketentuan sekolah dan menjaga kerapian diri.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Membawa perlengkapan belajar</strong>
+            <p>Membawa buku dan alat tulis sesuai jadwal pelajaran hari itu.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Menghormati guru dan teman</strong>
+            <p>Berbicara dengan sopan, saling membantu, dan tidak mengejek atau berkelahi.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Tertib saat belajar</strong>
+            <p>Duduk dengan rapi, mendengarkan penjelasan guru, dan mengangkat tangan sebelum bertanya.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Melaksanakan piket</strong>
+            <p>Menjalankan tugas piket sesuai jadwal dan bekerja sama dengan teman.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Menjaga kebersihan dan barang kelas</strong>
+            <p>Membuang sampah pada tempatnya serta merawat meja, kursi, dan buku.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Memberi kabar jika berhalangan hadir</strong>
+            <p>Orang tua atau wali menyampaikan kepada wali kelas jika anak sakit atau tidak dapat masuk.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===================== KALENDER KEGIATAN ===================== -->
+    <!-- Untuk menambah kegiatan: hapus baris "empty-row", lalu salin
+         contoh baris di bawah ini dan isi dengan kegiatan yang sebenarnya.
+
+         <tr>
+           <td>Senin, 1 Januari 2027</td>
+           <td>Nama kegiatan</td>
+           <td>Keterangan singkat</td>
+         </tr>
+    -->
+    <section id="kalender" class="section" aria-labelledby="judul-kalender">
+      <div class="section-heading">
+        <p class="eyebrow">JANGAN SAMPAI TERLEWAT</p>
+        <h2 id="judul-kalender">Kalender Kegiatan Kelas</h2>
+        <p>Jadwal kegiatan penting seperti ujian, libur, dan pertemuan orang tua.</p>
+      </div>
+
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel kalender kegiatan kelas">
+        <table class="calendar-table">
+          <thead>
+            <tr>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Kegiatan</th>
+              <th scope="col">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="empty-row">
+              <td colspan="3">Belum ada kegiatan yang dijadwalkan. Informasi akan diperbarui oleh wali kelas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- ===================== PENGUMUMAN ===================== -->
     <section id="pengumuman" class="section" aria-labelledby="judul-pengumuman">
       <div class="section-heading">
@@ -464,6 +572,64 @@
     <p class="footer-small">Belajar hari ini, meraih cita-cita esok hari.</p>
     <p class="footer-small">Terakhir diperbarui: Oktober 2026</p>
   </footer>
+
+  <!-- =========================================================
+       JAVASCRIPT: MENANDAI "HARI INI"
+       Membaca hari dari jam di HP/komputer pengunjung, lalu:
+       - menandai kolom hari ini di jadwal pelajaran
+       - menandai baris hari ini di jadwal piket
+       - menampilkan kotak info kecil di atas tabel
+       Jika JavaScript mati, website tetap tampil normal.
+       ========================================================= -->
+  <script>
+    (function () {
+      var namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      var hari = new Date().getDay();   // 0 = Minggu, 1 = Senin, ... 6 = Sabtu
+      var nama = namaHari[hari];
+
+      var infoJadwal = document.getElementById("info-hari-jadwal");
+      var infoPiket = document.getElementById("info-hari-piket");
+
+      // Hari Minggu: tidak ada kegiatan belajar
+      if (hari === 0) {
+        if (infoJadwal) {
+          infoJadwal.textContent = "Hari ini Minggu, tidak ada kegiatan belajar.";
+          infoJadwal.hidden = false;
+        }
+        return;
+      }
+
+      // 1) Jadwal pelajaran: tandai kolom hari ini
+      var barisJadwal = document.querySelectorAll(".schedule-table tr");
+      barisJadwal.forEach(function (baris) {
+        // Baris biasa punya 8 sel; baris ISTIRAHAT hanya 2 sel (dilewati)
+        if (baris.children.length === 8) {
+          baris.children[hari + 1].classList.add("hari-ini");
+        }
+      });
+
+      if (infoJadwal) {
+        infoJadwal.textContent = "Hari ini: " + nama + ". Kolom hari ini ditandai bingkai emas.";
+        infoJadwal.hidden = false;
+      }
+
+      // 2) Jadwal piket: tandai baris hari ini
+      var barisPiket = document.querySelectorAll(".piket-table tbody tr");
+      var barisHariIni = barisPiket[hari - 1];
+
+      if (barisHariIni) {
+        Array.prototype.forEach.call(barisHariIni.children, function (sel) {
+          sel.classList.add("hari-ini");
+        });
+
+        if (infoPiket) {
+          var petugas = barisHariIni.children[1].textContent.trim();
+          infoPiket.textContent = "Petugas piket hari ini (" + nama + "): " + petugas + ".";
+          infoPiket.hidden = false;
+        }
+      }
+    })();
+  </script>
 
 </body>
 </html>
