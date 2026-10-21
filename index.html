@@ -20,6 +20,11 @@
   <meta property="og:image" content="https://munir-w.github.io/belajar-website/logo-muna.png">
 
   <link rel="icon" type="image/png" href="logo-muna.png">
+  <!-- Font judul (serif). Jika gagal dimuat, otomatis memakai Georgia. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -121,69 +126,93 @@
         <p>Susunan pengurus kelas tahun ajaran 2026/2027.</p>
       </div>
 
-      <div class="org-chart">
+      <!-- Strip info di atas bagan -->
+      <div class="info-strip">
+        <div class="info-strip-item">
+          <span class="strip-icon" aria-hidden="true">👤</span>
+          <span class="strip-text"><span class="strip-label">Wali Kelas</span><span class="strip-value">La Ode Sahrun, S.Pd.</span></span>
+        </div>
+        <div class="info-strip-item">
+          <span class="strip-icon" aria-hidden="true">🏫</span>
+          <span class="strip-text"><span class="strip-label">Sekolah</span><span class="strip-value">UPTD SD Negeri 1 Towea</span></span>
+        </div>
+        <div class="info-strip-item">
+          <span class="strip-icon" aria-hidden="true">🎓</span>
+          <span class="strip-text"><span class="strip-label">Kelas</span><span class="strip-value">3.B</span></span>
+        </div>
+        <div class="info-strip-item">
+          <span class="strip-icon" aria-hidden="true">📅</span>
+          <span class="strip-text"><span class="strip-label">Tahun Ajaran</span><span class="strip-value">2026/2027</span></span>
+        </div>
+      </div>
+
+      <!-- Bagan pohon. Tugas lengkap tiap jabatan ada di tabel di bawahnya. -->
+      <div class="org-chart" role="group" aria-label="Bagan struktur organisasi kelas">
         <div class="org-node principal">
-          <span class="org-role">WALI KELAS</span>
+          <span class="org-role">Wali Kelas</span>
           <strong>La Ode Sahrun, S.Pd.</strong>
         </div>
         <div class="org-line" aria-hidden="true"></div>
 
         <div class="org-node">
-          <span class="org-role">KETUA KELAS</span>
+          <span class="org-role">Ketua Kelas</span>
           <strong>Agis Maulana</strong>
         </div>
         <div class="org-line" aria-hidden="true"></div>
 
         <div class="org-node">
-          <span class="org-role">WAKIL KETUA</span>
+          <span class="org-role">Wakil Ketua</span>
           <strong>Afdal</strong>
         </div>
+        <div class="org-line" aria-hidden="true"></div>
 
-        <div class="org-branches">
-          <article class="org-node">
-            <span class="org-role">SEKRETARIS</span>
-            <strong>Arsyi Mafazah</strong>
-            <p>Membantu pencatatan dan administrasi kelas.</p>
-          </article>
-
-          <article class="org-node">
-            <span class="org-role">BENDAHARA</span>
-            <strong>Asyafa</strong>
-            <p>Membantu pencatatan keuangan kelas jika diperlukan.</p>
-          </article>
+        <!-- Baris 1: Sekretaris dan Bendahara -->
+        <div class="org-row org-pair">
+          <div class="org-item has-down">
+            <div class="org-node">
+              <span class="org-role">Sekretaris</span>
+              <strong>Arsyi Mafazah</strong>
+            </div>
+          </div>
+          <div class="org-item has-down">
+            <div class="org-node">
+              <span class="org-role">Bendahara</span>
+              <strong>Asyafa</strong>
+            </div>
+          </div>
         </div>
+        <div class="org-line org-line-desktop" aria-hidden="true"></div>
 
-        <h3 class="subheading">Koordinator Bidang</h3>
-        <div class="profile-grid coordinator-grid">
-          <article class="info-card">
-            <span class="info-icon" aria-hidden="true">🧹</span>
-            <h3>Koordinator Kebersihan</h3>
-            <p><strong>Azkia Nureliza Herman</strong></p>
-            <p>Mengingatkan teman menjaga kebersihan dan menjalankan piket.</p>
-          </article>
-
-          <article class="info-card">
-            <span class="info-icon" aria-hidden="true">🛡️</span>
-            <h3>Koordinator Keamanan</h3>
-            <p><strong>Hamzah Abdul Azis</strong></p>
-            <p>Membantu menjaga ketertiban dan keamanan barang kelas.</p>
-          </article>
-
-          <article class="info-card">
-            <span class="info-icon" aria-hidden="true">📖</span>
-            <h3>Koordinator Perpustakaan</h3>
-            <p><strong>Amera Bunga Riskia</strong></p>
-            <p>Membantu merapikan buku dan menjaga pojok baca.</p>
-          </article>
-
-          <article class="info-card">
-            <span class="info-icon" aria-hidden="true">✏️</span>
-            <h3>Koordinator Perlengkapan</h3>
-            <p><strong>Sri Nadia</strong></p>
-            <p>Membantu merapikan dan menjaga perlengkapan kelas.</p>
-          </article>
+        <!-- Baris 2: empat koordinator bidang -->
+        <div class="org-row org-coordinators">
+          <div class="org-item">
+            <div class="org-node">
+              <span class="org-role">Koordinator Kebersihan</span>
+              <strong>Azkia Nureliza Herman</strong>
+            </div>
+          </div>
+          <div class="org-item">
+            <div class="org-node">
+              <span class="org-role">Koordinator Keamanan</span>
+              <strong>Hamzah Abdul Azis</strong>
+            </div>
+          </div>
+          <div class="org-item">
+            <div class="org-node">
+              <span class="org-role">Koordinator Perpustakaan</span>
+              <strong>Amera Bunga Riskia</strong>
+            </div>
+          </div>
+          <div class="org-item">
+            <div class="org-node">
+              <span class="org-role">Koordinator Perlengkapan</span>
+              <strong>Sri Nadia</strong>
+            </div>
+          </div>
         </div>
       </div>
+
+      <h3 class="pill-heading"><span>Tugas Pengurus Kelas</span></h3>
 
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel pengurus kelas">
         <table>
