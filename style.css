@@ -3,46 +3,36 @@
    UPTD SD NEGERI 1 TOWEA
    TAHUN AJARAN 2026/2027
 
+   TEMA: "Navy & Emas"
+   Latar biru tua, kertas krem, bingkai emas, judul serif.
+
    CARA MEMBACA FILE INI (untuk pemula):
-   - Tulisan di antara /* dan */ adalah KOMENTAR. Komputer
-     mengabaikannya; fungsinya hanya penjelasan untuk manusia.
-   - Bentuk dasar CSS:
-         .nama-kelas {
-           properti: nilai;
-         }
-     "nama-kelas" harus sama dengan class="..." di index.html.
-   - File ini sudah cocok dengan index.html Anda. Tidak ada
-     bagian HTML yang wajib diubah.
+   - Tulisan di antara /* dan */ adalah KOMENTAR (penjelasan).
+   - Bentuk dasar CSS:   .nama-kelas { properti: nilai; }
+   - Ingin ganti warna? Cukup ubah di bagian 1 (VARIABEL WARNA).
    ========================================================= */
 
 
 /* =========================================================
-   1. VARIABEL WARNA
-   Kita simpan warna di sini sekali saja. Di bagian bawah
-   dipanggil dengan var(--nama). Kalau ingin ganti warna
-   seluruh website, cukup ubah di sini.
+   1. VARIABEL WARNA DAN FONT
    ========================================================= */
 
 :root {
-  --navy: #102a43;          /* biru tua: judul, header tabel */
-  --blue: #1d4e89;          /* biru: tombol navigasi saat disentuh */
-  --blue-light: #eaf4ff;    /* biru muda: kotak penutup */
-  --gold: #e8b04a;          /* emas: garis hiasan */
-  --gold-dark: #8a5a0a;     /* emas gelap: teks kecil (lebih mudah dibaca) */
-  --white: #ffffff;
-  --text: #243447;          /* warna teks biasa */
-  --muted: #607080;         /* warna teks pelengkap (abu-abu) */
-  --border: #dce5ee;        /* warna garis tepi */
-  --background: #f3f7fb;    /* warna latar halaman */
-  --shadow: 0 8px 24px rgba(16, 42, 67, 0.09);
+  --navy: #0c2038;          /* biru tua utama */
+  --navy-deep: #08162a;     /* biru tua paling gelap (menu, footer) */
+  --gold: #d9a441;          /* emas terang */
+  --gold-light: #f0cf85;    /* emas muda (teks di atas biru) */
+  --gold-line: #b8893e;     /* emas untuk garis tepi */
+  --gold-dark: #7a4f0c;     /* emas gelap (teks kecil di atas krem) */
+  --paper: #fbf5e6;         /* krem kertas */
+  --paper-2: #fffdf7;       /* krem lebih terang (kartu) */
+  --text: #1f2d3f;          /* teks biasa */
+  --muted: #5d6675;         /* teks pelengkap */
+  --line: #dccfae;          /* garis tipis di tabel */
+  --shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
 
-  /* Warna setiap hari (dipakai di jadwal pelajaran & piket) */
-  --monday: #fff0f0;
-  --tuesday: #fff5df;
-  --wednesday: #e9f7eb;
-  --thursday: #e8f3ff;
-  --friday: #f3eaff;
-  --saturday: #e4f8f6;
+  /* Font judul. Jika Google Fonts tidak termuat, dipakai Georgia. */
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
 
@@ -50,23 +40,18 @@
    2. PENGATURAN DASAR
    ========================================================= */
 
-/* Hitung lebar elemen termasuk padding & garis tepi.
-   Ini membuat ukuran kotak lebih mudah diprediksi. */
 * {
   box-sizing: border-box;
 }
 
-/* Saat menu diklik, halaman meluncur halus ke bagian tujuan.
-   Dimatikan otomatis bagi pengguna yang mengatur perangkatnya
-   agar tanpa animasi. */
+/* Meluncur halus ke bagian tujuan (dimatikan otomatis bagi
+   pengguna yang mengatur perangkatnya tanpa animasi). */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
 }
 
-/* Jarak atas saat meluncur ke bagian, supaya judul tidak
-   tertutup navbar yang menempel di atas. */
 html {
   scroll-padding-top: 70px;
 }
@@ -75,8 +60,11 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--text);
-  background: var(--background);
   line-height: 1.7;
+  background:
+    radial-gradient(circle at 12% 0%, #17406b 0, transparent 38%),
+    radial-gradient(circle at 92% 55%, #123150 0, transparent 40%),
+    var(--navy);
 }
 
 img {
@@ -85,10 +73,9 @@ img {
 }
 
 a {
-  color: var(--blue);
+  color: var(--navy);
 }
 
-/* Supaya teks panjang tidak keluar dari kotaknya */
 h1,
 h2,
 h3,
@@ -96,8 +83,6 @@ p {
   overflow-wrap: break-word;
 }
 
-/* Garis fokus yang jelas bagi pengguna keyboard
-   (tombol Tab). Berguna untuk aksesibilitas. */
 a:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 2px;
@@ -105,35 +90,30 @@ a:focus-visible {
 
 
 /* =========================================================
-   3. HEADER / BERANDA (bagian biru paling atas)
-   Isinya 3 kolom: logo kiri | teks | logo kanan
+   3. HEADER / BERANDA
+   Tiga kolom: logo kiri | teks | logo kanan
    ========================================================= */
 
 .hero {
-  min-height: 330px;
-  padding: 60px 20px;
+  min-height: 320px;
+  padding: 56px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: var(--white);
-  /* Latar: lingkaran cahaya emas di kanan atas + gradasi biru */
+  color: #fdf3d9;
+  border-bottom: 3px solid var(--gold-line);
   background:
-    radial-gradient(
-      circle at top right,
-      rgba(232, 176, 74, 0.25),
-      transparent 35%
-    ),
-    linear-gradient(135deg, #102a43, #1d4e89 65%, #276a9b);
+    radial-gradient(circle at 85% 0%, rgba(217, 164, 65, 0.28), transparent 42%),
+    radial-gradient(circle at 8% 100%, rgba(40, 90, 150, 0.40), transparent 46%),
+    var(--navy-deep);
 }
 
-/* "display: grid" membagi isi menjadi kolom.
-   Lebar kolom: 90px (logo) | sisa ruang (teks) | 90px (logo) */
 .hero-content {
   width: min(100%, 1000px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 90px minmax(0, 1fr) 90px;
+  grid-template-columns: 96px minmax(0, 1fr) 96px;
   align-items: center;
   gap: 20px;
 }
@@ -142,69 +122,90 @@ a:focus-visible {
   min-width: 0;
 }
 
+/* Logo diberi alas lingkaran krem agar tetap jelas di latar biru */
 .header-logo {
-  width: 84px;
-  height: 84px;
-  object-fit: contain;   /* logo tidak gepeng / terpotong */
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
+  padding: 6px;
+  object-fit: contain;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--paper-2);
 }
 
-/* Teks kecil di atas judul: "UPTD SD NEGERI 1 TOWEA" */
 .eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: var(--gold-dark);
   font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
 }
 
-/* Di dalam header yang gelap, warnanya dibuat emas terang */
 .hero .eyebrow {
-  color: #ffd889;
+  color: var(--gold-light);
+}
+
+/* Hiasan bintang kecil di kiri-kanan teks (hanya dekorasi) */
+.hero .eyebrow::before {
+  content: "✦ ";
+  content: "✦ " / "";
+}
+
+.hero .eyebrow::after {
+  content: " ✦";
+  content: " ✦" / "";
 }
 
 .hero h1 {
   margin: 8px 0;
-  /* clamp(terkecil, ideal, terbesar): ukuran menyesuaikan layar */
+  font-family: var(--serif);
   font-size: clamp(1.7rem, 4.5vw, 3rem);
+  font-weight: 800;
   line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .hero-subtitle {
   margin: 12px 0 20px;
   font-size: 1.1rem;
+  color: #e8dcc0;
 }
 
 .year-badge {
   display: inline-block;
-  padding: 7px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  padding: 7px 18px;
+  color: var(--gold-light);
+  border: 1.5px solid var(--gold);
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(217, 164, 65, 0.14);
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 
 /* =========================================================
-   4. NAVIGASI (menu di bawah header)
+   4. NAVIGASI
    ========================================================= */
 
 .navbar {
-  position: sticky;   /* menempel di atas saat halaman digulir */
+  position: sticky;
   top: 0;
-  z-index: 10;        /* supaya tampil di atas elemen lain */
+  z-index: 10;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;    /* menu turun ke baris baru jika tidak muat */
+  flex-wrap: wrap;
   gap: 4px;
   padding: 10px 14px;
-  background: var(--white);
-  box-shadow: 0 3px 12px rgba(16, 42, 67, 0.1);
+  background: var(--navy-deep);
+  border-bottom: 2px solid var(--gold-line);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .navbar a {
   padding: 9px 12px;
-  color: var(--navy);
+  color: #f3e9cf;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 700;
@@ -213,13 +214,14 @@ a:focus-visible {
 }
 
 .navbar a:hover {
-  color: var(--white);
-  background: var(--blue);
+  color: var(--navy);
+  background: var(--gold);
 }
 
 
 /* =========================================================
-   5. KONTEN UTAMA DAN JUDUL BAGIAN
+   5. KERTAS: BAGIAN-BAGIAN HALAMAN
+   Setiap bagian tampil seperti kertas krem berbingkai emas.
    ========================================================= */
 
 .container {
@@ -227,60 +229,82 @@ a:focus-visible {
   margin: 30px auto 55px;
 }
 
-.section {
-  margin: 42px 0;
+.section,
+.section-card {
+  margin: 30px 0;
+  padding: clamp(20px, 3.2vw, 36px);
+  border: 2px solid var(--gold-line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fdf8ea, var(--paper));
+  /* bingkai ganda: garis krem + garis emas tipis di sebelah dalam */
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 6px #fdf8ea,
+    inset 0 0 0 7px rgba(184, 137, 62, 0.55);
+}
+
+.intro {
+  text-align: center;
+}
+
+.intro > p:last-child {
+  max-width: 780px;
+  margin: 14px auto 0;
+  color: var(--muted);
 }
 
 .section-heading {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .section-heading h2,
 .section-card h2 {
-  margin: 0 0 8px;
+  margin: 0;
   color: var(--navy);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  line-height: 1.3;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+/* Garis hiasan emas dengan titik di tengah, di bawah judul */
+.section-heading h2::after,
+.section-card h2::after {
+  content: "";
+  display: block;
+  width: min(340px, 75%);
+  height: 12px;
+  margin: 12px auto 0;
+  background:
+    radial-gradient(circle, var(--gold-line) 0 3.5px, transparent 4.5px) center / 12px 12px no-repeat,
+    linear-gradient(90deg, transparent, var(--gold-line) 30%, var(--gold-line) 70%, transparent) center / 100% 2px no-repeat;
 }
 
 .section-heading > p:last-child {
-  color: var(--muted);
-}
-
-/* Gaya "kartu putih" yang dipakai banyak elemen sekaligus */
-.section-card,
-.info-card,
-.org-node,
-.announcement {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--white);
-  box-shadow: var(--shadow);
-}
-
-/* Kotak pengantar "Ruang Belajar Kelas 3.B" */
-.intro {
-  padding: 30px;
-  text-align: center;
-  border-top: 5px solid var(--gold);
-}
-
-.intro > p:last-child {
-  max-width: 780px;
-  margin: 10px auto 0;
+  margin: 10px 0 0;
   color: var(--muted);
 }
 
 
 /* =========================================================
-   6. KARTU PROFIL KELAS
+   6. KARTU PROFIL
    ========================================================= */
 
 .profile-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));  /* 4 kolom sama lebar */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
+}
+
+.info-card,
+.announcement {
+  border: 1.5px solid var(--gold-line);
+  border-radius: 14px;
+  background: var(--paper-2);
+  box-shadow: 0 4px 12px rgba(12, 32, 56, 0.10);
 }
 
 .info-card {
@@ -289,16 +313,24 @@ a:focus-visible {
   text-align: center;
 }
 
+/* Ikon emoji di dalam lingkaran biru tua berbingkai emas */
 .info-icon {
-  display: block;
-  margin-bottom: 7px;
-  font-size: 2rem;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 10px;
+  font-size: 1.7rem;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--navy);
 }
 
 .info-card h3 {
   margin: 5px 0;
   color: var(--navy);
-  font-size: 1rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
 }
 
 .info-card p {
@@ -308,145 +340,297 @@ a:focus-visible {
 
 
 /* =========================================================
-   7. STRUKTUR ORGANISASI
+   7. STRUKTUR ORGANISASI (bagan pohon)
+   Susunannya:
+     Wali Kelas
+        |
+     Ketua Kelas
+        |
+     Wakil Ketua
+        |
+     Sekretaris   Bendahara          <- baris .org-pair
+              |
+     4 Koordinator                   <- baris .org-coordinators
+   Garis penghubung digambar dengan CSS (tanpa gambar).
    ========================================================= */
 
+/* Strip info di atas bagan: Wali Kelas, Kelas, Sekolah, Tahun */
+.info-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto 30px;
+  border: 1.5px solid var(--gold-line);
+  border-radius: 14px;
+  background: var(--paper-2);
+}
+
+.info-strip-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 11px 18px;
+}
+
+.info-strip-item:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+
+.info-strip-item:nth-child(-n + 2) {
+  border-bottom: 1px solid var(--line);
+}
+
+.strip-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-size: 1.05rem;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background: var(--navy);
+}
+
+.strip-text {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.strip-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.strip-value {
+  display: block;
+  color: var(--navy);
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
 .org-chart {
-  padding: 24px;
-  border: 1px solid #d6e1ed;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #edf5fc, #ffffff);
+  padding: 4px 0 0;
   text-align: center;
 }
 
+/* Kotak jabatan: strip biru tua di atas, nama di bawah */
 .org-node {
-  width: min(100%, 330px);
-  min-width: 0;
+  width: min(100%, 300px);
   margin: 0 auto;
   overflow: hidden;
-  border-color: #d5a54c;
+  border: 1.5px solid var(--gold-line);
+  border-radius: 10px;
+  background: var(--paper-2);
+  box-shadow: 0 4px 10px rgba(12, 32, 56, 0.15);
 }
 
-/* Label jabatan (strip biru tua di atas nama) */
 .org-role {
   display: block;
-  padding: 8px 12px;
-  color: var(--white);
+  padding: 7px 10px;
+  color: #fdf3d9;
   background: var(--navy);
+  font-family: var(--serif);
   font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.8px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
 .org-node strong {
   display: block;
-  padding: 10px 12px;
+  padding: 10px;
   color: var(--navy);
-  font-size: 1rem;
+  font-size: 0.98rem;
+  letter-spacing: 0.4px;
+  line-height: 1.3;
+  text-transform: uppercase;
 }
 
-.org-node p {
-  margin: 0;
-  padding: 0 14px 14px;
-  color: var(--muted);
-  font-size: 0.87rem;
-}
-
-/* Kotak Wali Kelas dibuat lebih menonjol (emas) */
+/* Kotak Wali Kelas: strip emas agar menonjol */
 .org-node.principal {
-  border: 2px solid var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(217, 164, 65, 0.30), 0 4px 10px rgba(12, 32, 56, 0.15);
 }
 
 .org-node.principal .org-role {
   color: var(--navy);
-  background: var(--gold);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
 }
 
-/* Garis penghubung antar kotak */
+/* Garis tegak penghubung antar kotak */
 .org-line {
   width: 2px;
-  height: 22px;
+  height: 24px;
   margin: 0 auto;
-  background: var(--gold);
+  background: var(--navy);
 }
 
-/* Sekretaris & Bendahara berdampingan (2 kolom) */
-.org-branches {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  max-width: 720px;
-  margin: 24px auto;
+/* Satu baris cabang (Sekretaris + Bendahara, atau 4 Koordinator) */
+.org-row {
+  display: flex;
+  justify-content: center;
 }
 
-.subheading {
-  margin: 30px 0 18px;
-  color: var(--navy);
+/* Setiap anggota baris: punya garis tegak pendek di atas
+   dan garis datar yang menyambung ke tetangganya. */
+.org-item {
+  position: relative;
+  flex: 0 1 230px;
+  min-width: 0;
+  padding: 26px 8px 0;
+  background: linear-gradient(var(--navy), var(--navy)) center top / 2px 26px no-repeat;
 }
 
-/* Koordinator: 2 kolom (bukan 4) */
-.coordinator-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.org-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--navy);
+}
+
+.org-item:first-child::before {
+  left: 50%;
+}
+
+.org-item:last-child::before {
+  right: 50%;
+}
+
+.org-item:only-child::before {
+  display: none;
+}
+
+.org-pair .org-item {
+  flex-basis: 290px;
+}
+
+/* Sekretaris & Bendahara: juga punya garis ke bawah
+   yang bertemu di tengah, lalu turun ke para koordinator. */
+.org-item.has-down {
+  padding-bottom: 26px;
+  background:
+    linear-gradient(var(--navy), var(--navy)) center top / 2px 26px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) center bottom / 2px 26px no-repeat;
+}
+
+.org-item.has-down::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 2px solid var(--navy);
+}
+
+.org-item.has-down:first-child::after {
+  left: 50%;
+}
+
+.org-item.has-down:last-child::after {
+  right: 50%;
+}
+
+/* Judul "Tugas Pengurus Kelas": pil biru tua di tengah garis emas */
+.pill-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 38px 0 4px;
+}
+
+.pill-heading::before,
+.pill-heading::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-line));
+}
+
+.pill-heading::after {
+  background: linear-gradient(270deg, transparent, var(--gold-line));
+}
+
+.pill-heading span {
+  padding: 8px 22px;
+  color: #fdf3d9;
+  border: 1.5px solid var(--gold);
+  border-radius: 30px;
+  background: var(--navy);
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 
 /* =========================================================
-   8. KOTAK CATATAN (kuning)
+   8. KOTAK CATATAN
    ========================================================= */
 
 .notice {
   margin: 20px 0;
   padding: 16px 18px;
+  color: #4a3510;
   border-left: 5px solid var(--gold);
   border-radius: 10px;
-  background: #fff6df;
-  color: #59421c;
+  background: #f6e8c3;
 }
 
 
 /* =========================================================
-   9. PENGATURAN UMUM SEMUA TABEL
-   .table-wrap adalah "pembungkus" tabel. Jika tabel terlalu
-   lebar untuk layar HP, bagian ini bisa digeser ke samping.
+   9. SEMUA TABEL
+   Header biru tua, baris krem dengan garis titik-titik.
+   .table-wrap membuat tabel bisa digeser di layar kecil.
    ========================================================= */
 
 .table-wrap {
   width: 100%;
   margin: 20px 0;
   overflow-x: auto;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--gold-line);
   border-radius: 12px;
-  background: var(--white);
-  box-shadow: var(--shadow);
+  background: var(--paper-2);
   -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;   /* garis antar sel menyatu */
-  font-size: 0.91rem;
+  border-collapse: collapse;
+  font-size: 0.92rem;
 }
 
 th,
 td {
-  padding: 12px 14px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  padding: 11px 14px;
+  border-bottom: 1px dotted #b9a77c;
   text-align: left;
   vertical-align: middle;
   overflow-wrap: break-word;
 }
 
-th:last-child,
-td:last-child {
-  border-right: 0;
+th:not(:last-child),
+td:not(:last-child) {
+  border-right: 1px solid var(--line);
 }
 
-/* Baris judul tabel (biru tua) */
 thead th {
-  color: var(--white);
+  color: #fdf3d9;
   background: var(--navy);
-  font-weight: 700;
+  border-bottom: 0;
+  border-right-color: rgba(240, 207, 133, 0.25);
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: 0.6px;
 }
 
 tbody tr:last-child td,
@@ -454,9 +638,8 @@ tbody tr:last-child th {
   border-bottom: 0;
 }
 
-/* Baris genap sedikit lebih gelap agar mudah dibaca */
 tbody tr:nth-child(even) {
-  background: #f6f9fc;
+  background: rgba(184, 137, 62, 0.08);
 }
 
 
@@ -468,14 +651,12 @@ tbody tr:nth-child(even) {
   min-width: 320px;
 }
 
-/* Kolom "No." sempit dan rata tengah */
 .student-table th:first-child,
 .student-table td:first-child {
   width: 75px;
   text-align: center;
 }
 
-/* Tiga kotak ringkasan: Total / Laki-laki / Perempuan */
 .student-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -486,8 +667,9 @@ tbody tr:nth-child(even) {
 
 .student-summary div {
   padding: 17px 10px;
+  color: #fdf3d9;
+  border: 1.5px solid var(--gold);
   border-radius: 12px;
-  color: var(--white);
   background: var(--navy);
   text-align: center;
 }
@@ -498,8 +680,9 @@ tbody tr:nth-child(even) {
 }
 
 .student-summary strong {
-  color: #ffd889;
-  font-size: 1.8rem;
+  color: var(--gold-light);
+  font-family: var(--serif);
+  font-size: 1.9rem;
 }
 
 .student-summary span {
@@ -507,6 +690,7 @@ tbody tr:nth-child(even) {
 }
 
 .small-note {
+  margin-bottom: 0;
   color: var(--muted);
   font-size: 0.85rem;
 }
@@ -514,23 +698,24 @@ tbody tr:nth-child(even) {
 
 /* =========================================================
    11. JADWAL PELAJARAN
-   Setiap hari punya warna sendiri.
-   Lebar tabel dikecilkan dari 1250px menjadi 940px supaya
-   di HP tidak terlalu jauh menggeser ke samping.
    ========================================================= */
 
 .schedule-table {
   min-width: 940px;
-  table-layout: fixed;   /* lebar kolom ditentukan oleh baris judul */
+  table-layout: fixed;
   font-size: 0.85rem;
 }
 
 .schedule-table th,
 .schedule-table td {
   padding: 11px 8px;
-  border: 1px solid #d7e1eb;
+  border: 1px solid var(--line);
   text-align: center;
   line-height: 1.5;
+}
+
+.schedule-table thead th {
+  border-color: rgba(240, 207, 133, 0.25);
 }
 
 /* Kolom 1: nomor jam */
@@ -540,34 +725,19 @@ tbody tr:nth-child(even) {
   font-weight: 700;
 }
 
-/* Kolom 2: waktu (jangan dipatah ke baris baru) */
+/* Kolom 2: waktu */
 .schedule-table th:nth-child(2),
 .schedule-table td:nth-child(2) {
   width: 112px;
   white-space: nowrap;
 }
 
-/* Warna latar kolom tiap hari.
-   nth-child(3) = kolom ke-3 = Senin, dst. */
-.schedule-table tbody td:nth-child(3) { background: var(--monday); }
-.schedule-table tbody td:nth-child(4) { background: var(--tuesday); }
-.schedule-table tbody td:nth-child(5) { background: var(--wednesday); }
-.schedule-table tbody td:nth-child(6) { background: var(--thursday); }
-.schedule-table tbody td:nth-child(7) { background: var(--friday); }
-.schedule-table tbody td:nth-child(8) { background: var(--saturday); }
-
-/* Judul hari tetap biru tua */
-.schedule-table thead th {
-  color: var(--white);
-  background: var(--navy);
-  font-weight: 800;
-}
-
 /* Baris ISTIRAHAT (emas) */
 .schedule-table tbody tr.break-row td {
-  color: #49360b;
-  background: #ffe3a3;
+  color: var(--navy);
+  background: #efdcae;
   font-weight: 800;
+  letter-spacing: 0.6px;
   text-align: center;
 }
 
@@ -578,7 +748,6 @@ tbody tr:nth-child(even) {
 
 /* =========================================================
    12. JADWAL PIKET
-   Setiap baris hari punya warna sendiri.
    ========================================================= */
 
 .piket-table {
@@ -590,119 +759,36 @@ tbody tr:nth-child(even) {
 .piket-table th,
 .piket-table td {
   padding: 15px;
-  border: 1px solid #d7e1eb;
-  text-align: left;
   vertical-align: top;
   line-height: 1.8;
 }
 
 .piket-table thead th {
-  color: var(--white);
-  background: var(--navy);
   text-align: center;
 }
 
 /* Kolom nama hari */
-.piket-table tbody th:first-child {
+.piket-table tbody th {
   width: 110px;
+  color: var(--navy);
+  background: rgba(12, 32, 56, 0.05);
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: 0.6px;
   text-align: center;
+  text-transform: uppercase;
   vertical-align: middle;
-  font-weight: 800;
 }
 
-/* Warna per baris: baris ke-1 = Senin, ke-2 = Selasa, dst. */
-.piket-table tbody tr:nth-child(1) th,
-.piket-table tbody tr:nth-child(1) td { background: var(--monday); }
-
-.piket-table tbody tr:nth-child(2) th,
-.piket-table tbody tr:nth-child(2) td { background: var(--tuesday); }
-
-.piket-table tbody tr:nth-child(3) th,
-.piket-table tbody tr:nth-child(3) td { background: var(--wednesday); }
-
-.piket-table tbody tr:nth-child(4) th,
-.piket-table tbody tr:nth-child(4) td { background: var(--thursday); }
-
-.piket-table tbody tr:nth-child(5) th,
-.piket-table tbody tr:nth-child(5) td { background: var(--friday); }
-
-.piket-table tbody tr:nth-child(6) th,
-.piket-table tbody tr:nth-child(6) td { background: var(--saturday); }
-
-/* Empat kartu tugas piket di bawah tabel */
 .task-grid {
+  margin-top: 4px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 
 /* =========================================================
-   13. PENGUMUMAN
-   ========================================================= */
-
-.announcement {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  margin: 14px 0;
-  padding: 22px;
-}
-
-.announcement-icon {
-  flex-shrink: 0;   /* ikon tidak ikut menyusut */
-  font-size: 1.8rem;
-}
-
-.announcement h3 {
-  margin: 0 0 7px;
-  color: var(--navy);
-}
-
-.announcement p {
-  margin: 0;
-}
-
-
-/* =========================================================
-   14. BAGIAN PENUTUP DAN FOOTER
-   ========================================================= */
-
-.closing {
-  padding: 30px 20px;
-  border: 1px solid #c8def2;
-  background: var(--blue-light);
-  text-align: center;
-}
-
-.closing h2 {
-  color: var(--navy);
-}
-
-.closing p {
-  margin-bottom: 0;
-}
-
-.footer {
-  padding: 28px 18px;
-  color: var(--white);
-  background: var(--navy);
-  text-align: center;
-}
-
-.footer p {
-  margin: 4px 0;
-}
-
-.footer-small {
-  color: #cbd8e5;
-  font-size: 0.85rem;
-}
-
-
-/* =========================================================
-   TAMBAHAN A. TATA TERTIB KELAS
-   Daftar aturan bernomor, tampil sebagai kartu 2 kolom.
-   Nomor dibuat otomatis oleh CSS (counter), jadi jika Anda
-   menambah atau menghapus aturan di HTML, nomornya menyesuaikan.
+   13. TATA TERTIB KELAS
+   Nomor dibuat otomatis oleh CSS (counter).
    ========================================================= */
 
 .rules-list {
@@ -720,25 +806,26 @@ tbody tr:nth-child(even) {
   align-items: flex-start;
   gap: 14px;
   padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--white);
-  box-shadow: var(--shadow);
+  border: 1.5px solid var(--gold-line);
+  border-radius: 14px;
+  background: var(--paper-2);
+  box-shadow: 0 4px 12px rgba(12, 32, 56, 0.10);
   counter-increment: aturan;
 }
 
-/* Lingkaran nomor di sebelah kiri */
 .rules-list li::before {
   content: counter(aturan);
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
+  color: var(--gold-light);
+  border: 1.5px solid var(--gold);
   border-radius: 50%;
-  color: #ffd889;
   background: var(--navy);
-  font-weight: 800;
+  font-family: var(--serif);
+  font-weight: 700;
 }
 
 .rules-list strong {
@@ -753,7 +840,7 @@ tbody tr:nth-child(even) {
 
 
 /* =========================================================
-   TAMBAHAN B. KALENDER KEGIATAN
+   14. KALENDER KEGIATAN
    ========================================================= */
 
 .calendar-table {
@@ -766,7 +853,6 @@ tbody tr:nth-child(even) {
   font-weight: 700;
 }
 
-/* Baris kosong ("belum ada kegiatan") */
 .calendar-table .empty-row td {
   padding: 24px 14px;
   color: var(--muted);
@@ -776,51 +862,103 @@ tbody tr:nth-child(even) {
 
 
 /* =========================================================
-   TAMBAHAN C. PENANDA "HARI INI"
-   Kelas "hari-ini" ditambahkan otomatis oleh JavaScript
-   di bagian bawah index.html. Kolom (jadwal pelajaran) atau
-   baris (jadwal piket) hari ini diberi bingkai emas.
+   15. PENANDA "HARI INI"
+   Kelas "hari-ini" ditambahkan otomatis oleh JavaScript.
    ========================================================= */
 
 .today-note {
   margin: 12px 0;
   padding: 10px 14px;
-  border: 1px solid #c8def2;
+  color: #fdf3d9;
+  border: 1.5px solid var(--gold);
   border-radius: 10px;
-  color: var(--navy);
-  background: var(--blue-light);
+  background: var(--navy);
   font-weight: 700;
 }
 
-/* Judul kolom hari ini di jadwal pelajaran */
 .schedule-table thead th.hari-ini {
   color: var(--navy);
   background: var(--gold);
 }
 
-/* Sel hari ini di jadwal pelajaran dan jadwal piket */
 .schedule-table tbody td.hari-ini,
 .piket-table tbody th.hari-ini,
 .piket-table tbody td.hari-ini {
-  box-shadow: inset 0 0 0 3px var(--gold);
+  background: rgba(217, 164, 65, 0.32);
+  box-shadow: inset 0 0 0 2px var(--gold-line);
   font-weight: 700;
 }
 
 
 /* =========================================================
-   15. TAMPILAN TABLET (layar sampai 850px)
-   Aturan di dalam @media hanya berlaku jika layar
-   selebar atau lebih sempit dari angka tersebut.
+   16. PENGUMUMAN
+   ========================================================= */
+
+.announcement {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 14px 0;
+  padding: 22px;
+}
+
+.announcement-icon {
+  flex-shrink: 0;
+  font-size: 1.8rem;
+}
+
+.announcement h3 {
+  margin: 0 0 7px;
+  color: var(--navy);
+  font-family: var(--serif);
+}
+
+.announcement p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   17. PENUTUP DAN FOOTER
+   ========================================================= */
+
+.closing {
+  text-align: center;
+}
+
+.closing p {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
+.footer {
+  padding: 28px 18px;
+  color: #f3e9cf;
+  border-top: 3px solid var(--gold-line);
+  background: var(--navy-deep);
+  text-align: center;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+.footer-small {
+  color: #b9c4d3;
+  font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   18. TAMPILAN TABLET (layar sampai 850px)
    ========================================================= */
 
 @media (max-width: 850px) {
-  /* Kartu jadi 2 kolom */
   .profile-grid,
   .task-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* Navbar tidak menempel lagi (hemat ruang layar) */
   .navbar {
     position: static;
   }
@@ -832,31 +970,24 @@ tbody tr:nth-child(even) {
   .navbar a {
     font-size: 0.83rem;
   }
-
-  .org-chart {
-    padding: 16px;
-  }
 }
 
 
 /* =========================================================
-   16. TAMPILAN HP (layar sampai 700px)
-   Di HP, kedua logo dipindah ke atas, berdampingan,
-   lalu teks judul memakai lebar penuh dengan ukuran
-   yang tetap mudah dibaca.
+   19. TAMPILAN HP (layar sampai 700px)
+   Logo pindah ke atas berdampingan, judul memakai lebar penuh.
    ========================================================= */
 
 @media (max-width: 700px) {
   .hero {
     min-height: 0;
-    padding: 36px 16px;
+    padding: 34px 16px;
   }
 
-  /* 2 kolom untuk logo, teks di baris kedua */
   .hero-content {
     grid-template-columns: repeat(2, auto);
     justify-content: center;
-    column-gap: 24px;
+    column-gap: 22px;
     row-gap: 16px;
   }
 
@@ -871,13 +1002,14 @@ tbody tr:nth-child(even) {
   }
 
   .hero-text {
-    grid-column: 1 / -1;   /* bentang dari kolom pertama sampai terakhir */
+    grid-column: 1 / -1;
     grid-row: 2;
   }
 
   .header-logo {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
+    padding: 4px;
   }
 
   .hero h1 {
@@ -888,15 +1020,56 @@ tbody tr:nth-child(even) {
     font-size: 1rem;
   }
 
-  /* Tata tertib jadi 1 kolom */
   .rules-list {
     grid-template-columns: 1fr;
+  }
+
+  .info-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .info-strip-item:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .info-strip-item:not(:last-child) {
+    border-bottom: 1px solid var(--line);
   }
 }
 
 
 /* =========================================================
-   17. TAMPILAN HP KECIL (layar sampai 520px)
+   20. BAGAN ORGANISASI DI HP (layar sampai 720px)
+   Semua kotak ditumpuk ke bawah, disambung satu garis tegak.
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .org-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .org-item,
+  .org-item.has-down {
+    flex: none;
+    width: min(100%, 300px);
+    padding: 24px 0 0;
+    background: linear-gradient(var(--navy), var(--navy)) center top / 2px 24px no-repeat;
+  }
+
+  .org-item::before,
+  .org-item::after {
+    display: none;
+  }
+
+  .org-line-desktop {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   21. HP KECIL (layar sampai 520px)
    ========================================================= */
 
 @media (max-width: 520px) {
@@ -905,28 +1078,14 @@ tbody tr:nth-child(even) {
     margin-top: 18px;
   }
 
-  .section {
-    margin: 32px 0;
+  .section,
+  .section-card {
+    padding: 18px 14px;
   }
 
-  .intro {
-    padding: 22px 17px;
-  }
-
-  /* Semua kartu jadi 1 kolom */
   .profile-grid,
-  .task-grid,
-  .coordinator-grid,
-  .org-branches {
+  .task-grid {
     grid-template-columns: 1fr;
-  }
-
-  .org-chart {
-    padding: 12px;
-  }
-
-  .org-node strong {
-    font-size: 0.95rem;
   }
 
   .student-summary {
@@ -938,7 +1097,7 @@ tbody tr:nth-child(even) {
   }
 
   .student-summary strong {
-    font-size: 1.45rem;
+    font-size: 1.5rem;
   }
 
   .student-summary span {
@@ -967,17 +1126,26 @@ tbody tr:nth-child(even) {
   .announcement {
     padding: 17px;
   }
+
+  .pill-heading::before,
+  .pill-heading::after {
+    display: none;
+  }
+
+  .pill-heading {
+    justify-content: center;
+  }
 }
 
 
 /* =========================================================
-   18. TAMPILAN CETAK (saat halaman di-print / simpan PDF)
-   Menu dihilangkan, bayangan dihapus, tabel tidak terpotong.
+   22. TAMPILAN CETAK
+   Latar putih, menu dihilangkan, tabel tidak terpotong.
    ========================================================= */
 
 @media print {
   body {
-    background: var(--white);
+    background: #fff;
     font-size: 11pt;
   }
 
@@ -990,26 +1158,26 @@ tbody tr:nth-child(even) {
     padding: 16px;
     color: var(--navy);
     background: none;
-    border-bottom: 2px solid var(--navy);
   }
 
-  .hero .eyebrow {
+  .hero .eyebrow,
+  .year-badge {
     color: var(--navy);
   }
 
-  .year-badge {
-    border-color: var(--navy);
-  }
-
-  .section-card,
-  .info-card,
-  .org-node,
-  .announcement,
-  .table-wrap {
+  .section,
+  .section-card {
+    background: #fff;
     box-shadow: none;
   }
 
-  /* Tabel tidak perlu digeser, tampil penuh */
+  .info-card,
+  .org-node,
+  .announcement,
+  .rules-list li {
+    box-shadow: none;
+  }
+
   .table-wrap {
     overflow: visible;
   }
@@ -1019,14 +1187,13 @@ tbody tr:nth-child(even) {
     min-width: 0;
   }
 
-  /* Baris & kartu tidak terbelah antar halaman */
   tr,
   .info-card,
-  .announcement {
+  .announcement,
+  .org-node {
     break-inside: avoid;
   }
 
-  /* Pastikan warna latar ikut tercetak */
   * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
