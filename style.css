@@ -7,7 +7,8 @@
    Latar biru tua, kertas krem, bingkai emas, judul serif.
 
    CARA MEMBACA FILE INI (untuk pemula):
-   - Tulisan di antara /* dan */ adalah KOMENTAR (penjelasan).
+   - Bagian yang diapit tanda komentar (garis miring + bintang)
+     hanyalah penjelasan untuk manusia. Komputer mengabaikannya.
    - Bentuk dasar CSS:   .nama-kelas { properti: nilai; }
    - Ingin ganti warna? Cukup ubah di bagian 1 (VARIABEL WARNA).
    ========================================================= */
@@ -122,15 +123,17 @@ a:focus-visible {
   min-width: 0;
 }
 
-/* Logo diberi alas lingkaran krem agar tetap jelas di latar biru */
+/* Logo diberi alas krem berbentuk kotak membulat agar tetap jelas
+   di latar biru. Sengaja BUKAN lingkaran, karena lingkaran
+   memotong sisi kiri-kanan logo. */
 .header-logo {
-  width: 90px;
-  height: 90px;
+  width: 92px;
+  height: 92px;
   margin: 0 auto;
-  padding: 6px;
+  padding: 8px;
   object-fit: contain;
   border: 2px solid var(--gold);
-  border-radius: 50%;
+  border-radius: 12px;
   background: var(--paper-2);
 }
 
