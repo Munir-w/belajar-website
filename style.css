@@ -699,6 +699,115 @@ tbody tr:nth-child(even) {
 
 
 /* =========================================================
+   TAMBAHAN A. TATA TERTIB KELAS
+   Daftar aturan bernomor, tampil sebagai kartu 2 kolom.
+   Nomor dibuat otomatis oleh CSS (counter), jadi jika Anda
+   menambah atau menghapus aturan di HTML, nomornya menyesuaikan.
+   ========================================================= */
+
+.rules-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: aturan;
+}
+
+.rules-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  counter-increment: aturan;
+}
+
+/* Lingkaran nomor di sebelah kiri */
+.rules-list li::before {
+  content: counter(aturan);
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #ffd889;
+  background: var(--navy);
+  font-weight: 800;
+}
+
+.rules-list strong {
+  display: block;
+  color: var(--navy);
+}
+
+.rules-list p {
+  margin: 2px 0 0;
+  font-size: 0.93rem;
+}
+
+
+/* =========================================================
+   TAMBAHAN B. KALENDER KEGIATAN
+   ========================================================= */
+
+.calendar-table {
+  min-width: 520px;
+}
+
+.calendar-table th:first-child,
+.calendar-table td:first-child {
+  width: 190px;
+  font-weight: 700;
+}
+
+/* Baris kosong ("belum ada kegiatan") */
+.calendar-table .empty-row td {
+  padding: 24px 14px;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   TAMBAHAN C. PENANDA "HARI INI"
+   Kelas "hari-ini" ditambahkan otomatis oleh JavaScript
+   di bagian bawah index.html. Kolom (jadwal pelajaran) atau
+   baris (jadwal piket) hari ini diberi bingkai emas.
+   ========================================================= */
+
+.today-note {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border: 1px solid #c8def2;
+  border-radius: 10px;
+  color: var(--navy);
+  background: var(--blue-light);
+  font-weight: 700;
+}
+
+/* Judul kolom hari ini di jadwal pelajaran */
+.schedule-table thead th.hari-ini {
+  color: var(--navy);
+  background: var(--gold);
+}
+
+/* Sel hari ini di jadwal pelajaran dan jadwal piket */
+.schedule-table tbody td.hari-ini,
+.piket-table tbody th.hari-ini,
+.piket-table tbody td.hari-ini {
+  box-shadow: inset 0 0 0 3px var(--gold);
+  font-weight: 700;
+}
+
+
+/* =========================================================
    15. TAMPILAN TABLET (layar sampai 850px)
    Aturan di dalam @media hanya berlaku jika layar
    selebar atau lebih sempit dari angka tersebut.
@@ -777,6 +886,11 @@ tbody tr:nth-child(even) {
 
   .hero-subtitle {
     font-size: 1rem;
+  }
+
+  /* Tata tertib jadi 1 kolom */
+  .rules-list {
+    grid-template-columns: 1fr;
   }
 }
 
