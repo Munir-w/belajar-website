@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,35 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kelas 3.B | UPTD SD Negeri 1 Towea</title>
   <meta name="description" content="Website informasi kelas 3.B UPTD SD Negeri 1 Towea tahun ajaran 2026/2027.">
+  <meta name="theme-color" content="#102a43">
+
+  <!-- Meminta mesin pencari (Google, dll.) tidak menampilkan website ini
+       di hasil pencarian, demi melindungi data anak-anak. -->
   <meta name="robots" content="noindex, nofollow">
+
+  <!-- Tampilan saat link dibagikan (WhatsApp, Facebook, dll.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:title" content="Kelas 3.B | UPTD SD Negeri 1 Towea">
+  <meta property="og:description" content="Informasi kelas 3.B: profil, organisasi, jadwal pelajaran, jadwal piket, dan pengumuman.">
+
+  <link rel="icon" type="image/png" href="logo-muna.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-<header class="hero" id="beranda">
-  <div class="hero-content">
-    <img
-      src="logo-muna.png"
-      alt="Logo Kabupaten Muna"
-      class="header-logo logo-kiri"
-    >
 
-    <div class="hero-text">
-      <p class="eyebrow">UPTD SD NEGERI 1 TOWEA</p>
-      <h1>Selamat Datang di Kelas 3.B</h1>
-      <p class="hero-subtitle">Belajar, Berkarya, Bertumbuh Bersama</p>
-      <span class="year-badge">Tahun Ajaran 2026/2027</span>
+  <!-- ===================== HEADER / BERANDA ===================== -->
+  <header class="hero" id="beranda">
+    <div class="hero-content">
+      <img
+        src="logo-muna.png"
+        alt="Logo Kabupaten Muna"
+        class="header-logo logo-kiri"
+        width="84"
+        height="84"
+      >
+
+      <div class="hero-text">
+        <p class="eyebrow">UPTD SD NEGERI 1 TOWEA</p>
+        <h1>Selamat Datang di Kelas 3.B</h1>
+        <p class="hero-subtitle">Belajar, Berkarya, Bertumbuh Bersama</p>
+        <span class="year-badge">Tahun Ajaran 2026/2027</span>
+      </div>
+
+      <img
+        src="logo-tutwuri.png"
+        alt="Logo Tut Wuri Handayani"
+        class="header-logo logo-kanan"
+        width="84"
+        height="84"
+      >
     </div>
+  </header>
 
-    <img
-      src="logo-tutwuri.png"
-      alt="Logo Tut Wuri Handayani"
-      class="header-logo logo-kanan"
-    >
-  </div>
-</header>
-
-  <nav class="navbar">
+  <!-- ===================== MENU NAVIGASI ===================== -->
+  <nav class="navbar" aria-label="Menu utama">
     <a href="#beranda">Beranda</a>
     <a href="#profil">Profil</a>
     <a href="#organisasi">Organisasi</a>
@@ -45,9 +62,11 @@
   </nav>
 
   <main class="container">
-    <section class="intro section-card">
+
+    <!-- ===================== PENGANTAR ===================== -->
+    <section class="intro section-card" aria-labelledby="judul-pengantar">
       <p class="eyebrow">KELAS YANG KOMPAK</p>
-      <h2>Ruang Belajar Kelas 3.B</h2>
+      <h2 id="judul-pengantar">Ruang Belajar Kelas 3.B</h2>
       <p>
         Website ini menjadi pusat informasi kelas, tempat siswa dan orang tua
         melihat profil kelas, struktur organisasi, daftar siswa, jadwal
@@ -55,133 +74,142 @@
       </p>
     </section>
 
-    <section id="profil" class="section">
+    <!-- ===================== PROFIL KELAS ===================== -->
+    <section id="profil" class="section" aria-labelledby="judul-profil">
       <div class="section-heading">
         <p class="eyebrow">MENGENAL KELAS KITA</p>
-        <h2>Profil Kelas</h2>
+        <h2 id="judul-profil">Profil Kelas</h2>
       </div>
+
       <div class="profile-grid">
         <article class="info-card">
-          <span class="info-icon">🏫</span>
+          <span class="info-icon" aria-hidden="true">🏫</span>
           <h3>Nama Sekolah</h3>
           <p>UPTD SD Negeri 1 Towea</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">📚</span>
+          <span class="info-icon" aria-hidden="true">📚</span>
           <h3>Kelas</h3>
           <p>3.B</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">👨‍🏫</span>
+          <span class="info-icon" aria-hidden="true">👨‍🏫</span>
           <h3>Wali Kelas</h3>
           <p>La Ode Sahrun, S.Pd.</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">👧👦</span>
+          <span class="info-icon" aria-hidden="true">👧👦</span>
           <h3>Jumlah Siswa</h3>
           <p>26 siswa</p>
         </article>
       </div>
     </section>
 
-    
-<section id="organisasi" class="section">
-  <div class="section-heading">
-    <p class="eyebrow">BERSAMA MENJADI LEBIH BAIK</p>
-    <h2>Struktur Organisasi Kelas</h2>
-    <p>Susunan pengurus kelas tahun ajaran 2026/2027.</p>
-  </div>
+    <!-- ===================== STRUKTUR ORGANISASI ===================== -->
+    <section id="organisasi" class="section" aria-labelledby="judul-organisasi">
+      <div class="section-heading">
+        <p class="eyebrow">BERSAMA MENJADI LEBIH BAIK</p>
+        <h2 id="judul-organisasi">Struktur Organisasi Kelas</h2>
+        <p>Susunan pengurus kelas tahun ajaran 2026/2027.</p>
+      </div>
 
-  <div class="org-chart">
-    <div class="org-node principal">
-      <span class="org-role">WALI KELAS</span>
-      <strong>La Ode Sahrun, S.Pd.</strong>
-    </div>
-    <div class="org-line"></div>
-    <div class="org-node">
-      <span class="org-role">KETUA KELAS</span>
-      <strong>Agis Maulana</strong>
-    </div>
-    <div class="org-line"></div>
-    <div class="org-node">
-      <span class="org-role">WAKIL KETUA</span>
-      <strong>Afdal</strong>
-    </div>
+      <div class="org-chart">
+        <div class="org-node principal">
+          <span class="org-role">WALI KELAS</span>
+          <strong>La Ode Sahrun, S.Pd.</strong>
+        </div>
+        <div class="org-line" aria-hidden="true"></div>
 
-    <div class="org-branches">
-      <article class="org-node">
-        <span class="org-role">SEKRETARIS</span>
-        <strong>Arsyi Mafazah</strong>
-        <p>Membantu pencatatan dan administrasi kelas.</p>
-      </article>
-      <article class="org-node">
-        <span class="org-role">BENDAHARA</span>
-        <strong>Asyafa</strong>
-        <p>Membantu pencatatan keuangan kelas jika diperlukan.</p>
-      </article>
-    </div>
+        <div class="org-node">
+          <span class="org-role">KETUA KELAS</span>
+          <strong>Agis Maulana</strong>
+        </div>
+        <div class="org-line" aria-hidden="true"></div>
 
-    <h3 class="subheading">Koordinator Bidang</h3>
-    <div class="profile-grid coordinator-grid">
-      <article class="info-card">
-        <span class="info-icon">🧹</span>
-        <h3>Koordinator Kebersihan</h3>
-        <p><strong>Azkia Nureliza Herman</strong></p>
-        <p>Mengingatkan teman menjaga kebersihan dan menjalankan piket.</p>
-      </article>
+        <div class="org-node">
+          <span class="org-role">WAKIL KETUA</span>
+          <strong>Afdal</strong>
+        </div>
 
-      <article class="info-card">
-        <span class="info-icon">🛡️</span>
-        <h3>Koordinator Keamanan</h3>
-        <p><strong>Hamzah Abdul Azis</strong></p>
-        <p>Membantu menjaga ketertiban dan keamanan barang kelas.</p>
-      </article>
+        <div class="org-branches">
+          <article class="org-node">
+            <span class="org-role">SEKRETARIS</span>
+            <strong>Arsyi Mafazah</strong>
+            <p>Membantu pencatatan dan administrasi kelas.</p>
+          </article>
 
-      <article class="info-card">
-        <span class="info-icon">📖</span>
-        <h3>Koordinator Perpustakaan</h3>
-        <p><strong>Amera Bunga Riskia</strong></p>
-        <p>Membantu merapikan buku dan menjaga pojok baca.</p>
-      </article>
+          <article class="org-node">
+            <span class="org-role">BENDAHARA</span>
+            <strong>Asyafa</strong>
+            <p>Membantu pencatatan keuangan kelas jika diperlukan.</p>
+          </article>
+        </div>
 
-      <article class="info-card">
-        <span class="info-icon">✏️</span>
-        <h3>Koordinator Perlengkapan</h3>
-        <p><strong>Sri Nadia</strong></p>
-        <p>Membantu merapikan dan menjaga perlengkapan kelas.</p>
-      </article>
-    </div>
-  </div>
+        <h3 class="subheading">Koordinator Bidang</h3>
+        <div class="profile-grid coordinator-grid">
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">🧹</span>
+            <h3>Koordinator Kebersihan</h3>
+            <p><strong>Azkia Nureliza Herman</strong></p>
+            <p>Mengingatkan teman menjaga kebersihan dan menjalankan piket.</p>
+          </article>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Jabatan</th>
-          <th>Nama</th>
-          <th>Tugas Utama</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Wali Kelas</td><td>La Ode Sahrun, S.Pd.</td><td>Membimbing siswa dan mengoordinasikan kegiatan kelas.</td></tr>
-        <tr><td>2</td><td>Ketua Kelas</td><td>Agis Maulana</td><td>Membantu memimpin dan menjaga ketertiban kelas.</td></tr>
-        <tr><td>3</td><td>Wakil Ketua</td><td>Afdal</td><td>Membantu ketua dan menggantikan saat berhalangan.</td></tr>
-        <tr><td>4</td><td>Sekretaris</td><td>Arsyi Mafazah</td><td>Membantu mencatat informasi dan kegiatan kelas.</td></tr>
-        <tr><td>5</td><td>Bendahara</td><td>Asyafa</td><td>Membantu pencatatan keuangan kelas jika diperlukan.</td></tr>
-        <tr><td>6</td><td>Koordinator Kebersihan</td><td>Azkia Nureliza Herman</td><td>Mengoordinasikan piket dan kebersihan kelas.</td></tr>
-        <tr><td>7</td><td>Koordinator Keamanan</td><td>Hamzah Abdul Azis</td><td>Membantu menjaga ketertiban dan barang kelas.</td></tr>
-        <tr><td>8</td><td>Koordinator Perpustakaan</td><td>Amera Bunga Riskia</td><td>Membantu menjaga dan merapikan buku.</td></tr>
-        <tr><td>9</td><td>Koordinator Perlengkapan</td><td>Sri Nadia</td><td>Membantu menjaga perlengkapan kelas.</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">🛡️</span>
+            <h3>Koordinator Keamanan</h3>
+            <p><strong>Hamzah Abdul Azis</strong></p>
+            <p>Membantu menjaga ketertiban dan keamanan barang kelas.</p>
+          </article>
 
-    <section id="siswa" class="section">
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">📖</span>
+            <h3>Koordinator Perpustakaan</h3>
+            <p><strong>Amera Bunga Riskia</strong></p>
+            <p>Membantu merapikan buku dan menjaga pojok baca.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">✏️</span>
+            <h3>Koordinator Perlengkapan</h3>
+            <p><strong>Sri Nadia</strong></p>
+            <p>Membantu merapikan dan menjaga perlengkapan kelas.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel pengurus kelas">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Jabatan</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Tugas Utama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Wali Kelas</td><td>La Ode Sahrun, S.Pd.</td><td>Membimbing siswa dan mengoordinasikan kegiatan kelas.</td></tr>
+            <tr><td>2</td><td>Ketua Kelas</td><td>Agis Maulana</td><td>Membantu memimpin dan menjaga ketertiban kelas.</td></tr>
+            <tr><td>3</td><td>Wakil Ketua</td><td>Afdal</td><td>Membantu ketua dan menggantikan saat berhalangan.</td></tr>
+            <tr><td>4</td><td>Sekretaris</td><td>Arsyi Mafazah</td><td>Membantu mencatat informasi dan kegiatan kelas.</td></tr>
+            <tr><td>5</td><td>Bendahara</td><td>Asyafa</td><td>Membantu pencatatan keuangan kelas jika diperlukan.</td></tr>
+            <tr><td>6</td><td>Koordinator Kebersihan</td><td>Azkia Nureliza Herman</td><td>Mengoordinasikan piket dan kebersihan kelas.</td></tr>
+            <tr><td>7</td><td>Koordinator Keamanan</td><td>Hamzah Abdul Azis</td><td>Membantu menjaga ketertiban dan barang kelas.</td></tr>
+            <tr><td>8</td><td>Koordinator Perpustakaan</td><td>Amera Bunga Riskia</td><td>Membantu menjaga dan merapikan buku.</td></tr>
+            <tr><td>9</td><td>Koordinator Perlengkapan</td><td>Sri Nadia</td><td>Membantu menjaga perlengkapan kelas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== DATA SISWA ===================== -->
+    <section id="siswa" class="section" aria-labelledby="judul-siswa">
       <div class="section-heading">
         <p class="eyebrow">KELUARGA BESAR 3.B</p>
-        <h2>Data Siswa</h2>
+        <h2 id="judul-siswa">Data Siswa</h2>
         <p>Daftar nama siswa kelas 3.B.</p>
       </div>
 
@@ -191,10 +219,13 @@
         <div><strong>16</strong><span>Perempuan</span></div>
       </div>
 
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Daftar nama siswa">
         <table class="student-table">
           <thead>
-            <tr><th>No.</th><th>Nama Siswa</th></tr>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Nama Siswa</th>
+            </tr>
           </thead>
           <tbody>
             <tr><td>1</td><td>Afdal</td></tr>
@@ -226,15 +257,17 @@
           </tbody>
         </table>
       </div>
+
       <p class="small-note">
         Demi keamanan data anak, informasi yang ditampilkan hanya nama siswa.
       </p>
     </section>
 
-    <section id="jadwal" class="section">
+    <!-- ===================== JADWAL PELAJARAN ===================== -->
+    <section id="jadwal" class="section" aria-labelledby="judul-jadwal">
       <div class="section-heading">
         <p class="eyebrow">BELAJAR DENGAN TERATUR</p>
-        <h2>Jadwal Pelajaran</h2>
+        <h2 id="judul-jadwal">Jadwal Pelajaran</h2>
         <p>Jadwal kegiatan belajar kelas 3.B, Senin sampai Sabtu.</p>
       </div>
 
@@ -242,35 +275,77 @@
         <strong>Waktu istirahat:</strong> 09.00–09.30 WITA.
       </div>
 
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel jadwal pelajaran, dapat digeser ke samping">
         <table class="schedule-table">
           <thead>
             <tr>
-              <th>Jam</th><th>Waktu</th><th>Senin</th><th>Selasa</th>
-              <th>Rabu</th><th>Kamis</th><th>Jumat</th><th>Sabtu</th>
+              <th scope="col">Jam</th>
+              <th scope="col">Waktu</th>
+              <th scope="col">Senin</th>
+              <th scope="col">Selasa</th>
+              <th scope="col">Rabu</th>
+              <th scope="col">Kamis</th>
+              <th scope="col">Jumat</th>
+              <th scope="col">Sabtu</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>06.45–07.15</td><td>Upacara Bendera</td><td>LITNUM</td><td>LITNUM</td><td>LITNUM</td><td>LITNUM</td><td>LITNUM</td></tr>
-            <tr><td>2</td><td>07.15–07.50</td><td>B. Inggris</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>Muatan Lokal</td><td>Bahasa Indonesia</td></tr>
-            <tr><td>3</td><td>07.50–08.25</td><td>B. Inggris</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>Muatan Lokal</td><td>Bahasa Indonesia</td></tr>
-            <tr><td>4</td><td>08.25–09.00</td><td>Pendidikan Pancasila</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>PJOK</td><td>Bahasa Indonesia</td></tr>
-            <tr class="break-row"><td colspan="2">ISTIRAHAT</td><td colspan="6">09.00–09.30</td></tr>
-            <tr><td>5</td><td>09.30–10.05</td><td>Pendidikan Pancasila</td><td>Pendidikan Agama Islam</td><td>Seni Budaya</td><td>IPAS</td><td>PJOK</td><td>Matematika</td></tr>
-            <tr><td>6</td><td>10.05–10.40</td><td>Pendidikan Pancasila</td><td>Matematika</td><td>Seni Budaya</td><td>IPAS</td><td>PJOK</td><td>Matematika</td></tr>
-            <tr><td>7</td><td>10.40–11.15</td><td>Pendidikan Pancasila</td><td>Matematika</td><td>Seni Budaya</td><td>Kokurikuler</td><td>PJOK</td><td>Matematika</td></tr>
-            <tr><td>8</td><td>11.15–11.50</td><td>Kokurikuler</td><td>Kokurikuler</td><td>Kokurikuler</td><td>Kokurikuler</td><td>—</td><td>Kokurikuler</td></tr>
+            <tr>
+              <td>1</td><td>06.45–07.15</td>
+              <td>Upacara Bendera</td>
+              <td><abbr title="Literasi dan Numerasi">LITNUM</abbr></td>
+              <td><abbr title="Literasi dan Numerasi">LITNUM</abbr></td>
+              <td><abbr title="Literasi dan Numerasi">LITNUM</abbr></td>
+              <td><abbr title="Literasi dan Numerasi">LITNUM</abbr></td>
+              <td><abbr title="Literasi dan Numerasi">LITNUM</abbr></td>
+            </tr>
+            <tr>
+              <td>2</td><td>07.15–07.50</td>
+              <td>B. Inggris</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>Muatan Lokal</td><td>Bahasa Indonesia</td>
+            </tr>
+            <tr>
+              <td>3</td><td>07.50–08.25</td>
+              <td>B. Inggris</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>Muatan Lokal</td><td>Bahasa Indonesia</td>
+            </tr>
+            <tr>
+              <td>4</td><td>08.25–09.00</td>
+              <td>Pendidikan Pancasila</td><td>Pendidikan Agama Islam</td><td>IPAS</td><td>Bahasa Indonesia</td><td>PJOK</td><td>Bahasa Indonesia</td>
+            </tr>
+            <tr class="break-row">
+              <td colspan="2">ISTIRAHAT</td>
+              <td colspan="6">09.00–09.30</td>
+            </tr>
+            <tr>
+              <td>5</td><td>09.30–10.05</td>
+              <td>Pendidikan Pancasila</td><td>Pendidikan Agama Islam</td><td>Seni Budaya</td><td>IPAS</td><td>PJOK</td><td>Matematika</td>
+            </tr>
+            <tr>
+              <td>6</td><td>10.05–10.40</td>
+              <td>Pendidikan Pancasila</td><td>Matematika</td><td>Seni Budaya</td><td>IPAS</td><td>PJOK</td><td>Matematika</td>
+            </tr>
+            <tr>
+              <td>7</td><td>10.40–11.15</td>
+              <td>Pendidikan Pancasila</td><td>Matematika</td><td>Seni Budaya</td><td>Kokurikuler</td><td>PJOK</td><td>Matematika</td>
+            </tr>
+            <tr>
+              <td>8</td><td>11.15–11.50</td>
+              <td>Kokurikuler</td><td>Kokurikuler</td><td>Kokurikuler</td><td>Kokurikuler</td><td>—</td><td>Kokurikuler</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <p class="small-note">Silakan cocokkan kembali jadwal ini dengan jadwal resmi dari sekolah jika ada perubahan.</p>
+
+      <p class="small-note">
+        Silakan cocokkan kembali jadwal ini dengan jadwal resmi dari sekolah jika ada perubahan.
+      </p>
     </section>
 
-    <section id="piket" class="section">
+    <!-- ===================== JADWAL PIKET ===================== -->
+    <section id="piket" class="section" aria-labelledby="judul-piket">
       <div class="section-heading">
         <p class="eyebrow">KELAS BERSIH, BELAJAR NYAMAN</p>
-        <h2>Jadwal Piket Kebersihan</h2>
-        <p>Pembagian petugas penyapuan dan kebersihan kelas sesuai gambar.</p>
+        <h2 id="judul-piket">Jadwal Piket Kebersihan</h2>
+        <p>Pembagian petugas penyapuan dan kebersihan kelas sesuai pembagian wali kelas.</p>
       </div>
 
       <div class="notice">
@@ -279,32 +354,37 @@
         sebelum dan sesudah kegiatan belajar.
       </div>
 
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel jadwal piket per hari">
         <table class="piket-table">
-          <thead><tr><th>Hari</th><th>Nama Siswa yang Bertugas</th></tr></thead>
+          <thead>
+            <tr>
+              <th scope="col">Hari</th>
+              <th scope="col">Nama Siswa yang Bertugas</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
-              <th>Senin</th>
+              <th scope="row">Senin</th>
               <td>Afdal, Ahmad Albar, Gunaldi, Amera Bunga Riskia, Ana, Dahlia, Kesya Sabrina, Pujayanti, Raya</td>
             </tr>
             <tr>
-              <th>Selasa</th>
+              <th scope="row">Selasa</th>
               <td>Agis Maulana, Hamzah Abdul Azis, Parel, Arsyi Mafazah, Asyafa, Hasra, Nur Sakila, Riana, Sri Nadia</td>
             </tr>
             <tr>
-              <th>Rabu</th>
+              <th scope="row">Rabu</th>
               <td>Afdal, Ilman Aditia, Yusuf, Azkia Nureliza Herman, Ana, Nadia, Siti Fatima, Sitti Nur Ramadhan, Pujayanti</td>
             </tr>
             <tr>
-              <th>Kamis</th>
+              <th scope="row">Kamis</th>
               <td>Agis Maulana, Ahmad Albar, Muhammad Al Fandi, Amera Bunga Riskia, Arsyi Mafazah, Dahlia, Kesya Sabrina, Nur Sakila, Raya</td>
             </tr>
             <tr>
-              <th>Jumat</th>
+              <th scope="row">Jumat</th>
               <td>Gunaldi, Hamzah Abdul Azis, Muhammad Alfan Ramadhan, Asyafa, Hasra, Riana, Sri Nadia, Siti Fatima</td>
             </tr>
             <tr>
-              <th>Sabtu</th>
+              <th scope="row">Sabtu</th>
               <td>Ilman Aditia, Muhammad Alfan Ramadhan, Muhammad Al Fandi, Yusuf, Azkia Nureliza Herman, Nadia, Sitti Nur Ramadhan, Parel</td>
             </tr>
           </tbody>
@@ -313,35 +393,40 @@
 
       <div class="profile-grid task-grid">
         <article class="info-card">
-          <span class="info-icon">🧹</span>
+          <span class="info-icon" aria-hidden="true">🧹</span>
           <h3>Menyapu</h3>
           <p>Bersihkan lantai dan sudut ruangan dari sampah dan debu.</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">🪑</span>
+          <span class="info-icon" aria-hidden="true">🪑</span>
           <h3>Merapikan Kelas</h3>
           <p>Susun meja dan kursi agar rapi dan nyaman digunakan.</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">🧽</span>
+          <span class="info-icon" aria-hidden="true">🧽</span>
           <h3>Membersihkan Papan</h3>
           <p>Hapus tulisan setelah pembelajaran sesuai arahan guru.</p>
         </article>
+
         <article class="info-card">
-          <span class="info-icon">🗑️</span>
+          <span class="info-icon" aria-hidden="true">🗑️</span>
           <h3>Mengelola Sampah</h3>
           <p>Buang sampah pada tempat yang tersedia.</p>
         </article>
       </div>
     </section>
 
-    <section id="pengumuman" class="section">
+    <!-- ===================== PENGUMUMAN ===================== -->
+    <section id="pengumuman" class="section" aria-labelledby="judul-pengumuman">
       <div class="section-heading">
         <p class="eyebrow">INFORMASI KELAS</p>
-        <h2>Pengumuman untuk Orang Tua</h2>
+        <h2 id="judul-pengumuman">Pengumuman untuk Orang Tua</h2>
       </div>
+
       <article class="announcement">
-        <span class="announcement-icon">📢</span>
+        <span class="announcement-icon" aria-hidden="true">📢</span>
         <div>
           <h3>Selamat Datang di Tahun Ajaran 2026/2027</h3>
           <p>
@@ -351,8 +436,9 @@
           </p>
         </div>
       </article>
+
       <article class="announcement">
-        <span class="announcement-icon">🧹</span>
+        <span class="announcement-icon" aria-hidden="true">🧹</span>
         <div>
           <h3>Pengingat Jadwal Piket</h3>
           <p>
@@ -363,16 +449,21 @@
       </article>
     </section>
 
-    <section class="closing section-card">
-      <h2>Semangat Kelas 3.B!</h2>
+    <!-- ===================== PENUTUP ===================== -->
+    <section class="closing section-card" aria-labelledby="judul-penutup">
+      <h2 id="judul-penutup">Semangat Kelas 3.B!</h2>
       <p>Rajin belajar, saling membantu, menjaga kebersihan, dan menghormati guru.</p>
     </section>
+
   </main>
 
+  <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <p><strong>Kelas 3.B</strong> · UPTD SD Negeri 1 Towea</p>
     <p>Tahun Ajaran 2026/2027</p>
     <p class="footer-small">Belajar hari ini, meraih cita-cita esok hari.</p>
+    <p class="footer-small">Terakhir diperbarui: Oktober 2026</p>
   </footer>
+
 </body>
 </html>
