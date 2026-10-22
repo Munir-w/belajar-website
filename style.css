@@ -329,6 +329,18 @@ a:focus-visible {
   background: var(--navy);
 }
 
+.info-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 10px;
+  font-size: 1.7rem;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--navy);
+}
+
 .info-card h3 {
   margin: 5px 0;
   color: var(--navy);
