@@ -624,12 +624,38 @@
            <td>Keterangan singkat</td>
          </tr>
     -->
-    <section id="kalender" class="section" aria-labelledby="judul-kalender">
-      <div class="section-heading">
-        <p class="eyebrow">JANGAN SAMPAI TERLEWAT</p>
-        <h2 id="judul-kalender">Kalender Kegiatan Kelas</h2>
-        <p>Jadwal kegiatan penting seperti ujian, libur, dan pertemuan orang tua.</p>
-      </div>
+    
+<section id="kalender" class="section education-calendar" aria-labelledby="judul-kalender">
+  <div class="section-heading">
+    <p class="eyebrow">TAHUN AJARAN 2026/2027</p>
+    <h2 id="judul-kalender">Kalender Pendidikan</h2>
+    <p>UPTD SD Negeri 1 Towea</p>
+  </div>
+
+  <div class="education-calendar-grid" id="education-calendar-grid"></div>
+
+  <div class="education-legend">
+    <h3>Keterangan</h3>
+    <div class="legend-item"><span class="legend-color libur-semester"></span>Libur Semester / Libur Akhir Tahun</div>
+    <div class="legend-item"><span class="legend-color awal-sekolah"></span>Hari Pertama Masuk Sekolah</div>
+    <div class="legend-item"><span class="legend-color pengenalan"></span>Masa Pengenalan Lingkungan Sekolah</div>
+    <div class="legend-item"><span class="legend-color libur-umum"></span>Libur Umum / Cuti Bersama</div>
+    <div class="legend-item"><span class="legend-color penilaian-tengah"></span>Penilaian Sumatif Tengah Semester</div>
+    <div class="legend-item"><span class="legend-color penilaian-akhir"></span>Penilaian Sumatif Akhir Semester</div>
+    <div class="legend-item"><span class="legend-color pembagian-rapor"></span>Penyerahan Laporan Pendidikan</div>
+    <div class="legend-item"><span class="legend-color semester-genap"></span>Hari Pertama Masuk Semester Genap</div>
+    <div class="legend-item"><span class="legend-color ramadan"></span>Libur Awal Ramadan</div>
+    <div class="legend-item"><span class="legend-color idulfitri"></span>Libur Idulfitri</div>
+    <div class="legend-item"><span class="legend-color tka"></span>Perkiraan TKA Jenjang SD dan SMP</div>
+    <div class="legend-item"><span class="legend-color penilaian-akhir-tahun"></span>Penilaian Akhir Tahun</div>
+    <div class="legend-item"><span class="legend-color tahun-baru"></span>Hari Pertama Tahun Ajaran 2027/2028</div>
+  </div>
+
+  <p class="calendar-footnote">
+    Minggu efektif: Semester I = 19 minggu, Semester II = 18 minggu.
+  </p>
+</section>
+
 
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabel kalender kegiatan kelas">
         <table class="calendar-table">
@@ -753,6 +779,160 @@
       }
     })();
   </script>
+
+<script>
+(function () {
+  const bulan = [
+    ["JULI", 2026, 6],
+    ["AGUSTUS", 2026, 7],
+    ["SEPTEMBER", 2026, 8],
+    ["OKTOBER", 2026, 9],
+    ["NOVEMBER", 2026, 10],
+    ["DESEMBER", 2026, 11],
+    ["JANUARI", 2027, 0],
+    ["FEBRUARI", 2027, 1],
+    ["MARET", 2027, 2],
+    ["APRIL", 2027, 3],
+    ["MEI", 2027, 4],
+    ["JUNI", 2027, 5],
+    ["JULI", 2027, 6]
+  ];
+
+  /*
+    Format tanggal: YYYY-MM-DD
+    Tambahkan tanggal kegiatan di sini.
+    Contoh: "2026-07-06": "awal-sekolah"
+  */
+  const kegiatan = {
+    "2026-07-01": "libur-semester",
+    "2026-07-02": "libur-semester",
+    "2026-07-03": "libur-semester",
+    "2026-07-04": "libur-semester",
+    "2026-07-06": "awal-sekolah",
+    "2026-07-07": "pengenalan",
+    "2026-07-08": "pengenalan",
+    "2026-07-09": "pengenalan",
+    "2026-07-10": "pengenalan",
+    "2026-08-17": "libur-umum",
+    "2026-08-24": "libur-semester",
+    "2026-08-25": "libur-umum",
+    "2026-09-21": "libur-semester",
+    "2026-09-22": "libur-semester",
+    "2026-09-23": "libur-semester",
+    "2026-09-24": "libur-umum",
+    "2026-09-25": "libur-umum",
+    "2026-10-05": "penilaian-tengah",
+    "2026-10-06": "penilaian-tengah",
+    "2026-10-07": "penilaian-tengah",
+    "2026-10-08": "penilaian-tengah",
+    "2026-10-09": "penilaian-tengah",
+    "2026-11-30": "libur-umum",
+    "2026-12-01": "penilaian-akhir",
+    "2026-12-02": "penilaian-akhir",
+    "2026-12-03": "penilaian-akhir",
+    "2026-12-04": "penilaian-akhir",
+    "2026-12-05": "penilaian-akhir",
+    "2026-12-21": "libur-semester",
+    "2026-12-22": "libur-semester",
+    "2026-12-23": "libur-umum",
+    "2026-12-24": "libur-umum",
+    "2026-12-25": "libur-umum",
+    "2027-01-04": "awal-sekolah",
+    "2027-01-05": "pengenalan",
+    "2027-01-06": "pengenalan",
+    "2027-02-23": "libur-umum",
+    "2027-03-17": "libur-umum",
+    "2027-03-18": "libur-umum",
+    "2027-03-24": "libur-semester",
+    "2027-03-25": "libur-semester",
+    "2027-03-26": "libur-umum",
+    "2027-04-05": "penilaian-tengah",
+    "2027-04-06": "penilaian-tengah",
+    "2027-04-07": "penilaian-tengah",
+    "2027-04-08": "penilaian-tengah",
+    "2027-04-09": "penilaian-tengah",
+    "2027-05-10": "penilaian-akhir-tahun",
+    "2027-05-11": "awal-sekolah",
+    "2027-05-12": "awal-sekolah",
+    "2027-05-25": "libur-umum",
+    "2027-06-17": "libur-umum",
+    "2027-06-18": "libur-umum",
+    "2027-07-01": "libur-semester"
+  };
+
+  const namaHari = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+  const wadah = document.getElementById("education-calendar-grid");
+  if (!wadah) return;
+
+  bulan.forEach(function (item, index) {
+    const [namaBulan, tahun, bulanIndex] = item;
+    const awal = new Date(tahun, bulanIndex, 1).getDay();
+    const jumlahHari = new Date(tahun, bulanIndex + 1, 0).getDate();
+
+    const kartu = document.createElement("div");
+    kartu.className = "education-month";
+
+    const judul = document.createElement("h3");
+    judul.textContent = namaBulan + " " + tahun;
+    kartu.appendChild(judul);
+
+    const tabel = document.createElement("table");
+    const kepala = document.createElement("thead");
+    const barisKepala = document.createElement("tr");
+
+    namaHari.forEach(function (hari) {
+      const th = document.createElement("th");
+      th.textContent = hari;
+      barisKepala.appendChild(th);
+    });
+
+    kepala.appendChild(barisKepala);
+    tabel.appendChild(kepala);
+
+    const badan = document.createElement("tbody");
+    let baris = document.createElement("tr");
+
+    for (let kosong = 0; kosong < awal; kosong++) {
+      const td = document.createElement("td");
+      td.className = "empty-day";
+      baris.appendChild(td);
+    }
+
+    for (let tanggal = 1; tanggal <= jumlahHari; tanggal++) {
+      const posisi = new Date(tahun, bulanIndex, tanggal).getDay();
+      const td = document.createElement("td");
+      const kunci = tahun + "-" +
+        String(bulanIndex + 1).padStart(2, "0") + "-" +
+        String(tanggal).padStart(2, "0");
+
+      td.textContent = tanggal;
+
+      if (posisi === 0) td.classList.add("sunday");
+      if (kegiatan[kunci]) td.classList.add(kegiatan[kunci]);
+
+      baris.appendChild(td);
+
+      if (posisi === 6 || tanggal === jumlahHari) {
+        badan.appendChild(baris);
+        baris = document.createElement("tr");
+      }
+    }
+
+    if (baris.children.length > 0) {
+      while (baris.children.length < 7) {
+        const td = document.createElement("td");
+        td.className = "empty-day";
+        baris.appendChild(td);
+      }
+      badan.appendChild(baris);
+    }
+
+    tabel.appendChild(badan);
+    kartu.appendChild(tabel);
+    wadah.appendChild(kartu);
+  });
+})();
+</script>
 
 </body>
 </html>
