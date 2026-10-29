@@ -1273,3 +1273,199 @@ tbody tr:nth-child(even) {
   padding-top: 6px;
   padding-bottom: 12px;
 }
+
+/* KALENDER PENDIDIKAN */
+.education-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.education-month {
+  min-width: 0;
+  overflow: hidden;
+  background: #fffdf8;
+  border: 1px solid #aab4c0;
+  box-shadow: 0 3px 8px rgba(16, 42, 67, .08);
+}
+
+.education-month h3 {
+  margin: 0;
+  padding: 7px 3px;
+  text-align: center;
+  font-size: 1rem;
+  color: #102a43;
+  background: #e9eff5;
+  border-bottom: 1px solid #aab4c0;
+}
+
+.education-month table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: .8rem;
+}
+
+.education-month th,
+.education-month td {
+  border: 1px solid #d3d8de;
+  text-align: center;
+  padding: 5px 1px;
+}
+
+.education-month th {
+  background: #f1f4f7;
+  font-size: .72rem;
+}
+
+.education-month td {
+  height: 27px;
+  color: #182638;
+}
+
+.education-month .sunday {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.education-month .empty-day {
+  background: #fffdf8;
+}
+
+.education-month td.libur-semester,
+.legend-color.libur-semester {
+  background: #ffe329;
+}
+
+.education-month td.awal-sekolah,
+.legend-color.awal-sekolah {
+  background: #25b94b;
+}
+
+.education-month td.pengenalan,
+.legend-color.pengenalan {
+  background: #a9d85b;
+}
+
+.education-month td.libur-umum,
+.legend-color.libur-umum {
+  background: #f04438;
+}
+
+.education-month td.penilaian-tengah,
+.legend-color.penilaian-tengah {
+  background: #ff9b59;
+}
+
+.education-month td.penilaian-akhir,
+.legend-color.penilaian-akhir {
+  background: #8d4b28;
+  color: white;
+}
+
+.education-month td.pembagian-rapor,
+.legend-color.pembagian-rapor {
+  background: #173d5d;
+  color: white;
+}
+
+.education-month td.semester-genap,
+.legend-color.semester-genap {
+  background: #27c9e8;
+}
+
+.education-month td.ramadan,
+.legend-color.ramadan {
+  background: #f3a1bb;
+}
+
+.education-month td.idulfitri,
+.legend-color.idulfitri {
+  background: #673ab7;
+  color: white;
+}
+
+.education-month td.tka,
+.legend-color.tka {
+  background: #6b829b;
+}
+
+.education-month td.penilaian-akhir-tahun,
+.legend-color.penilaian-akhir-tahun {
+  background: #ed70a7;
+}
+
+.education-month td.tahun-baru,
+.legend-color.tahun-baru {
+  background: #a88bff;
+}
+
+.education-legend {
+  margin-top: 18px;
+  padding: 16px;
+  background: #fffdf8;
+  border: 1px solid #d5b36a;
+  border-radius: 10px;
+}
+
+.education-legend h3 {
+  margin: 0 0 12px;
+  color: #102a43;
+}
+
+.education-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.education-legend h3 {
+  grid-column: 1 / -1;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .86rem;
+  line-height: 1.4;
+}
+
+.legend-color {
+  display: inline-block;
+  flex: 0 0 22px;
+  height: 18px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.calendar-footnote {
+  margin-top: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) {
+  .education-calendar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .education-month table {
+    font-size: .72rem;
+  }
+
+  .education-month th {
+    font-size: .65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .education-legend {
+    grid-template-columns: 1fr;
+  }
+}
