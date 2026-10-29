@@ -1469,3 +1469,329 @@ tbody tr:nth-child(even) {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== KALENDER PENDIDIKAN KELAS 3.B ===== */
+
+.education-calendar {
+  scroll-margin-top: 90px;
+}
+
+.today-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 850px;
+  margin: 0 auto 28px;
+  padding: 20px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #123c69, #247ba0);
+  border-radius: 14px;
+  box-shadow: 0 5px 16px rgba(16, 42, 67, .15);
+}
+
+.today-icon {
+  font-size: 2.4rem;
+}
+
+.today-label {
+  margin: 0 0 4px;
+  font-size: .75rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.today-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.25rem;
+}
+
+.today-card p:last-child {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.calendar-legend-intro {
+  margin: 20px 0 14px;
+}
+
+.calendar-legend-intro h3 {
+  margin-bottom: 4px;
+  color: #123c69;
+}
+
+.calendar-legend-intro p {
+  margin-top: 0;
+  color: #5c6675;
+}
+
+.education-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.education-month {
+  min-width: 0;
+  overflow: hidden;
+  background: #fffdf8;
+  border: 1px solid #c8a45d;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(16, 42, 67, .08);
+}
+
+.education-month h3 {
+  margin: 0;
+  padding: 10px 4px;
+  color: #ffffff;
+  background: #10243d;
+  text-align: center;
+  font-size: .95rem;
+}
+
+.education-month table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+
+.education-month th,
+.education-month td {
+  height: 30px;
+  padding: 3px 1px;
+  border: 1px solid #d6d9de;
+  text-align: center;
+}
+
+.education-month th {
+  color: #243047;
+  background: #edf1f5;
+  font-size: .72rem;
+}
+
+.education-month td {
+  color: #243047;
+  background: #fffdf8;
+}
+
+.education-month td.sunday {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.education-month td.empty-day {
+  background: #f8f7f2;
+}
+
+.education-month td.today-date {
+  outline: 3px solid #247ba0;
+  outline-offset: -3px;
+  font-weight: 900;
+}
+
+.education-month td.selected-date {
+  box-shadow: inset 0 0 0 3px #10243d;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.education-month td.event-date {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.education-month td.event-date:hover {
+  filter: brightness(.92);
+}
+
+/* Warna kategori */
+
+.education-month td.libur-semester,
+.legend-color.libur-semester {
+  background: #ffe329;
+}
+
+.education-month td.awal-sekolah,
+.legend-color.awal-sekolah {
+  background: #e8a071;
+}
+
+.education-month td.pengenalan,
+.legend-color.pengenalan {
+  background: #25b94b;
+}
+
+.education-month td.libur-umum,
+.legend-color.libur-umum {
+  background: #f04438;
+}
+
+.education-month td.penilaian-tengah,
+.legend-color.penilaian-tengah {
+  background: #f3c58b;
+}
+
+.education-month td.penilaian-akhir,
+.legend-color.penilaian-akhir {
+  background: #70412f;
+  color: #ffffff;
+}
+
+.education-month td.pembagian-rapor,
+.legend-color.pembagian-rapor {
+  background: #173d5d;
+  color: #ffffff;
+}
+
+.education-month td.semester-genap,
+.legend-color.semester-genap {
+  background: #27c9e8;
+}
+
+.education-month td.ramadan,
+.legend-color.ramadan {
+  background: #a8d65b;
+}
+
+.education-month td.idulfitri,
+.legend-color.idulfitri {
+  background: #e7a1b8;
+}
+
+.education-month td.tka,
+.legend-color.tka {
+  background: #9b6a70;
+  color: #ffffff;
+}
+
+.education-month td.penilaian-akhir-tahun,
+.legend-color.penilaian-akhir-tahun {
+  background: #57332e;
+  color: #ffffff;
+}
+
+.education-month td.tahun-baru,
+.legend-color.tahun-baru {
+  background: #8f78cb;
+  color: #ffffff;
+}
+
+.education-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  padding: 18px;
+  background: #fffdf8;
+  border: 1px solid #d5b36a;
+  border-radius: 12px;
+}
+
+.education-legend h3 {
+  grid-column: 1 / -1;
+  margin: 0 0 4px;
+  color: #123c69;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.legend-color {
+  flex: 0 0 24px;
+  height: 19px;
+  border: 1px solid rgba(0, 0, 0, .15);
+}
+
+.calendar-note {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #4c5665;
+}
+
+/* Kartu informasi di bawah setiap bulan */
+
+.month-summary {
+  padding: 12px;
+  border-top: 1px solid #e0d8c8;
+  background: #f8f7f2;
+}
+
+.month-summary h4 {
+  margin: 0 0 8px;
+  color: #123c69;
+  font-size: .9rem;
+}
+
+.month-summary p {
+  margin: 5px 0;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.month-summary .effective-count {
+  padding: 7px 9px;
+  background: #e6f4ea;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.month-summary .no-agenda {
+  color: #667085;
+  font-style: italic;
+}
+
+.month-agenda {
+  padding-left: 18px;
+  margin: 8px 0;
+}
+
+.month-agenda li {
+  margin-bottom: 7px;
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
+.month-agenda strong {
+  display: block;
+}
+
+.agenda-category {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #e8edf3;
+  font-size: .72rem;
+}
+
+@media (max-width: 850px) {
+  .education-calendar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .education-month table {
+    font-size: .78rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .education-calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .education-legend {
+    grid-template-columns: 1fr;
+  }
+
+  .today-card {
+    padding: 15px;
+  }
+}
