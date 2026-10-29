@@ -440,15 +440,20 @@ a:focus-visible {
 }
 
 /* Kotak jabatan: strip biru tua di atas, nama di bawah */
+
 .org-node {
-  width: min(100%, 300px);
+  width: 100%;
+  max-width: 340px;
+  min-width: 0;
   margin: 0 auto;
   overflow: hidden;
+  overflow-wrap: anywhere;
   border: 1.5px solid var(--gold-line);
   border-radius: 10px;
   background: var(--paper-2);
   box-shadow: 0 4px 10px rgba(12, 32, 56, 0.15);
 }
+
 
 .org-role {
   display: block;
@@ -493,10 +498,38 @@ a:focus-visible {
 }
 
 /* Satu baris cabang (Sekretaris + Bendahara, atau 4 Koordinator) */
+
 .org-row {
   display: flex;
   justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
 }
+
+.org-coordinators .org-item {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.org-coordinators .org-node {
+  max-width: none;
+}
+
+.org-coordinators .org-role {
+  padding: 7px 4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+}
+
+.org-coordinators .org-node strong {
+  padding: 10px 5px;
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+
 
 /* Setiap anggota baris: punya garis tegak pendek di atas
    dan garis datar yang menyambung ke tetangganya. */
