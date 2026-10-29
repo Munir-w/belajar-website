@@ -625,31 +625,54 @@
          </tr>
     -->
     
+
 <section id="kalender" class="section education-calendar" aria-labelledby="judul-kalender">
   <div class="section-heading">
     <p class="eyebrow">TAHUN AJARAN 2026/2027</p>
     <h2 id="judul-kalender">Kalender Pendidikan</h2>
-    <p>UPTD SD Negeri 1 Towea</p>
+    <p>UPTD SD Negeri 1 Towea · Kelas 3.B</p>
   </div>
 
-  <div class="education-calendar-grid" id="education-calendar-grid"></div>
+  <div class="today-card" id="today-card">
+    <div class="today-icon">📅</div>
+    <div>
+      <p class="today-label">HARI INI</p>
+      <h3 id="today-date">Memuat tanggal...</h3>
+      <p id="today-agenda">Memeriksa agenda hari ini...</p>
+    </div>
+  </div>
+
+  <div class="calendar-legend-intro">
+    <h3>Kalender Bulanan</h3>
+    <p>Pilih tanggal berwarna untuk melihat agenda pada tanggal tersebut.</p>
+  </div>
+
+  <div id="education-calendar-grid" class="education-calendar-grid"></div>
 
   <div class="education-legend">
-    <h3>Keterangan</h3>
-    <div class="legend-item"><span class="legend-color libur-semester"></span>Libur Semester / Libur Akhir Tahun</div>
-    <div class="legend-item"><span class="legend-color awal-sekolah"></span>Hari Pertama Masuk Sekolah</div>
-    <div class="legend-item"><span class="legend-color pengenalan"></span>Masa Pengenalan Lingkungan Sekolah</div>
-    <div class="legend-item"><span class="legend-color libur-umum"></span>Libur Umum / Cuti Bersama</div>
-    <div class="legend-item"><span class="legend-color penilaian-tengah"></span>Penilaian Sumatif Tengah Semester</div>
-    <div class="legend-item"><span class="legend-color penilaian-akhir"></span>Penilaian Sumatif Akhir Semester</div>
-    <div class="legend-item"><span class="legend-color pembagian-rapor"></span>Penyerahan Laporan Pendidikan</div>
-    <div class="legend-item"><span class="legend-color semester-genap"></span>Hari Pertama Masuk Semester Genap</div>
-    <div class="legend-item"><span class="legend-color ramadan"></span>Libur Awal Ramadan</div>
-    <div class="legend-item"><span class="legend-color idulfitri"></span>Libur Idulfitri</div>
-    <div class="legend-item"><span class="legend-color tka"></span>Perkiraan TKA Jenjang SD dan SMP</div>
-    <div class="legend-item"><span class="legend-color penilaian-akhir-tahun"></span>Penilaian Akhir Tahun</div>
-    <div class="legend-item"><span class="legend-color tahun-baru"></span>Hari Pertama Tahun Ajaran 2027/2028</div>
+    <h3>Keterangan Warna</h3>
+
+    <div class="legend-item"><span class="legend-color libur-semester"></span>Libur semester / libur akhir tahun</div>
+    <div class="legend-item"><span class="legend-color awal-sekolah"></span>Hari pertama masuk sekolah</div>
+    <div class="legend-item"><span class="legend-color pengenalan"></span>Masa pengenalan lingkungan sekolah</div>
+    <div class="legend-item"><span class="legend-color libur-umum"></span>Libur umum / cuti bersama</div>
+    <div class="legend-item"><span class="legend-color penilaian-tengah"></span>Penilaian sumatif tengah semester</div>
+    <div class="legend-item"><span class="legend-color penilaian-akhir"></span>Penilaian sumatif akhir semester 1</div>
+    <div class="legend-item"><span class="legend-color pembagian-rapor"></span>Penyerahan laporan pendidikan</div>
+    <div class="legend-item"><span class="legend-color semester-genap"></span>Hari pertama masuk semester genap</div>
+    <div class="legend-item"><span class="legend-color ramadan"></span>Libur awal Ramadan</div>
+    <div class="legend-item"><span class="legend-color idulfitri"></span>Libur Hari Raya Idulfitri</div>
+    <div class="legend-item"><span class="legend-color tka"></span>Perkiraan TKA jenjang SD dan SMP</div>
+    <div class="legend-item"><span class="legend-color penilaian-akhir-tahun"></span>Penilaian akhir jenjang / akhir tahun</div>
+    <div class="legend-item"><span class="legend-color tahun-baru"></span>Hari pertama tahun ajaran 2027/2028</div>
   </div>
+
+  <p class="calendar-note">
+    Minggu efektif menurut kalender sumber: Semester I = 19 minggu,
+    Semester II = 18 minggu.
+  </p>
+</section>
+
 
   <p class="calendar-footnote">
     Minggu efektif: Semester I = 19 minggu, Semester II = 18 minggu.
@@ -931,6 +954,306 @@
     kartu.appendChild(tabel);
     wadah.appendChild(kartu);
   });
+})();
+</script>
+
+<script>
+(function () {
+  const months = [
+    ["JULI", 2026, 6],
+    ["AGUSTUS", 2026, 7],
+    ["SEPTEMBER", 2026, 8],
+    ["OKTOBER", 2026, 9],
+    ["NOVEMBER", 2026, 10],
+    ["DESEMBER", 2026, 11],
+    ["JANUARI", 2027, 0],
+    ["FEBRUARI", 2027, 1],
+    ["MARET", 2027, 2],
+    ["APRIL", 2027, 3],
+    ["MEI", 2027, 4],
+    ["JUNI", 2027, 5],
+    ["JULI", 2027, 6]
+  ];
+
+  const categories = {
+    "libur-semester": "Libur semester / libur akhir tahun",
+    "awal-sekolah": "Hari pertama masuk sekolah",
+    "pengenalan": "Masa pengenalan lingkungan sekolah",
+    "libur-umum": "Libur umum / cuti bersama",
+    "penilaian-tengah": "Penilaian sumatif tengah semester",
+    "penilaian-akhir": "Penilaian sumatif akhir semester 1",
+    "pembagian-rapor": "Penyerahan laporan pendidikan",
+    "semester-genap": "Hari pertama masuk semester genap",
+    "ramadan": "Libur awal Ramadan",
+    "idulfitri": "Libur Hari Raya Idulfitri",
+    "tka": "Perkiraan TKA jenjang SD dan SMP",
+    "penilaian-akhir-tahun": "Penilaian akhir jenjang / akhir tahun",
+    "tahun-baru": "Hari pertama tahun ajaran 2027/2028"
+  };
+
+  /*
+   * DATA KEGIATAN
+   * Format tanggal: YYYY-MM-DD
+   * Data ini harus dicocokkan dengan kalender sumber.
+   * Jangan menganggap tanggal yang belum dimasukkan sebagai
+   * hari libur atau jadwal ulangan yang sudah terkonfirmasi.
+   */
+  const events = {
+    "2026-07-01": { type: "libur-semester", note: "Libur akhir tahun pelajaran" },
+    "2026-07-02": { type: "libur-semester", note: "Libur akhir tahun pelajaran" },
+    "2026-07-03": { type: "libur-semester", note: "Libur akhir tahun pelajaran" },
+    "2026-07-04": { type: "libur-semester", note: "Libur akhir tahun pelajaran" },
+    "2026-07-06": { type: "awal-sekolah", note: "Hari pertama masuk sekolah" },
+    "2026-07-07": { type: "pengenalan", note: "Masa pengenalan lingkungan sekolah" },
+    "2026-07-08": { type: "pengenalan", note: "Masa pengenalan lingkungan sekolah" },
+    "2026-07-09": { type: "pengenalan", note: "Masa pengenalan lingkungan sekolah" },
+    "2026-07-10": { type: "pengenalan", note: "Masa pengenalan lingkungan sekolah" },
+    "2026-07-11": { type: "pengenalan", note: "Masa pengenalan lingkungan sekolah" },
+
+    "2026-08-17": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+    "2026-08-25": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+
+    "2026-09-24": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+    "2026-09-25": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+
+    "2026-11-29": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2026-11-30": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+
+    "2026-12-01": { type: "penilaian-akhir", note: "Penilaian sumatif akhir semester 1 — perlu konfirmasi tanggal" },
+    "2026-12-02": { type: "penilaian-akhir", note: "Penilaian sumatif akhir semester 1 — perlu konfirmasi tanggal" },
+    "2026-12-03": { type: "penilaian-akhir", note: "Penilaian sumatif akhir semester 1 — perlu konfirmasi tanggal" },
+    "2026-12-04": { type: "penilaian-akhir", note: "Penilaian sumatif akhir semester 1 — perlu konfirmasi tanggal" },
+    "2026-12-05": { type: "penilaian-akhir", note: "Penilaian sumatif akhir semester 1 — perlu konfirmasi tanggal" },
+    "2026-12-21": { type: "libur-semester", note: "Libur semester — sesuai kalender sumber" },
+    "2026-12-22": { type: "libur-semester", note: "Libur semester — sesuai kalender sumber" },
+    "2026-12-23": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2026-12-24": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2026-12-25": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+
+    "2027-01-01": { type: "libur-umum", note: "Libur umum — sesuai kalender sumber" },
+    "2027-01-02": { type: "libur-semester", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-01-04": { type: "semester-genap", note: "Hari pertama masuk semester genap" },
+    "2027-01-05": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+
+    "2027-02-06": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-03-09": { type: "ramadan", note: "Libur awal Ramadan — perlu konfirmasi tanggal" },
+    "2027-03-10": { type: "ramadan", note: "Libur awal Ramadan — perlu konfirmasi tanggal" },
+    "2027-03-11": { type: "ramadan", note: "Libur awal Ramadan — perlu konfirmasi tanggal" },
+    "2027-03-26": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+
+    "2027-04-05": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-06": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-07": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-08": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-09": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-10": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-12": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+    "2027-04-19": { type: "penilaian-akhir-tahun", note: "Penilaian akhir jenjang — tanggal perlu dikonfirmasi" },
+
+    "2027-05-06": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-05-17": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-05-20": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+
+    "2027-06-17": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-06-18": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-06-19": { type: "pembagian-rapor", note: "Tanggal penyerahan laporan pendidikan — perlu konfirmasi" },
+
+    "2027-07-05": { type: "libur-semester", note: "Libur akhir tahun pelajaran — perlu konfirmasi" },
+    "2027-07-06": { type: "libur-semester", note: "Libur akhir tahun pelajaran — perlu konfirmasi" },
+    "2027-07-07": { type: "libur-umum", note: "Tanggal berwarna pada kalender sumber; perlu konfirmasi" },
+    "2027-07-12": { type: "tahun-baru", note: "Hari pertama tahun ajaran 2027/2028 — perlu konfirmasi" }
+  };
+
+  const weekdayNames = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+  const fullWeekdays = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  const monthNames = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  const grid = document.getElementById("education-calendar-grid");
+  if (!grid) return;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  function dateKey(year, month, day) {
+    return year + "-" +
+      String(month + 1).padStart(2, "0") + "-" +
+      String(day).padStart(2, "0");
+  }
+
+  function readableDate(year, month, day) {
+    return fullWeekdays[new Date(year, month, day).getDay()] + ", " +
+      day + " " + monthNames[month] + " " + year;
+  }
+
+  function isHoliday(event) {
+    return event && [
+      "libur-semester",
+      "libur-umum",
+      "ramadan",
+      "idulfitri"
+    ].includes(event.type);
+  }
+
+  function makeAgenda(event, day, year, month) {
+    const li = document.createElement("li");
+    const strong = document.createElement("strong");
+    strong.textContent = day + " " + monthNames[month] + " " + year;
+
+    const desc = document.createElement("span");
+    desc.textContent = event.note || categories[event.type];
+
+    const tag = document.createElement("span");
+    tag.className = "agenda-category";
+    tag.textContent = categories[event.type] || event.type;
+
+    li.append(strong, desc, document.createElement("br"), tag);
+    return li;
+  }
+
+  function renderMonth(item) {
+    const [monthLabel, year, month] = item;
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const card = document.createElement("article");
+    card.className = "education-month";
+
+    const heading = document.createElement("h3");
+    heading.textContent = monthLabel + " " + year;
+    card.appendChild(heading);
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+
+    weekdayNames.forEach(function (name) {
+      const th = document.createElement("th");
+      th.textContent = name;
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    let row = document.createElement("tr");
+
+    for (let i = 0; i < firstDay; i++) {
+      const td = document.createElement("td");
+      td.className = "empty-day";
+      row.appendChild(td);
+    }
+
+    let effectiveDays = 0;
+    const agendaList = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const weekday = date.getDay();
+      const key = dateKey(year, month, day);
+      const event = events[key];
+
+      const td = document.createElement("td");
+      td.textContent = day;
+      td.setAttribute("aria-label", readableDate(year, month, day));
+
+      if (weekday === 0) td.classList.add("sunday");
+
+      if (event) {
+        td.classList.add(event.type, "event-date");
+        td.title = (event.note || categories[event.type]) + " — klik untuk memilih";
+        agendaList.push({ day: day, event: event });
+      }
+
+      if (date.getTime() === today.getTime()) {
+        td.classList.add("today-date");
+      }
+
+      td.addEventListener("click", function () {
+        showDayInfo(year, month, day);
+        grid.querySelectorAll(".selected-date").forEach(function (el) {
+          el.classList.remove("selected-date");
+        });
+        td.classList.add("selected-date");
+      });
+
+      if (weekday !== 0 && !isHoliday(event)) {
+        effectiveDays++;
+      }
+
+      row.appendChild(td);
+
+      if (weekday === 6 || day === daysInMonth) {
+        while (row.children.length < 7) {
+          const empty = document.createElement("td");
+          empty.className = "empty-day";
+          row.appendChild(empty);
+        }
+        tbody.appendChild(row);
+        row = document.createElement("tr");
+      }
+    }
+
+    table.appendChild(tbody);
+    card.appendChild(table);
+
+    const summary = document.createElement("div");
+    summary.className = "month-summary";
+
+    const summaryTitle = document.createElement("h4");
+    summaryTitle.textContent = "Informasi " + monthLabel.charAt(0) +
+      monthLabel.slice(1).toLowerCase();
+    summary.appendChild(summaryTitle);
+
+    const count = document.createElement("p");
+    count.className = "effective-count";
+    count.textContent = "Perkiraan hari sekolah: " + effectiveDays + " hari";
+    summary.appendChild(count);
+
+    const help = document.createElement("p");
+    help.textContent = "Perkiraan kalender, belum dikurangi semua kegiatan nonbelajar.";
+    summary.appendChild(help);
+
+    if (agendaList.length) {
+      const list = document.createElement("ul");
+      list.className = "month-agenda";
+
+      agendaList.forEach(function (item) {
+        list.appendChild(makeAgenda(item.event, item.day, year, month));
+      });
+
+      summary.appendChild(list);
+    } else {
+      const noAgenda = document.createElement("p");
+      noAgenda.className = "no-agenda";
+      noAgenda.textContent = "Belum ada agenda yang dimasukkan.";
+      summary.appendChild(noAgenda);
+    }
+
+    card.appendChild(summary);
+    grid.appendChild(card);
+  }
+
+  function showDayInfo(year, month, day) {
+    const key = dateKey(year, month, day);
+    const event = events[key];
+
+    document.getElementById("today-date").textContent =
+      readableDate(year, month, day);
+
+    document.getElementById("today-agenda").textContent = event
+      ? (event.note || categories[event.type])
+      : "Belum ada agenda khusus yang tercatat pada tanggal ini.";
+  }
+
+  months.forEach(renderMonth);
+  showDayInfo(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const todayLabel = document.querySelector(".today-label");
+  if (todayLabel) todayLabel.textContent = "TANGGAL DIPILIH / HARI INI";
 })();
 </script>
 
