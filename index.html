@@ -1277,6 +1277,62 @@ yearSelect.addEventListener("change", renderAttendanceCalendar);
 renderAttendanceCalendar();
 
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCuc9jjWxrZzpqlFCXYnUzdL17LeAojR2o",
+  authDomain: "absensi-kelas-3b.firebaseapp.com",
+  projectId: "absensi-kelas-3b",
+  storageBucket: "absensi-kelas-3b.firebasestorage.app",
+  messagingSenderId: "503297058139",
+  appId: "1:503297058139:web:83bde3358c54b29274267e"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const emailInput = document.getElementById("teacher-email");
+const passwordInput = document.getElementById("teacher-password");
+const loginButton = document.getElementById("teacher-login-button");
+const loginMessage = document.getElementById("login-message");
+
+loginButton.addEventListener("click", async () => {
+  // Jika sudah login, tombol ini berfungsi sebagai Logout
+  if (auth.currentUser) {
+    await signOut(auth);
+    return;
+  }
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    loginMessage.textContent = "Isi email dan kata sandi terlebih dahulu.";
+    return;
+  }
+
+  loginMessage.textContent = "Sedang login...";
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    loginMessage.textContent = "Login gagal. Periksa email dan kata sandi.";
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginMessage.textContent = "Login berhasil sebagai " + user.email + ".";
+    loginButton.textContent = "Logout";
+    passwordInput.value = "";
+  } else {
+    loginMessage.textContent = "";
+    loginButton.textContent = "Login";
+  }
+});
+</script>
 </body>
 </html>
