@@ -1322,8 +1322,20 @@ loginButton.addEventListener("click", async () => {
     loginMessage.textContent = "Login gagal. Periksa email dan kata sandi.";
   }
 });
+let teacherLoggedIn = false;
 
+function applyAttendanceLock() {
+  document.querySelectorAll("#attendance-calendar-body select").forEach((s) => {
+    s.disabled = !teacherLoggedIn;
+  });
+}
+
+// Kunci ulang otomatis setiap kali tabel dibuat ulang (ganti bulan/tahun)
+const attendanceBody = document.getElementById("attendance-calendar-body");
+new MutationObserver(applyAttendanceLock).observe(attendanceBody, { childList: true });
 onAuthStateChanged(auth, (user) => {
+    teacherLoggedIn = !!user;
+  applyAttendanceLock();
   if (user) {
     loginMessage.textContent = "Login berhasil sebagai " + user.email + ".";
     loginButton.textContent = "Logout";
