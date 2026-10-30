@@ -63,6 +63,7 @@
     <a href="#profil">Profil</a>
     <a href="#organisasi">Organisasi</a>
     <a href="#siswa">Data Siswa</a>
+    <a href="#absensi">Absensi</a>
     <a href="#jadwal">Jadwal Pelajaran</a>
     <a href="#piket">Jadwal Piket</a>
     <a href="#tatatertib">Tata Tertib</a>
@@ -390,6 +391,80 @@
         Demi keamanan data anak, informasi yang ditampilkan hanya nama siswa.
       </p>
     </section>
+    <!-- ===================== ABSENSI DIGITAL ===================== -->
+<section id="absensi" class="section">
+    <div class="section-heading">
+        <p class="eyebrow">KELUARGA BESAR 3.B</p>
+        <h2>Daftar Hadir Siswa</h2>
+        <p>Absensi Digital Kelas 3.B.</p>
+    </div>
+
+    <div class="attendance-container">
+    <h3>UPTD SD Negeri 1 Towea</h3>
+    <p>Kelas 3.B</p>
+    <p>Daftar Kehadiran Siswa</p>
+      <div class="attendance-filter">
+    <label for="attendance-month">Bulan:</label>
+    <select id="attendance-month"></select>
+
+    <label for="attendance-year">Tahun:</label>
+    <select id="attendance-year"></select>
+</div>
+      
+<div class="attendance-calendar">
+    <div id="attendance-calendar-info"></div>
+
+    <div class="attendance-table-wrap">
+        <table class="attendance-table">
+            <thead id="attendance-calendar-head"></thead>
+            <tbody id="attendance-calendar-body"></tbody>
+        </table>
+    </div>
+</div>
+      
+    <div class="table-wrap">
+        <table class="attendance-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Siswa</th>
+                    <th>L/P</th>
+                    <th>NISN</th>
+                    <th>NIS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Afdal</td><td>L</td><td>3175044796</td><td>1432</td></tr>
+                <tr><td>2</td><td>Agis Maulana</td><td>L</td><td>3165492931</td><td>1485</td></tr>
+                <tr><td>3</td><td>Ahmad Albar</td><td>L</td><td>3172438800</td><td>1433</td></tr>
+                <tr><td>4</td><td>Amera Bunga Riskia</td><td>P</td><td></td><td></td></tr>
+                <tr><td>5</td><td>Ana</td><td>P</td><td>3181452892</td><td>1486</td></tr>
+                <tr><td>6</td><td>Arsyi Mafazah</td><td>P</td><td>3184798577</td><td>1487</td></tr>
+                <tr><td>7</td><td>Asyafa</td><td>P</td><td>3160358349</td><td>1488</td></tr>
+                <tr><td>8</td><td>Azkia Nureliza Herman</td><td>P</td><td>3172892857</td><td>1504</td></tr>
+                <tr><td>9</td><td>Dahlia</td><td>P</td><td>3188293551</td><td>1490</td></tr>
+                <tr><td>10</td><td>Gunaldi</td><td>L</td><td>3150201224</td><td>1394</td></tr>
+                <tr><td>11</td><td>Hamzah Abdul Azis</td><td>L</td><td>3176448387</td><td>1442</td></tr>
+                <tr><td>12</td><td>Hasra</td><td>P</td><td>3186284745</td><td>1491</td></tr>
+                <tr><td>13</td><td>Ilman Aditia</td><td>L</td><td>3166470393</td><td>1492</td></tr>
+                <tr><td>14</td><td>Kesya Sabrina</td><td>P</td><td>3185876517</td><td>1493</td></tr>
+                <tr><td>15</td><td>Muhammad Alfan Ramadhan</td><td>L</td><td></td><td></td></tr>
+                <tr><td>16</td><td>Muhammad Al Fandi</td><td>L</td><td>0153497015</td><td>1494</td></tr>
+                <tr><td>17</td><td>Nadia</td><td>P</td><td>3170168379</td><td>1496</td></tr>
+                <tr><td>18</td><td>Nur Sakila</td><td>P</td><td>3186728001</td><td>1498</td></tr>
+                <tr><td>19</td><td>Parel</td><td>L</td><td>3176458064</td><td>1499</td></tr>
+                <tr><td>20</td><td>Pujayanti</td><td>P</td><td>3175928976</td><td>1450</td></tr>
+                <tr><td>21</td><td>Raya</td><td>P</td><td></td><td></td></tr>
+                <tr><td>22</td><td>Riana</td><td>P</td><td>3182670851</td><td>1501</td></tr>
+                <tr><td>23</td><td>Siti Fatima</td><td>P</td><td>3174041896</td><td>1453</td></tr>
+                <tr><td>24</td><td>Sitti Nur Ramadhan</td><td>P</td><td>3172775044</td><td>1427</td></tr>
+                <tr><td>25</td><td>Sri Nadia</td><td>P</td><td>3189428947</td><td>1502</td></tr>
+                <tr><td>26</td><td>Yusuf</td><td>L</td><td>3177554223</td><td>1503</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
 
     <!-- ===================== JADWAL PELAJARAN ===================== -->
     <section id="jadwal" class="section" aria-labelledby="judul-jadwal">
@@ -1080,6 +1155,146 @@
   const todayLabel = document.querySelector(".today-label");
   if (todayLabel) todayLabel.textContent = "TANGGAL DIPILIH / HARI INI";
 })();
+</script>
+  
+  <script>
+// PILIHAN BULAN DAN TAHUN ABSENSI
+const monthSelect = document.getElementById("attendance-month");
+const yearSelect = document.getElementById("attendance-year");
+
+const monthNames = [
+    "Januari", "Februari", "Maret", "April",
+    "Mei", "Juni", "Juli", "Agustus",
+    "September", "Oktober", "November", "Desember"
+];
+
+const today = new Date();
+
+monthNames.forEach((month, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = month;
+    monthSelect.appendChild(option);
+});
+
+for (let year = 2026; year <= 2035; year++) {
+    const option = document.createElement("option");
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+}
+
+monthSelect.value = today.getMonth();
+yearSelect.value = today.getFullYear();
+    
+// DAFTAR SISWA ABSENSI
+const attendanceStudents = [
+    "Afdal",
+    "Agis Maulana",
+    "Ahmad Albar",
+    "Amera Bunga Riskia",
+    "Ana",
+    "Arsyi Mafazah",
+    "Asyafa",
+    "Azkia Nureliza Herman",
+    "Dahlia",
+    "Gunaldi",
+    "Hamzah Abdul Azis",
+    "Hasra",
+    "Ilman Aditia",
+    "Kesya Sabrina",
+    "Muhammad Alfan Ramadhan",
+    "Muhammad Al Fandi",
+    "Nadia",
+    "Nur Sakila",
+    "Parel",
+    "Pujayanti",
+    "Raya",
+    "Riana",
+    "Siti Fatima",
+    "Sitti Nur Ramadhan",
+    "Sri Nadia",
+    "Yusuf"
+];
+
+// MEMBUAT TABEL ABSENSI BULANAN
+function renderAttendanceCalendar() {
+    const month = Number(monthSelect.value);
+    const year = Number(yearSelect.value);
+
+    const head = document.getElementById("attendance-calendar-head");
+    const body = document.getElementById("attendance-calendar-body");
+    const info = document.getElementById("attendance-calendar-info");
+
+    if (!head || !body || !info) return;
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    info.textContent =
+        monthNames[month] + " " + year + " — " +
+        daysInMonth + " Hari";
+
+    // MEMBUAT JUDUL KOLOM
+    let headerHTML = `
+        <tr>
+            <th>No.</th>
+            <th>Nama Siswa</th>
+    `;
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const isSunday = date.getDay() === 0;
+
+        headerHTML += `
+            <th class="${isSunday ? "sunday" : ""}">
+                ${day}
+            </th>
+        `;
+    }
+
+    headerHTML += "</tr>";
+    head.innerHTML = headerHTML;
+
+    // MEMBUAT BARIS SISWA
+    let bodyHTML = "";
+
+    attendanceStudents.forEach((student, index) => {
+        bodyHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${student}</td>
+        `;
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            const isSunday = date.getDay() === 0;
+
+            bodyHTML += `
+                <td class="${isSunday ? "sunday" : ""}">
+                    <select aria-label="Absensi ${student}, tanggal ${day}">
+                        <option value="">-</option>
+                        <option value="H">H</option>
+                        <option value="S">S</option>
+                        <option value="I">I</option>
+                        <option value="A">A</option>
+                    </select>
+                </td>
+            `;
+        }
+
+        bodyHTML += "</tr>";
+    });
+
+    body.innerHTML = bodyHTML;
+}
+
+// PERBARUI TABEL SAAT BULAN ATAU TAHUN DIGANTI
+monthSelect.addEventListener("change", renderAttendanceCalendar);
+yearSelect.addEventListener("change", renderAttendanceCalendar);
+
+// TAMPILKAN BULAN SAAT INI
+renderAttendanceCalendar();
+
 </script>
 
 </body>
