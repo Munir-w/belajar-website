@@ -1325,6 +1325,8 @@ renderAttendanceCalendar();
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCuc9jjWxrZzpqlFCXYnUzdL17LeAojR2o",
@@ -1337,14 +1339,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
+// ===== LOGIN / LOGOUT =====
 const emailInput = document.getElementById("teacher-email");
 const passwordInput = document.getElementById("teacher-password");
 const loginButton = document.getElementById("teacher-login-button");
 const loginMessage = document.getElementById("login-message");
 
 loginButton.addEventListener("click", async () => {
-  // Jika sudah login, tombol ini berfungsi sebagai Logout
   if (auth.currentUser) {
     await signOut(auth);
     return;
@@ -1366,7 +1369,10 @@ loginButton.addEventListener("click", async () => {
     loginMessage.textContent = "Login gagal. Periksa email dan kata sandi.";
   }
 });
+
+// ===== KUNCI KOLOM ABSENSI =====
 let teacherLoggedIn = false;
+const attendanceBody = document.getElementById("attendance-calendar-body");
 
 function applyAttendanceLock() {
   document.querySelectorAll("#attendance-calendar-body select").forEach((s) => {
@@ -1374,17 +1380,101 @@ function applyAttendanceLock() {
   });
 }
 
-// Kunci ulang otomatis setiap kali tabel dibuat ulang (ganti bulan/tahun)
-const attendanceBody = document.getElementById("attendance-calendar-body");
 new MutationObserver(applyAttendanceLock).observe(attendanceBody, { childList: true });
+
+// ===== PENYIMPANAN KE FIRESTORE =====
+const saveStatus = document.createElement("p");
+saveStatus.id = "attendance-save-status";
+document.getElementById("attendance-calendar-info").after(saveStatus);
+
+function currentPeriod() {
+  return {
+    year: Number(document.getElementById("attendance-year").value),
+    month: Number(document.getElementById("attendance-month").value)
+  };
+}
+
+// Satu dokumen per bulan, contoh nama: absensi/2026-10
+function monthDocRef(year, month) {
+  return doc(db, "absensi", year + "-" + String(month + 1).padStart(2, "0"));
+}
+
+function clearAttendance() {
+  attendanceBody.querySelectorAll("select").forEach((s) => { s.value = ""; });
+  saveStatus.textContent = "";
+}
+
+async function loadAttendance() {
+  if (!teacherLoggedIn) return;
+
+  const { year, month } = currentPeriod();
+  saveStatus.textContent = "Memuat data absensi...";
+
+  try {
+    const snap = await getDoc(monthDocRef(year, month));
+
+    // Jika bulan/tahun sudah diganti saat menunggu, abaikan hasil lama
+    const now = currentPeriod();
+    if (now.year !== year || now.month !== month) return;
+
+    const records = snap.exists() ? (snap.data().records || {}) : {};
+
+    attendanceBody.querySelectorAll("tr").forEach((row) => {
+      const student = row.children[1].textContent.trim();
+      const studentData = records[student] || {};
+      row.querySelectorAll("select").forEach((sel) => {
+        const day = String(sel.closest("td").cellIndex - 1);
+        sel.value = studentData[day] || "";
+      });
+    });
+
+    saveStatus.textContent = snap.exists()
+      ? "Data absensi dimuat."
+      : "Belum ada data untuk bulan ini.";
+  } catch (error) {
+    saveStatus.textContent = "Gagal memuat data. Periksa koneksi internet dan login.";
+  }
+}
+
+// Muat ulang data setiap kali tabel dibuat ulang (ganti bulan/tahun)
+new MutationObserver(loadAttendance).observe(attendanceBody, { childList: true });
+
+// Simpan otomatis setiap kali satu kolom diubah
+attendanceBody.addEventListener("change", async (e) => {
+  const sel = e.target;
+  if (sel.tagName !== "SELECT" || !teacherLoggedIn) return;
+
+  const row = sel.closest("tr");
+  const student = row.children[1].textContent.trim();
+  const day = String(sel.closest("td").cellIndex - 1);
+  const { year, month } = currentPeriod();
+
+  saveStatus.textContent = "Menyimpan...";
+
+  try {
+    await setDoc(
+      monthDocRef(year, month),
+      { year: year, month: month + 1, records: { [student]: { [day]: sel.value } } },
+      { merge: true }
+    );
+    saveStatus.textContent = "Tersimpan.";
+  } catch (error) {
+    saveStatus.textContent = "GAGAL menyimpan! Perubahan terakhir belum tersimpan.";
+  }
+});
+
+// ===== STATUS LOGIN =====
 onAuthStateChanged(auth, (user) => {
-    teacherLoggedIn = !!user;
+  teacherLoggedIn = !!user;
   applyAttendanceLock();
+
   if (user) {
+    loadAttendance();
     loginMessage.textContent = "Login berhasil sebagai " + user.email + ".";
     loginButton.textContent = "Logout";
     passwordInput.value = "";
   } else {
+    clearAttendance();
     loginMessage.textContent = "";
     loginButton.textContent = "Login";
   }
