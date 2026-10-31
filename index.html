@@ -1480,5 +1480,151 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
+  <script>
+(function () {
+  var exportButton = document.getElementById("attendance-export-button");
+  if (!exportButton) return;
+
+  var namaBulan = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  exportButton.addEventListener("click", async function () {
+    var tombolLogin = document.getElementById("teacher-login-button");
+    if (!tombolLogin || tombolLogin.textContent.trim() !== "Logout") {
+      alert("Silakan login sebagai guru terlebih dahulu.");
+      return;
+    }
+
+    if (typeof ExcelJS === "undefined") {
+      alert("Pustaka Excel belum termuat. Muat ulang halaman (Ctrl+F5).");
+      return;
+    }
+
+    var month = Number(document.getElementById("attendance-month").value);
+    var year = Number(document.getElementById("attendance-year").value);
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var totalCols = 2 + daysInMonth + 4;
+    var barisSiswa = document.querySelectorAll("#attendance-calendar-body tr");
+
+    var workbook = new ExcelJS.Workbook();
+    var sheet = workbook.addWorksheet("Absensi", {
+      pageSetup: {
+        paperSize: 14,          // 14 = Folio (F4)
+        orientation: "landscape",
+        fitToPage: true,
+        fitToWidth: 1,
+        fitToHeight: 0,
+        margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 }
+      }
+    });
+
+    // ----- Lebar kolom -----
+    sheet.getColumn(1).width = 5;
+    sheet.getColumn(2).width = 28;
+    for (var d = 1; d <= daysInMonth; d++) sheet.getColumn(2 + d).width = 3.6;
+    for (var k = 1; k <= 4; k++) sheet.getColumn(2 + daysInMonth + k).width = 5;
+
+    // ----- Judul -----
+    var judul = [
+      ["DAFTAR HADIR SISWA", 14],
+      ["UPTD SD NEGERI 1 TOWEA", 12],
+      ["KELAS 3.B  |  " + namaBulan[month].toUpperCase() + " " + year, 12]
+    ];
+    judul.forEach(function (item, i) {
+      var r = i + 1;
+      sheet.mergeCells(r, 1, r, totalCols);
+      var c = sheet.getCell(r, 1);
+      c.value = item[0];
+      c.font = { bold: true, size: item[1] };
+      c.alignment = { horizontal: "center", vertical: "middle" };
+    });
+
+    // ----- Gaya garis -----
+    var garis = {
+      top: { style: "thin" }, left: { style: "thin" },
+      bottom: { style: "thin" }, right: { style: "thin" }
+    };
+
+    // ----- Baris judul kolom -----
+    var headerRow = 5;
+    var headerNilai = ["No.", "Nama Siswa"];
+    for (var h = 1; h <= daysInMonth; h++) headerNilai.push(h);
+    headerNilai.push("H", "S", "I", "A");
+
+    headerNilai.forEach(function (nilai, i) {
+      var c = sheet.getCell(headerRow, i + 1);
+      c.value = nilai;
+      c.border = garis;
+      c.alignment = { horizontal: "center", vertical: "middle" };
+      c.font = { bold: true, color: { argb: "FFFFFFFF" } };
+      c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0C2038" } };
+
+      var hari = i - 1; // tanggal untuk kolom ke-3 dst
+      if (hari >= 1 && hari <= daysInMonth && new Date(year, month, hari).getDay() === 0) {
+        c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC62828" } };
+      }
+    });
+
+    // ----- Baris siswa -----
+    barisSiswa.forEach(function (tr, index) {
+      var r = headerRow + 1 + index;
+      var nama = tr.children[1].textContent.trim();
+      var pilihan = tr.querySelectorAll("select");
+      var jumlah = { H: 0, S: 0, I: 0, A: 0 };
+
+      var c1 = sheet.getCell(r, 1);
+      c1.value = index + 1;
+      var c2 = sheet.getCell(r, 2);
+      c2.value = nama;
+
+      for (var day = 1; day <= daysInMonth; day++) {
+        var nilai = pilihan[day - 1] ? pilihan[day - 1].value : "";
+        if (jumlah.hasOwnProperty(nilai)) jumlah[nilai]++;
+        var cd = sheet.getCell(r, 2 + day);
+        cd.value = nilai;
+        if (new Date(year, month, day).getDay() === 0) {
+          cd.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFADBD8" } };
+        }
+      }
+
+      sheet.getCell(r, 2 + daysInMonth + 1).value = jumlah.H;
+      sheet.getCell(r, 2 + daysInMonth + 2).value = jumlah.S;
+      sheet.getCell(r, 2 + daysInMonth + 3).value = jumlah.I;
+      sheet.getCell(r, 2 + daysInMonth + 4).value = jumlah.A;
+
+      for (var col = 1; col <= totalCols; col++) {
+        var cell = sheet.getCell(r, col);
+        cell.border = garis;
+        cell.alignment = { horizontal: col === 2 ? "left" : "center", vertical: "middle" };
+      }
+    });
+
+    // ----- Keterangan -----
+    var rKet = headerRow + barisSiswa.length + 2;
+    sheet.getCell(rKet, 1).value = "Keterangan: H = Hadir, S = Sakit, I = Izin, A = Alpa";
+    sheet.getCell(rKet, 1).font = { italic: true };
+
+    // ----- Unduh -----
+    try {
+      var buffer = await workbook.xlsx.writeBuffer();
+      var blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Absensi-Kelas-3B-" + namaBulan[month] + "-" + year + ".xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      alert("Gagal membuat file Excel.");
+    }
+  });
+})();
+</script>
 </body>
 </html>
