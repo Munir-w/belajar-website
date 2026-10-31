@@ -1605,7 +1605,35 @@ onAuthStateChanged(auth, (user) => {
     var rKet = headerRow + barisSiswa.length + 2;
     sheet.getCell(rKet, 1).value = "Keterangan: H = Hadir, S = Sakit, I = Izin, A = Alpa";
     sheet.getCell(rKet, 1).font = { italic: true };
+    // ----- Tanda tangan -----
+    var rTtd = rKet + 2;
+    var kiriA = 2, kiriB = 12;
+    var kananA = totalCols - 11, kananB = totalCols;
 
+    function barisTtd(r, a, b, teks, gaya) {
+      sheet.mergeCells(r, a, r, b);
+      var c = sheet.getCell(r, a);
+      c.value = teks;
+      c.font = gaya || {};
+      c.alignment = { horizontal: "center", vertical: "middle" };
+    }
+
+    // Tempat dan tanggal: hari terakhir pada bulan yang dipilih
+    barisTtd(rTtd, kiriA, kiriB, "Mengetahui,");
+    barisTtd(rTtd, kananA, kananB, "Lakarama, " + daysInMonth + " " + namaBulan[month] + " " + year);
+
+    barisTtd(rTtd + 1, kiriA, kiriB, "Kepala Sekolah");
+    barisTtd(rTtd + 1, kananA, kananB, "Wali Kelas");
+
+    // Ruang kosong untuk tanda tangan
+    sheet.getRow(rTtd + 3).height = 34;
+
+    barisTtd(rTtd + 5, kiriA, kiriB, "Syukur Ahlawan, S.Pd.", { bold: true, underline: true });
+    barisTtd(rTtd + 5, kananA, kananB, "La Ode Sahrun, S.Pd.", { bold: true, underline: true });
+
+    barisTtd(rTtd + 6, kiriA, kiriB, "NIP. 196912311991081008");
+    barisTtd(rTtd + 6, kananA, kananB, "NIP. 198811032023211017");
+    
     // ----- Unduh -----
     try {
       var buffer = await workbook.xlsx.writeBuffer();
