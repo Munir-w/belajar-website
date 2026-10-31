@@ -1795,3 +1795,66 @@ tbody tr:nth-child(even) {
     padding: 15px;
   }
 }
+/* ===== ABSENSI DIGITAL ===== */
+
+.attendance-container {
+  text-align: center;
+}
+
+.attendance-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+#attendance-calendar-info {
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.attendance-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1.5px solid var(--gold-line);
+  border-radius: 12px;
+  background: var(--paper-2);
+  -webkit-overflow-scrolling: touch;
+}
+
+.attendance-table {
+  min-width: 1500px;
+  font-size: 0.8rem;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 4px 3px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.attendance-table th:nth-child(2),
+.attendance-table td:nth-child(2) {
+  min-width: 190px;
+  padding-left: 8px;
+  text-align: left;
+}
+
+.attendance-table select {
+  width: 44px;
+  padding: 2px;
+  font-size: 0.8rem;
+}
+
+.attendance-table thead th.sunday {
+  color: #ffffff;
+  background: #c62828;
+}
+
+.attendance-table tbody td.sunday {
+  background: #fde8e8;
+}
