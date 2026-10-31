@@ -1131,6 +1131,45 @@
   }
 
   months.forEach(renderMonth);
+    // ===== TAMPILKAN SATU BULAN SAJA, GANTI LEWAT TOMBOL =====
+  const monthCards = grid.querySelectorAll(".education-month");
+  const monthButtons = [];
+  let currentIndex = 0;
+
+  months.forEach(function (item, i) {
+    if (item[1] === today.getFullYear() && item[2] === today.getMonth()) {
+      currentIndex = i;
+    }
+  });
+
+  const nav = document.createElement("div");
+  nav.className = "calendar-nav";
+
+  function showMonth(index) {
+    monthCards.forEach(function (card, i) {
+      card.style.display = i === index ? "" : "none";
+    });
+    monthButtons.forEach(function (btn, i) {
+      btn.classList.toggle("active", i === index);
+    });
+  }
+
+  months.forEach(function (item, i) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = item[0].slice(0, 3) + " " + String(item[1]).slice(2);
+    btn.addEventListener("click", function () {
+      showMonth(i);
+    });
+    monthButtons.push(btn);
+    nav.appendChild(btn);
+  });
+
+  grid.parentNode.insertBefore(nav, grid);
+  grid.style.gridTemplateColumns = "minmax(0, 1fr)";
+  grid.style.maxWidth = "600px";
+  grid.style.margin = "0 auto";
+  showMonth(currentIndex);
   showDayInfo(today.getFullYear(), today.getMonth(), today.getDate());
 
   const todayLabel = document.querySelector(".today-label");
