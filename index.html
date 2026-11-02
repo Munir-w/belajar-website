@@ -1010,11 +1010,16 @@
       "idulfitri"
     ].includes(event.type);
   }
-
-  function makeAgenda(event, day, year, month) {
+  // Tanggal berurutan (hari Minggu di antaranya boleh dilewati)
+  function isNextDay(year, month, endDay, day) {
+    if (day === endDay + 1) return true;
+    return day === endDay + 2 && new Date(year, month, endDay + 1).getDay() === 0;
+  }
+  
+    function makeAgenda(event, day, year, month, endDay) {
     const li = document.createElement("li");
     const strong = document.createElement("strong");
-    strong.textContent = day + " " + monthNames[month] + " " + year;
+        strong.textContent = (endDay && endDay !== day ? day + "–" + endDay : day) + " " + monthNames[month] + " " + year;
 
     const desc = document.createElement("span");
     desc.textContent = event.note || categories[event.type];
@@ -1023,7 +1028,11 @@
     tag.className = "agenda-category";
     tag.textContent = categories[event.type] || event.type;
 
-    li.append(strong, desc, document.createElement("br"), tag);
+        if ((event.note || categories[event.type]) === (categories[event.type] || event.type)) {
+      li.append(strong, desc);
+    } else {
+      li.append(strong, desc, document.createElement("br"), tag);
+    }
     return li;
   }
 
@@ -1135,8 +1144,21 @@
       const list = document.createElement("ul");
       list.className = "month-agenda";
 
+            const groups = [];
       agendaList.forEach(function (item) {
-        list.appendChild(makeAgenda(item.event, item.day, year, month));
+        const last = groups[groups.length - 1];
+        if (last &&
+            last.event.type === item.event.type &&
+            last.event.note === item.event.note &&
+            isNextDay(year, month, last.endDay, item.day)) {
+          last.endDay = item.day;
+        } else {
+          groups.push({ event: item.event, startDay: item.day, endDay: item.day });
+        }
+      });
+
+      groups.forEach(function (g) {
+        list.appendChild(makeAgenda(g.event, g.startDay, year, month, g.endDay));
       });
 
       summary.appendChild(list);
