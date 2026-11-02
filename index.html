@@ -1087,6 +1087,15 @@
 
       if (event) {
         td.classList.add(event.type, "event-date");
+                const icon = iconOf(event);
+        if (icon) {
+          const ic = document.createElement("span");
+          ic.textContent = icon;
+          ic.style.display = "block";
+          ic.style.fontSize = ".7rem";
+          ic.style.lineHeight = "1";
+          td.appendChild(ic);
+        }
         td.title = (event.note || categories[event.type]) + " — klik untuk memilih";
         agendaList.push({ day: day, event: event });
       }
