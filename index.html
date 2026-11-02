@@ -1713,5 +1713,96 @@ onAuthStateChanged(auth, (user) => {
   });
 })();
 </script>
+  <script>
+(function () {
+  var section = document.getElementById("siswa");
+  var summary = section && section.querySelector(".student-summary");
+  if (!summary) return;
+
+  var folder = "foto-siswa/";
+
+  var guru = { nama: "La Ode Sahrun, S.Pd.", file: "la-ode-sahrun.jpg" };
+
+  var siswa = [
+    ["Afdal", "afdal.jpeg"],
+    ["Agis Maulana", "agis-maulana.jpeg"],
+    ["Ahmad Albar", "ahmad-albar.jpeg"],
+    ["Amera Bunga Riskia", "amera-bunga-riskia.jpeg"],
+    ["Ana", "ana.jpeg"],
+    ["Arsyi Mafazah", "arsyi-mafazah.jpeg"],
+    ["Asyafa", "asyafa.jpeg"],
+    ["Azkia Nureliza Herman", "azkia-nureliza-herman.jpeg"],
+    ["Dahlia", "dahlia.jpeg"],
+    ["Gunaldi", "gunaldi.png"],
+    ["Hamzah Abdul Azis", "hamzah-abdul-azis.jpeg"],
+    ["Hasra", "hasra.jpeg"],
+    ["Ilman Aditia", "ilman-aditia.jpeg"],
+    ["Kesya Sabrina", "kesya-sabrina.jpeg"],
+    ["Muhammad Alfan Ramadhan", "muhammad-alfan-ramadhan.jpeg"],
+    ["Muhammad Al Fandi", "muhammad-al-fandi.jpeg"],
+    ["Nadia", "nadia.jpeg"],
+    ["Nur Sakila", "nur-sakila.jpeg"],
+    ["Parel", "parel.jpeg"],
+    ["Pujayanti", "pujayanti.jpeg"],
+    ["Raya", "raya.jpeg"],
+    ["Riana", "riana.jpeg"],
+    ["Siti Fatima", "siti-fatima.jpeg"],
+    ["Sitti Nur Ramadhan", "sitti-nur-ramadhan.jpeg"],
+    ["Sri Nadia", "sri-nadia.jpeg"],
+    ["Yusuf", "yusuf.jpeg"]
+  ];
+
+  function buatKartu(nama, file, peran, kelasTambahan) {
+    var kartu = document.createElement("article");
+    kartu.className = "student-card" + (kelasTambahan ? " " + kelasTambahan : "");
+
+    var img = document.createElement("img");
+    img.className = "student-photo";
+    img.src = folder + file;
+    img.alt = "Foto " + nama;
+    img.loading = "lazy";
+
+    // Jika foto tidak ditemukan, tampilkan lingkaran berisi huruf awal nama
+    img.addEventListener("error", function () {
+      var ph = document.createElement("div");
+      ph.className = "student-photo-placeholder";
+      ph.textContent = nama.charAt(0).toUpperCase();
+      img.replaceWith(ph);
+    });
+
+    var namaEl = document.createElement("span");
+    namaEl.className = "student-name";
+    namaEl.textContent = nama;
+
+    kartu.appendChild(img);
+    kartu.appendChild(namaEl);
+
+    if (peran) {
+      var peranEl = document.createElement("span");
+      peranEl.className = "student-role";
+      peranEl.textContent = peran;
+      kartu.appendChild(peranEl);
+    }
+
+    return kartu;
+  }
+
+  var judulGaleri = document.createElement("h3");
+  judulGaleri.className = "student-gallery-title";
+  judulGaleri.textContent = "Welcome to Class 3.B";
+
+  var galeri = document.createElement("div");
+  galeri.className = "student-gallery";
+  siswa.forEach(function (s, i) {
+    // Kartu wali kelas disisipkan setelah siswa ke-8, jadi berada di tengah
+    if (i === 8) {
+      galeri.appendChild(buatKartu(guru.nama, guru.file, "Wali Kelas", "teacher-card"));
+    }
+    galeri.appendChild(buatKartu(s[0], s[1]));
+  });
+
+  summary.after(judulGaleri, galeri);
+})();
+</script>
 </body>
 </html>
