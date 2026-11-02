@@ -1858,3 +1858,12 @@ tbody tr:nth-child(even) {
 .attendance-table tbody td.sunday {
   background: #fde8e8;
 }
+
+/* Tombol bulan kalender: rata tengah */
+.education-calendar .calendar-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 16px;
+}
