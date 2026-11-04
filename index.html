@@ -1825,5 +1825,180 @@ onAuthStateChanged(auth, (user) => {
   summary.after(judulGaleri, galeri);
 })();
 </script>
+  <script type="module">
+import { getApps, getApp, initializeApp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuc9jjWxrZzpqlFCXYnUzdL17LeAojR2o",
+  authDomain: "absensi-kelas-3b.firebaseapp.com",
+  projectId: "absensi-kelas-3b",
+  storageBucket: "absensi-kelas-3b.firebasestorage.app",
+  messagingSenderId: "503297058139",
+  appId: "1:503297058139:web:83bde3358c54b29274267e"
+};
+
+// Memakai koneksi Firebase yang sudah ada (dari bagian absensi)
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const teacherArea = document.getElementById("quiz-teacher-area");
+const listEl = document.getElementById("quiz-list");
+const listMessage = document.getElementById("quiz-list-message");
+
+let guru = false;
+
+// ===== FORMULIR GURU (dibuat otomatis) =====
+const fieldStyle = "display:block;width:100%;margin:6px 0 12px;padding:8px;font:inherit;box-sizing:border-box;";
+
+const oldNote = teacherArea.querySelector("p");
+if (oldNote) oldNote.remove();
+
+const jenisSelect = document.createElement("select");
+jenisSelect.style.cssText = fieldStyle;
+[["pr", "PR"], ["soal", "Soal"]].forEach(function (o) {
+  const opt = document.createElement("option");
+  opt.value = o[0];
+  opt.textContent = o[1];
+  jenisSelect.appendChild(opt);
+});
+
+const judulInput = document.createElement("input");
+judulInput.type = "text";
+judulInput.maxLength = 100;
+judulInput.placeholder = "Judul, contoh: PR Matematika halaman 10";
+judulInput.style.cssText = fieldStyle;
+
+const petunjukInput = document.createElement("textarea");
+petunjukInput.rows = 3;
+petunjukInput.maxLength = 500;
+petunjukInput.placeholder = "Petunjuk atau keterangan (boleh dikosongkan)";
+petunjukInput.style.cssText = fieldStyle;
+
+const saveButton = document.createElement("button");
+saveButton.type = "button";
+saveButton.textContent = "Simpan";
+
+const formStatus = document.createElement("p");
+
+const labelJenis = document.createElement("label");
+labelJenis.textContent = "Jenis:";
+const labelJudul = document.createElement("label");
+labelJudul.textContent = "Judul:";
+const labelPetunjuk = document.createElement("label");
+labelPetunjuk.textContent = "Petunjuk:";
+
+teacherArea.append(
+  labelJenis, jenisSelect,
+  labelJudul, judulInput,
+  labelPetunjuk, petunjukInput,
+  saveButton, formStatus
+);
+
+// ===== SIMPAN =====
+saveButton.addEventListener("click", async function () {
+  if (!guru) return;
+
+  const judul = judulInput.value.trim();
+  if (!judul) {
+    formStatus.textContent = "Isi judulnya terlebih dahulu.";
+    return;
+  }
+
+  formStatus.textContent = "Menyimpan...";
+  saveButton.disabled = true;
+
+  try {
+    await addDoc(collection(db, "kuis"), {
+      judul: judul,
+      jenis: jenisSelect.value,
+      petunjuk: petunjukInput.value.trim(),
+      dibuat: serverTimestamp()
+    });
+    judulInput.value = "";
+    petunjukInput.value = "";
+    formStatus.textContent = "Tersimpan.";
+    await loadList();
+  } catch (error) {
+    formStatus.textContent = "GAGAL menyimpan. Pastikan Anda sudah login.";
+  }
+
+  saveButton.disabled = false;
+});
+
+// ===== DAFTAR (dilihat semua orang) =====
+function buatItem(id, data) {
+  const item = document.createElement("article");
+  item.className = "announcement";
+
+  const icon = document.createElement("span");
+  icon.className = "announcement-icon";
+  icon.textContent = data.jenis === "soal" ? "📝" : "📚";
+
+  const isi = document.createElement("div");
+
+  const judul = document.createElement("h3");
+  judul.textContent = (data.jenis === "soal" ? "Soal: " : "PR: ") + data.judul;
+  isi.appendChild(judul);
+
+  if (data.petunjuk) {
+    const petunjuk = document.createElement("p");
+    petunjuk.textContent = data.petunjuk;
+    isi.appendChild(petunjuk);
+  }
+
+  if (guru) {
+    const hapus = document.createElement("button");
+    hapus.type = "button";
+    hapus.textContent = "Hapus";
+    hapus.addEventListener("click", async function () {
+      if (!confirm("Hapus \"" + data.judul + "\"? Tindakan ini tidak bisa dibatalkan.")) return;
+      try {
+        await deleteDoc(doc(db, "kuis", id));
+        await loadList();
+      } catch (error) {
+        alert("Gagal menghapus. Pastikan Anda sudah login.");
+      }
+    });
+    isi.appendChild(hapus);
+  }
+
+  item.append(icon, isi);
+  return item;
+}
+
+async function loadList() {
+  listMessage.textContent = "Memuat...";
+
+  try {
+    const snap = await getDocs(query(collection(db, "kuis"), orderBy("dibuat", "desc")));
+    listEl.replaceChildren();
+
+    if (snap.empty) {
+      listMessage.textContent = "Belum ada soal atau PR.";
+      return;
+    }
+
+    listMessage.textContent = "";
+    snap.forEach(function (d) {
+      listEl.appendChild(buatItem(d.id, d.data()));
+    });
+  } catch (error) {
+    listMessage.textContent = "Gagal memuat soal. Periksa koneksi internet.";
+  }
+}
+
+// ===== TAMPILKAN PANEL GURU HANYA SAAT LOGIN =====
+onAuthStateChanged(auth, function (user) {
+  guru = !!user;
+  teacherArea.hidden = !guru;
+  loadList();
+});
+</script>
 </body>
 </html>
