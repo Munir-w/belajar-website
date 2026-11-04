@@ -1999,3 +1999,38 @@ tbody tr:nth-child(even) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ===== ABSENSI: KOLOM NAMA TETAP TERLIHAT SAAT TABEL DIGESER ===== */
+
+.attendance-table th:nth-child(2),
+.attendance-table td:nth-child(2) {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  min-width: 110px;
+  max-width: 130px;
+  white-space: normal;
+  line-height: 1.25;
+  background: #fffdf7;
+  box-shadow: 2px 0 0 var(--gold-line);
+}
+
+/* Baris genap: warna dibuat solid agar tulisan di belakangnya tidak tembus */
+.attendance-table tbody tr:nth-child(even) td:nth-child(2) {
+  background: #f6efdc;
+}
+
+/* Judul kolom "Nama Siswa" */
+.attendance-table thead th:nth-child(2) {
+  z-index: 3;
+  background: var(--navy);
+}
+
+@media (max-width: 520px) {
+  .attendance-table th:nth-child(2),
+  .attendance-table td:nth-child(2) {
+    min-width: 96px;
+    max-width: 104px;
+    font-size: 0.8rem;
+  }
+}
