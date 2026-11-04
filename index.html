@@ -1435,7 +1435,7 @@ const attendanceBody = document.getElementById("attendance-calendar-body");
 
 function applyAttendanceLock() {
   document.querySelectorAll("#attendance-calendar-body select").forEach((s) => {
-    s.disabled = !teacherLoggedIn;
+      s.disabled = !teacherLoggedIn || s.closest("td").classList.contains("sunday");
   });
 }
 
