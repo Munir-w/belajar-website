@@ -69,6 +69,7 @@
     <a href="#tatatertib">Tata Tertib</a>
     <a href="#kalender">Kalender</a>
     <a href="#pengumuman">Pengumuman</a>
+        <a href="#kuis">Soal &amp; PR</a>
   </nav>
 
   <main class="container">
@@ -768,6 +769,26 @@
           </p>
         </div>
       </article>
+      
+      <!-- SOAL DAN PR -->
+      <div id="kuis">
+        <h3 class="pill-heading"><span>Soal dan PR</span></h3>
+
+        <!-- Panel guru: muncul hanya setelah guru login (dibuat di langkah berikutnya) -->
+        <div id="quiz-teacher-area" hidden>
+          <h3>Panel Guru</h3>
+          <p>Di sini guru membuat dan menghapus soal.</p>
+        </div>
+
+        <!-- Daftar soal untuk siswa -->
+        <div id="quiz-list-area">
+          <p id="quiz-list-message">Belum ada soal atau PR.</p>
+          <div id="quiz-list"></div>
+        </div>
+
+        <!-- Tempat siswa mengerjakan soal -->
+        <div id="quiz-play-area" hidden></div>
+      </div>
     </section>
 
     <!-- ===================== PENUTUP ===================== -->
