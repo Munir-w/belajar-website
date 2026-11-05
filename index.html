@@ -1827,6 +1827,8 @@ onAuthStateChanged(auth, (user) => {
 </script>
   <script type="module">
 import { getApps, getApp, initializeApp }
+  <script type="module">
+import { getApps, getApp, initializeApp }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1851,7 +1853,9 @@ const teacherArea = document.getElementById("quiz-teacher-area");
 const listEl = document.getElementById("quiz-list");
 const listMessage = document.getElementById("quiz-list-message");
 
+const HURUF = ["A", "B", "C", "D"];
 let guru = false;
+let draft = []; // pertanyaan yang sedang disusun, belum disimpan
 
 // ===== FORMULIR GURU (dibuat otomatis) =====
 const fieldStyle = "display:block;width:100%;margin:6px 0 12px;padding:8px;font:inherit;box-sizing:border-box;";
@@ -1880,12 +1884,6 @@ petunjukInput.maxLength = 500;
 petunjukInput.placeholder = "Petunjuk atau keterangan (boleh dikosongkan)";
 petunjukInput.style.cssText = fieldStyle;
 
-const saveButton = document.createElement("button");
-saveButton.type = "button";
-saveButton.textContent = "Simpan";
-
-const formStatus = document.createElement("p");
-
 const labelJenis = document.createElement("label");
 labelJenis.textContent = "Jenis:";
 const labelJudul = document.createElement("label");
@@ -1893,12 +1891,119 @@ labelJudul.textContent = "Judul:";
 const labelPetunjuk = document.createElement("label");
 labelPetunjuk.textContent = "Petunjuk:";
 
+// ----- Kotak penyusun pertanyaan pilihan ganda -----
+const qBox = document.createElement("div");
+qBox.style.cssText = "margin:12px 0;padding:12px;border:1px dashed #b8893e;border-radius:10px;";
+
+const qTitle = document.createElement("strong");
+qTitle.textContent = "Pertanyaan pilihan ganda (boleh dikosongkan)";
+
+const qTeks = document.createElement("textarea");
+qTeks.rows = 2;
+qTeks.maxLength = 300;
+qTeks.placeholder = "Tulis pertanyaannya";
+qTeks.style.cssText = fieldStyle;
+
+const opsiInputs = HURUF.map(function (h) {
+  const inp = document.createElement("input");
+  inp.type = "text";
+  inp.maxLength = 100;
+  inp.placeholder = "Pilihan " + h;
+  inp.style.cssText = fieldStyle;
+  return inp;
+});
+
+const kunciLabel = document.createElement("label");
+kunciLabel.textContent = "Kunci jawaban:";
+
+const kunciSelect = document.createElement("select");
+kunciSelect.style.cssText = fieldStyle;
+HURUF.forEach(function (h, i) {
+  const opt = document.createElement("option");
+  opt.value = String(i);
+  opt.textContent = h;
+  kunciSelect.appendChild(opt);
+});
+
+const addQButton = document.createElement("button");
+addQButton.type = "button";
+addQButton.textContent = "Tambah pertanyaan";
+
+const qStatus = document.createElement("p");
+const draftList = document.createElement("div");
+
+qBox.append(qTitle, qTeks, ...opsiInputs, kunciLabel, kunciSelect, addQButton, qStatus, draftList);
+
+const saveButton = document.createElement("button");
+saveButton.type = "button";
+saveButton.textContent = "Simpan";
+
+const formStatus = document.createElement("p");
+
 teacherArea.append(
   labelJenis, jenisSelect,
   labelJudul, judulInput,
   labelPetunjuk, petunjukInput,
+  qBox,
   saveButton, formStatus
 );
+
+// ===== DAFTAR PERTANYAAN YANG SEDANG DISUSUN =====
+function renderDraft() {
+  draftList.replaceChildren();
+
+  draft.forEach(function (q, idx) {
+    const kotak = document.createElement("div");
+    kotak.style.cssText = "margin:8px 0;padding:8px;background:#fff;border-radius:8px;";
+
+    const teks = document.createElement("strong");
+    teks.textContent = (idx + 1) + ". " + q.teks;
+    kotak.appendChild(teks);
+
+    q.pilihan.forEach(function (p, i) {
+      const baris = document.createElement("div");
+      baris.textContent = HURUF[i] + ". " + p + (i === q.kunci ? "  ✓" : "");
+      kotak.appendChild(baris);
+    });
+
+    const hapus = document.createElement("button");
+    hapus.type = "button";
+    hapus.textContent = "Hapus pertanyaan ini";
+    hapus.addEventListener("click", function () {
+      draft.splice(idx, 1);
+      renderDraft();
+    });
+    kotak.appendChild(hapus);
+
+    draftList.appendChild(kotak);
+  });
+}
+
+addQButton.addEventListener("click", function () {
+  const teks = qTeks.value.trim();
+  const pilihan = opsiInputs.map(function (i) { return i.value.trim(); });
+
+  if (!teks) {
+    qStatus.textContent = "Tulis pertanyaannya terlebih dahulu.";
+    return;
+  }
+  if (pilihan.some(function (p) { return !p; })) {
+    qStatus.textContent = "Isi keempat pilihan (A sampai D).";
+    return;
+  }
+  if (draft.length >= 20) {
+    qStatus.textContent = "Maksimal 20 pertanyaan.";
+    return;
+  }
+
+  draft.push({ tipe: "pg", teks: teks, pilihan: pilihan, kunci: Number(kunciSelect.value) });
+
+  qTeks.value = "";
+  opsiInputs.forEach(function (i) { i.value = ""; });
+  kunciSelect.value = "0";
+  qStatus.textContent = "Pertanyaan ditambahkan. Jangan lupa klik Simpan di bawah.";
+  renderDraft();
+});
 
 // ===== SIMPAN =====
 saveButton.addEventListener("click", async function () {
@@ -1918,10 +2023,14 @@ saveButton.addEventListener("click", async function () {
       judul: judul,
       jenis: jenisSelect.value,
       petunjuk: petunjukInput.value.trim(),
+      pertanyaan: draft,
       dibuat: serverTimestamp()
     });
     judulInput.value = "";
     petunjukInput.value = "";
+    draft = [];
+    renderDraft();
+    qStatus.textContent = "";
     formStatus.textContent = "Tersimpan.";
     await loadList();
   } catch (error) {
@@ -1950,6 +2059,28 @@ function buatItem(id, data) {
     const petunjuk = document.createElement("p");
     petunjuk.textContent = data.petunjuk;
     isi.appendChild(petunjuk);
+  }
+
+  // Pertanyaan pilihan ganda. Tanda ✓ (kunci) hanya tampil untuk guru.
+  if (Array.isArray(data.pertanyaan) && data.pertanyaan.length) {
+    const ol = document.createElement("ol");
+    data.pertanyaan.forEach(function (q) {
+      const li = document.createElement("li");
+      li.style.margin = "10px 0";
+
+      const teks = document.createElement("strong");
+      teks.textContent = q.teks;
+      li.appendChild(teks);
+
+      q.pilihan.forEach(function (p, i) {
+        const baris = document.createElement("div");
+        baris.textContent = HURUF[i] + ". " + p + (guru && i === q.kunci ? "  ✓" : "");
+        li.appendChild(baris);
+      });
+
+      ol.appendChild(li);
+    });
+    isi.appendChild(ol);
   }
 
   if (guru) {
