@@ -1585,7 +1585,7 @@ onAuthStateChanged(auth, (user) => {
     var month = Number(document.getElementById("attendance-month").value);
     var year = Number(document.getElementById("attendance-year").value);
     var daysInMonth = new Date(year, month + 1, 0).getDate();
-    var totalCols = 2 + daysInMonth + 4;
+    var totalCols = 2 + daysInMonth + 5;
     var barisSiswa = document.querySelectorAll("#attendance-calendar-body tr");
 
     var workbook = new ExcelJS.Workbook();
@@ -1605,6 +1605,7 @@ onAuthStateChanged(auth, (user) => {
     sheet.getColumn(2).width = 28;
     for (var d = 1; d <= daysInMonth; d++) sheet.getColumn(2 + d).width = 3.6;
     for (var k = 1; k <= 4; k++) sheet.getColumn(2 + daysInMonth + k).width = 5;
+        sheet.getColumn(2 + daysInMonth + 5).width = 8;
 
     // ----- Judul -----
     var judul = [
@@ -1631,7 +1632,7 @@ onAuthStateChanged(auth, (user) => {
     var headerRow = 5;
     var headerNilai = ["No.", "Nama Siswa"];
     for (var h = 1; h <= daysInMonth; h++) headerNilai.push(h);
-    headerNilai.push("H", "S", "I", "A");
+        headerNilai.push("H", "S", "I", "A", "%");
 
     headerNilai.forEach(function (nilai, i) {
       var c = sheet.getCell(headerRow, i + 1);
@@ -1654,6 +1655,31 @@ onAuthStateChanged(auth, (user) => {
       I: { bg: "FFD4E6FF", fg: "FF0B4A8F" },
       A: { bg: "FFF8C9C5", fg: "FFB71C1C" }
     };
+    
+    // ----- Hari efektif: hari yang ada isian absensinya -----
+    var hariEfektif = 0;
+    for (var hd = 1; hd <= daysInMonth; hd++) {
+      var adaIsian = false;
+      barisSiswa.forEach(function (tr) {
+        var s = tr.querySelectorAll("select")[hd - 1];
+        if (s && s.value) adaIsian = true;
+      });
+      if (adaIsian) hariEfektif++;
+    }
+
+    // Keterangan hari efektif (baris 4, di bawah judul)
+    sheet.mergeCells(4, 1, 4, totalCols);
+    var cEf = sheet.getCell(4, 1);
+    cEf.value = "Hari efektif: " + hariEfektif + " hari  |  Persentase = jumlah H ÷ hari efektif";
+    cEf.font = { italic: true };
+    cEf.alignment = { horizontal: "center", vertical: "middle" };
+
+    // Warna judul kolom rekap H, S, I, A
+    ["H", "S", "I", "A"].forEach(function (kode, n) {
+      var ch = sheet.getCell(headerRow, 2 + daysInMonth + 1 + n);
+      ch.fill = { type: "pattern", pattern: "solid", fgColor: { argb: warnaStatus[kode].bg } };
+      ch.font = { bold: true, color: { argb: warnaStatus[kode].fg } };
+    });
     // ----- Baris siswa -----
     barisSiswa.forEach(function (tr, index) {
       var r = headerRow + 1 + index;
@@ -1684,6 +1710,16 @@ onAuthStateChanged(auth, (user) => {
       sheet.getCell(r, 2 + daysInMonth + 2).value = jumlah.S;
       sheet.getCell(r, 2 + daysInMonth + 3).value = jumlah.I;
       sheet.getCell(r, 2 + daysInMonth + 4).value = jumlah.A;
+      ["H", "S", "I", "A"].forEach(function (kode, n) {
+        var cr = sheet.getCell(r, 2 + daysInMonth + 1 + n);
+        cr.fill = { type: "pattern", pattern: "solid", fgColor: { argb: warnaStatus[kode].bg } };
+        cr.font = { bold: true, color: { argb: warnaStatus[kode].fg } };
+      });
+
+      var cp = sheet.getCell(r, 2 + daysInMonth + 5);
+      cp.value = hariEfektif > 0 ? jumlah.H / hariEfektif : "";
+      cp.numFmt = "0.0%";
+      cp.font = { bold: true };
 
       for (var col = 1; col <= totalCols; col++) {
         var cell = sheet.getCell(r, col);
