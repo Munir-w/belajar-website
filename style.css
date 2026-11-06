@@ -2059,3 +2059,62 @@ tbody tr:nth-child(even) {
 .attendance-table thead th:nth-child(2) {
   z-index: 5;
 }
+
+/* ===== ABSENSI: WARNA UNTUK SETIAP STATUS ===== */
+
+.attendance-table select[data-status="H"],
+.att-H {
+  background: #d9f2e0;
+  color: #1b5e20;
+  font-weight: 700;
+}
+
+.attendance-table select[data-status="S"],
+.att-S {
+  background: #fff1a8;
+  color: #7a5b00;
+  font-weight: 700;
+}
+
+.attendance-table select[data-status="I"],
+.att-I {
+  background: #d4e6ff;
+  color: #0b4a8f;
+  font-weight: 700;
+}
+
+.attendance-table select[data-status="A"],
+.att-A {
+  background: #f8c9c5;
+  color: #b71c1c;
+  font-weight: 700;
+}
+
+.attendance-table select[data-status]:disabled {
+  opacity: 1;
+}
+
+/* Keterangan warna di bawah tabel */
+#attendance-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  margin: 14px 0 4px;
+}
+
+.att-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+}
+
+.att-legend-box {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 7px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
