@@ -1671,6 +1671,10 @@ onAuthStateChanged(auth, (user) => {
         if (jumlah.hasOwnProperty(nilai)) jumlah[nilai]++;
         var cd = sheet.getCell(r, 2 + day);
         cd.value = nilai;
+                if (warnaStatus[nilai]) {
+          cd.fill = { type: "pattern", pattern: "solid", fgColor: { argb: warnaStatus[nilai].bg } };
+          cd.font = { bold: true, color: { argb: warnaStatus[nilai].fg } };
+        }
         if (new Date(year, month, day).getDay() === 0) {
           cd.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFADBD8" } };
         }
@@ -1690,8 +1694,17 @@ onAuthStateChanged(auth, (user) => {
 
     // ----- Keterangan -----
     var rKet = headerRow + barisSiswa.length + 2;
-    sheet.getCell(rKet, 1).value = "Keterangan: H = Hadir, S = Sakit, I = Izin, A = Alpa";
+        sheet.getCell(rKet, 1).value = "Keterangan:";
     sheet.getCell(rKet, 1).font = { italic: true };
+
+    [["H", "Hadir", 3], ["S", "Sakit", 6], ["I", "Izin", 9], ["A", "Alpa", 12]].forEach(function (x) {
+      sheet.mergeCells(rKet, x[2], rKet, x[2] + 2);
+      var c = sheet.getCell(rKet, x[2]);
+      c.value = x[0] + " = " + x[1];
+      c.font = { bold: true, color: { argb: warnaStatus[x[0]].fg } };
+      c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: warnaStatus[x[0]].bg } };
+      c.alignment = { horizontal: "center", vertical: "middle" };
+    });
     // ----- Tanda tangan -----
     var rTtd = rKet + 2;
     var kiriA = 2, kiriB = 12;
