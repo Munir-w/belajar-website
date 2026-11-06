@@ -1647,6 +1647,13 @@ onAuthStateChanged(auth, (user) => {
       }
     });
 
+        // ----- Warna status (sama dengan tampilan di layar) -----
+    var warnaStatus = {
+      H: { bg: "FFD9F2E0", fg: "FF1B5E20" },
+      S: { bg: "FFFFF1A8", fg: "FF7A5B00" },
+      I: { bg: "FFD4E6FF", fg: "FF0B4A8F" },
+      A: { bg: "FFF8C9C5", fg: "FFB71C1C" }
+    };
     // ----- Baris siswa -----
     barisSiswa.forEach(function (tr, index) {
       var r = headerRow + 1 + index;
