@@ -2147,5 +2147,55 @@ onAuthStateChanged(auth, function (user) {
   loadList();
 });
 </script>
+  <script type="module">
+(function () {
+  var body = document.getElementById("attendance-calendar-body");
+  var status = document.getElementById("attendance-save-status");
+  if (!body) return;
+
+  // Memberi tanda H/S/I/A pada setiap kotak, supaya CSS bisa mewarnainya
+  function warnai() {
+    body.querySelectorAll("select").forEach(function (s) {
+      s.dataset.status = s.value;
+    });
+  }
+
+  // 1) Saat satu kotak diubah
+  body.addEventListener("change", warnai);
+
+  // 2) Saat tabel dibuat ulang (ganti bulan atau tahun)
+  new MutationObserver(warnai).observe(body, { childList: true });
+
+  // 3) Saat data dimuat dari database atau dikosongkan (logout)
+  if (status) {
+    new MutationObserver(warnai).observe(status, {
+      childList: true, characterData: true, subtree: true
+    });
+  }
+
+  // Keterangan warna di bawah tabel
+  var wrap = document.querySelector(".attendance-table-wrap");
+  if (wrap && !document.getElementById("attendance-legend")) {
+    var legend = document.createElement("div");
+    legend.id = "attendance-legend";
+
+    [["H", "Hadir"], ["S", "Sakit"], ["I", "Izin"], ["A", "Alpa"]].forEach(function (x) {
+      var item = document.createElement("span");
+      item.className = "att-legend-item";
+
+      var box = document.createElement("span");
+      box.className = "att-legend-box att-" + x[0];
+      box.textContent = x[0];
+
+      item.append(box, x[1]);
+      legend.appendChild(item);
+    });
+
+    wrap.after(legend);
+  }
+
+  warnai();
+})();
+</script>
 </body>
 </html>
