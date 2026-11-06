@@ -2118,3 +2118,95 @@ tbody tr:nth-child(even) {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
+
+/* ===== TOMBOL UNDUH PDF ===== */
+
+.tombol-unduh-wadah {
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.tombol-unduh {
+  padding: 10px 22px;
+  color: var(--gold-light);
+  font: inherit;
+  font-weight: 700;
+  border: 1.5px solid var(--gold);
+  border-radius: 30px;
+  background: var(--navy);
+  cursor: pointer;
+}
+
+.tombol-unduh:hover {
+  background: var(--navy-deep);
+}
+
+.tombol-unduh:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Ukuran kertas F4 (portrait) untuk dokumen yang diunduh */
+@page halamanDokumen {
+  size: 215mm 330mm;
+  margin: 10mm;
+}
+
+@media print {
+  .tombol-unduh-wadah {
+    display: none !important;
+  }
+
+  /* Saat mengunduh satu bagian, semua bagian lain disembunyikan */
+  body.cetak-organisasi .hero,
+  body.cetak-organisasi .navbar,
+  body.cetak-organisasi .footer,
+  body.cetak-organisasi main > section:not(#organisasi),
+  body.cetak-piket .hero,
+  body.cetak-piket .navbar,
+  body.cetak-piket .footer,
+  body.cetak-piket main > section:not(#piket),
+  body.cetak-siswa .hero,
+  body.cetak-siswa .navbar,
+  body.cetak-siswa .footer,
+  body.cetak-siswa main > section:not(#siswa) {
+    display: none !important;
+  }
+
+  body.cetak-organisasi #organisasi,
+  body.cetak-piket #piket,
+  body.cetak-siswa #siswa {
+    page: halamanDokumen;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+
+  /* Jadwal piket: penanda "hari ini" tidak ikut tercetak */
+  body.cetak-piket .today-note {
+    display: none !important;
+  }
+
+  body.cetak-piket .hari-ini {
+    background: none !important;
+    box-shadow: none !important;
+    font-weight: inherit !important;
+  }
+
+  /* Keluarga Besar: tabel nama disembunyikan, foto dan nama sudah di kartu */
+  body.cetak-siswa #siswa .table-wrap {
+    display: none !important;
+  }
+
+  body.cetak-siswa .student-gallery {
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  body.cetak-siswa .student-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #cfc3a3;
+  }
+}
