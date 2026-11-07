@@ -2210,3 +2210,141 @@ tbody tr:nth-child(even) {
     border: 1px solid #cfc3a3;
   }
 }
+
+/* ===== TOMBOL UNDUH PDF ===== */
+
+.tombol-unduh-wadah {
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.tombol-unduh {
+  padding: 10px 22px;
+  color: var(--gold-light);
+  font: inherit;
+  font-weight: 700;
+  border: 1.5px solid var(--gold);
+  border-radius: 30px;
+  background: var(--navy);
+  cursor: pointer;
+}
+
+.tombol-unduh:hover {
+  background: var(--navy-deep);
+}
+
+.tombol-unduh:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Kertas F4 (215 x 330 mm) untuk dokumen yang diunduh */
+@page halamanDokumen {
+  size: 215mm 330mm;
+  margin: 10mm;
+}
+
+@media print {
+  .tombol-unduh-wadah {
+    display: none !important;
+  }
+
+  /* Saat mengunduh satu bagian, semua bagian lain disembunyikan */
+  body.cetak-organisasi .hero,
+  body.cetak-organisasi .navbar,
+  body.cetak-organisasi .footer,
+  body.cetak-organisasi main > section:not(#organisasi),
+  body.cetak-piket .hero,
+  body.cetak-piket .navbar,
+  body.cetak-piket .footer,
+  body.cetak-piket main > section:not(#piket),
+  body.cetak-siswa .hero,
+  body.cetak-siswa .navbar,
+  body.cetak-siswa .footer,
+  body.cetak-siswa main > section:not(#siswa) {
+    display: none !important;
+  }
+
+  body.cetak-organisasi .container,
+  body.cetak-piket .container,
+  body.cetak-siswa .container {
+    width: 100%;
+    margin: 0;
+  }
+
+  body.cetak-organisasi #organisasi,
+  body.cetak-piket #piket,
+  body.cetak-siswa #siswa {
+    page: halamanDokumen;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* ---- 1. STRUKTUR ORGANISASI: hanya judul dan bagan ---- */
+  body.cetak-organisasi #organisasi .info-strip,
+  body.cetak-organisasi #organisasi .pill-heading,
+  body.cetak-organisasi #organisasi .table-wrap {
+    display: none !important;
+  }
+
+  body.cetak-organisasi #organisasi .section-heading {
+    margin-bottom: 10px;
+  }
+
+  body.cetak-organisasi .org-student-photo {
+    width: 64px;
+    height: 64px;
+    margin: 6px auto;
+  }
+
+  body.cetak-organisasi .org-node strong {
+    padding: 6px 8px;
+  }
+
+  body.cetak-organisasi .org-role {
+    padding: 4px 8px;
+  }
+
+  /* ---- 2. KELUARGA BESAR: dimulai dari "Welcome to Class 3.B" ---- */
+  body.cetak-siswa #siswa .section-heading,
+  body.cetak-siswa #siswa .student-summary,
+  body.cetak-siswa #siswa .table-wrap,
+  body.cetak-siswa #siswa .small-note {
+    display: none !important;
+  }
+
+  body.cetak-siswa .student-gallery-title {
+    margin: 0 0 12px;
+    font-size: 1.8rem;
+  }
+
+  body.cetak-siswa .student-gallery {
+    gap: 8px;
+    margin: 0;
+  }
+
+  body.cetak-siswa .student-card {
+    padding: 5px 5px 6px;
+    break-inside: avoid;
+    border: 1px solid #cfc3a3;
+    box-shadow: none;
+    transform: none !important;
+  }
+
+  /* ---- 3. JADWAL PIKET: judul, keterangan, dan tabel ---- */
+  body.cetak-piket #piket .task-grid,
+  body.cetak-piket .today-note {
+    display: none !important;
+  }
+
+  body.cetak-piket .hari-ini {
+    background: none !important;
+    box-shadow: none !important;
+    font-weight: inherit !important;
+  }
+}
