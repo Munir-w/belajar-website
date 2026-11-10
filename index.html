@@ -2330,5 +2330,288 @@ onAuthStateChanged(auth, function (user) {
              "cetak-piket", "Jadwal-Piket-Kelas-3B");
 })();
 </script>
+  <script>
+/* POSTER-PIKET */
+(function () {
+  var section = document.getElementById("piket");
+  if (!section || document.getElementById("pk-poster")) return;
+
+  // ----- 1) Singkirkan tampilan lama: tabel, kartu tugas, catatan "hari ini", catatan pemantau lama -----
+  ["#piket .table-wrap", "#piket .task-grid", "#info-hari-piket"].forEach(function (sel) {
+    var el = document.querySelector(sel);
+    if (el) el.remove();
+  });
+  section.querySelectorAll(".notice").forEach(function (n) {
+    if (n.textContent.trim().indexOf("Pemantau piket") === 0) n.remove();
+  });
+
+  // ----- 2) Data -----
+  var folder = "foto-siswa/";
+
+  var foto = {
+    "Afdal": "afdal.jpeg",
+    "Agis Maulana": "agis-maulana.jpeg",
+    "Ahmad Albar": "ahmad-albar.jpeg",
+    "Amera Bunga Riskia": "amera-bunga-riskia.jpeg",
+    "Ana": "ana.jpeg",
+    "Arsyi Mafazah": "arsyi-mafazah.jpeg",
+    "Asyafa": "asyafa.jpeg",
+    "Azkia Nureliza Herman": "azkia-nureliza-herman.jpeg",
+    "Dahlia": "dahlia.jpeg",
+    "Gunaldi": "gunaldi.png",
+    "Hamzah Abdul Azis": "hamzah-abdul-azis.jpeg",
+    "Hasra": "hasra.jpeg",
+    "Ilman Aditia": "ilman-aditia.jpeg",
+    "Kesya Sabrina": "kesya-sabrina.jpeg",
+    "Muhammad Alfan Ramadhan": "muhammad-alfan-ramadhan.jpeg",
+    "Muhammad Al Fandi": "muhammad-al-fandi.jpeg",
+    "Nadia": "nadia.jpeg",
+    "Nur Sakila": "nur-sakila.jpeg",
+    "Parel": "parel.jpeg",
+    "Pujayanti": "pujayanti.jpeg",
+    "Raya": "raya.jpeg",
+    "Riana": "riana.jpeg",
+    "Siti Fatima": "siti-fatima.jpeg",
+    "Sitti Nur Ramadhan": "sitti-nur-ramadhan.jpeg",
+    "Sri Nadia": "sri-nadia.jpeg",
+    "Yusuf": "yusuf.jpeg",
+    "La Ode Sahrun, S.Pd.": "la-ode-sahrun.jpg"
+  };
+
+  // Jadwal piket penyapuan (24 siswa, masing-masing satu hari).
+  // Jika jadwal berubah, ubah nama-nama di sini.
+  var hari = [
+    { nama: "Senin",  warna: "#43a047", siswa: ["Pujayanti", "Sri Nadia", "Ahmad Albar", "Hasra"] },
+    { nama: "Selasa", warna: "#f08c00", siswa: ["Afdal", "Gunaldi", "Siti Fatima", "Riana"] },
+    { nama: "Rabu",   warna: "#2f6fd6", siswa: ["Muhammad Alfan Ramadhan", "Arsyi Mafazah", "Ana", "Ilman Aditia"] },
+    { nama: "Kamis",  warna: "#8a4fd0", siswa: ["Yusuf", "Sitti Nur Ramadhan", "Nur Sakila", "Dahlia"] },
+    { nama: "Jumat",  warna: "#e0587f", siswa: ["Amera Bunga Riskia", "Parel", "Muhammad Al Fandi", "Kesya Sabrina"] },
+    { nama: "Sabtu",  warna: "#1f9d96", siswa: ["Asyafa", "Raya", "Nadia", "Hamzah Abdul Azis"] }
+  ];
+
+  var tugas = [
+    ["🧹", "Menyapu"],
+    ["🪑", "Merapikan kelas"],
+    ["🧽", "Membersihkan papan"],
+    ["🗑️", "Mengelola sampah"]
+  ];
+
+  var pengesahan = [
+    { keperluan: "Pemantau piket", jabatan: "Ketua Kelas", nama: "Agis Maulana" },
+    { keperluan: "Pemantau kebersihan", jabatan: "Koordinator Kebersihan", nama: "Azkia Nureliza Herman" },
+    { keperluan: "Mengetahui", jabatan: "Wali Kelas", nama: "La Ode Sahrun, S.Pd." }
+  ];
+
+  // ----- 3) Pembuat tampilan -----
+  function buatFoto(nama) {
+    var file = foto[nama];
+
+    function kosong() {
+      var ph = document.createElement("div");
+      ph.className = "pk-foto-kosong";
+      ph.textContent = nama.charAt(0).toUpperCase();
+      return ph;
+    }
+
+    if (!file) return kosong();
+
+    var img = document.createElement("img");
+    img.className = "pk-foto";
+    img.alt = "Foto " + nama;
+    img.src = folder + file;
+    img.addEventListener("error", function () { img.replaceWith(kosong()); });
+    return img;
+  }
+
+  // Tombol unduh
+  var aksi = document.createElement("div");
+  aksi.className = "pk-aksi";
+  var tombol = document.createElement("button");
+  tombol.type = "button";
+  tombol.className = "pk-tombol";
+  tombol.textContent = "⬇ Unduh Jadwal Piket (PDF F4)";
+  aksi.appendChild(tombol);
+
+  // Poster
+  var poster = document.createElement("div");
+  poster.id = "pk-poster";
+  poster.className = "pk-poster";
+  poster.innerHTML =
+    '<div class="pk-judul">' +
+      '<p class="pk-atas">UPTD SD Negeri 1 Towea · Kelas 3.B</p>' +
+      '<div class="pk-spanduk">Jadwal <span>Piket</span> Kelas</div>' +
+      '<p class="pk-semboyan">Daftar Penyapuan · Tahun Ajaran 2026/2027</p>' +
+    '</div>' +
+    '<div class="pk-grid" id="pk-grid"></div>' +
+    '<p class="pk-catatan">Setiap siswa bertugas satu hari dalam seminggu. ' +
+      'Ketua Kelas dan Koordinator Kebersihan tidak menyapu, tetapi memantau ' +
+      'piket dan kebersihan kelas setiap hari.</p>' +
+    '<p class="pk-tempat">Lakarama, ................................</p>' +
+    '<div class="pk-pengesahan" id="pk-pengesahan"></div>';
+
+  section.append(aksi, poster);
+
+  // Kartu hari
+  var hariIni = new Date().getDay(); // 1 = Senin ... 6 = Sabtu
+  var grid = document.getElementById("pk-grid");
+
+  hari.forEach(function (h, i) {
+    var kartu = document.createElement("div");
+    kartu.className = "pk-kartu" + (hariIni === i + 1 ? " pk-sekarang" : "");
+    kartu.style.setProperty("--warna", h.warna);
+
+    var judul = document.createElement("div");
+    judul.className = "pk-nama-hari";
+    judul.textContent = h.nama;
+    kartu.appendChild(judul);
+
+    var lencanaWadah = document.createElement("div");
+    lencanaWadah.className = "pk-lencana-wadah";
+
+    var lencana = document.createElement("span");
+    lencana.className = "pk-lencana";
+    lencana.textContent = h.siswa.length + " SISWA";
+    lencanaWadah.appendChild(lencana);
+
+    if (hariIni === i + 1) {
+      var tag = document.createElement("span");
+      tag.className = "pk-lencana pk-tag-sekarang";
+      tag.textContent = "HARI INI";
+      lencanaWadah.appendChild(tag);
+    }
+    kartu.appendChild(lencanaWadah);
+
+    var daftar = document.createElement("div");
+    daftar.className = "pk-daftar";
+
+    h.siswa.forEach(function (s) {
+      var item = document.createElement("div");
+      item.className = "pk-siswa";
+      item.appendChild(buatFoto(s));
+
+      var n = document.createElement("span");
+      n.className = "pk-nama";
+      n.textContent = s;
+      item.appendChild(n);
+
+      daftar.appendChild(item);
+    });
+    kartu.appendChild(daftar);
+
+    var kotak = document.createElement("div");
+    kotak.className = "pk-tugas";
+    var ul = document.createElement("ul");
+    tugas.forEach(function (t) {
+      var li = document.createElement("li");
+      li.textContent = t[0] + " " + t[1];
+      ul.appendChild(li);
+    });
+    kotak.appendChild(ul);
+    kartu.appendChild(kotak);
+
+    grid.appendChild(kartu);
+  });
+
+  // Pengesahan: ketua kelas, koordinator kebersihan, wali kelas
+  var blok = document.getElementById("pk-pengesahan");
+
+  pengesahan.forEach(function (p) {
+    var kotak = document.createElement("div");
+    kotak.className = "pk-ttd";
+
+    var kep = document.createElement("span");
+    kep.className = "pk-keperluan";
+    kep.textContent = p.keperluan;
+
+    var jab = document.createElement("span");
+    jab.className = "pk-jabatan";
+    jab.textContent = p.jabatan;
+
+    var ruang = document.createElement("div");
+    ruang.className = "pk-ruang-ttd";
+
+    var nama = document.createElement("span");
+    nama.className = "pk-nama-ttd";
+    nama.textContent = p.nama;
+
+    kotak.append(kep, jab, buatFoto(p.nama), ruang, nama);
+    blok.appendChild(kotak);
+  });
+
+  // ----- 4) Unduh PDF (1 halaman F4) -----
+  function muat(src, sudahAda) {
+    return new Promise(function (ok, gagal) {
+      if (sudahAda()) { ok(); return; }
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = ok;
+      s.onerror = gagal;
+      document.head.appendChild(s);
+    });
+  }
+
+  function siapkanGambar() {
+    var imgs = Array.prototype.slice.call(poster.querySelectorAll("img"));
+    var tunggu = imgs.map(function (img) {
+      if (img.complete) return Promise.resolve();
+      return new Promise(function (ok) {
+        img.addEventListener("load", ok, { once: true });
+        img.addEventListener("error", ok, { once: true });
+      });
+    });
+    var batas = new Promise(function (ok) { setTimeout(ok, 6000); });
+    return Promise.race([Promise.all(tunggu), batas]);
+  }
+
+  tombol.addEventListener("click", async function () {
+    var teksAwal = tombol.textContent;
+    tombol.disabled = true;
+    tombol.textContent = "Membuat PDF, mohon tunggu...";
+
+    try {
+      await muat("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+                 function () { return typeof html2canvas !== "undefined"; });
+      await muat("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+                 function () { return !!window.jspdf; });
+
+      await Promise.all([
+        siapkanGambar(),
+        document.fonts ? document.fonts.ready : Promise.resolve()
+      ]);
+
+      var canvas = await html2canvas(poster, {
+        scale: window.innerWidth < 700 ? 1.5 : 2,
+        backgroundColor: "#ffffff",
+        useCORS: true,
+        windowWidth: 1100,   // tata letak selalu seperti layar lebar, juga di HP
+        onclone: function (doc) {
+          // Penanda "hari ini" tidak ikut di PDF
+          doc.querySelectorAll(".pk-sekarang").forEach(function (el) {
+            el.classList.remove("pk-sekarang");
+          });
+          doc.querySelectorAll(".pk-tag-sekarang").forEach(function (el) { el.remove(); });
+        }
+      });
+
+      var jsPDF = window.jspdf.jsPDF;
+      var pdf = new jsPDF({ unit: "mm", format: [215, 330], orientation: "portrait" });
+
+      // Muat dalam satu halaman F4 (area 195 x 310 mm)
+      var areaW = 195, areaH = 310;
+      var rasio = canvas.height / canvas.width;
+      var w = areaW, h = w * rasio;
+      if (h > areaH) { h = areaH; w = h / rasio; }
+
+      pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", (215 - w) / 2, 10, w, h);
+      pdf.save("Jadwal-Piket-Penyapuan-Kelas-3B.pdf");
+    } catch (error) {
+      alert("Gagal membuat PDF. Muat ulang halaman, lalu coba lagi.");
+    }
+
+    tombol.disabled = false;
+    tombol.textContent = teksAwal;
+  });
+})();
+</script>
 </body>
 </html>
