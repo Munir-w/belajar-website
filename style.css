@@ -2348,3 +2348,326 @@ tbody tr:nth-child(even) {
     font-weight: inherit !important;
   }
 }
+
+/* ===== POSTER JADWAL PIKET (digabung di bagian Jadwal Piket) ===== */
+
+.pk-aksi {
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.pk-tombol {
+  padding: 11px 24px;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 700;
+  border: 2px solid var(--gold-line);
+  border-radius: 30px;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  cursor: pointer;
+}
+
+.pk-tombol:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.pk-poster {
+  padding: clamp(14px, 3vw, 26px);
+  border: 2px solid var(--gold-line);
+  border-radius: 16px;
+  background: #fbf5e6;
+}
+
+.pk-judul {
+  text-align: center;
+}
+
+.pk-atas {
+  margin: 0 0 4px;
+  color: var(--gold-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.pk-spanduk {
+  display: inline-block;
+  margin: 4px 0 10px;
+  padding: 12px clamp(20px, 5vw, 46px);
+  color: #fdf3d9;
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 5vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+  background: var(--navy);
+}
+
+.pk-spanduk span {
+  color: var(--gold-light);
+}
+
+.pk-semboyan {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Foto bulat */
+.pk-foto {
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--warna, var(--gold));
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.pk-foto-kosong {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: var(--serif);
+  font-weight: 700;
+  border: 3px solid var(--warna, var(--gold));
+  border-radius: 50%;
+  background: var(--warna, var(--navy));
+}
+
+/* Kartu hari */
+.pk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 18px;
+  margin-top: 28px;
+}
+
+.pk-kartu {
+  min-width: 0;
+  padding: 0 12px 12px;
+  border: 2.5px solid var(--warna);
+  border-radius: 16px;
+  background: var(--paper-2);
+  box-shadow: 0 4px 12px rgba(12, 32, 56, 0.15);
+}
+
+.pk-kartu.pk-sekarang {
+  box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.6), 0 4px 12px rgba(12, 32, 56, 0.2);
+}
+
+.pk-nama-hari {
+  width: fit-content;
+  margin: -17px auto 8px;
+  padding: 6px 28px;
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 12px;
+  background: var(--warna);
+}
+
+.pk-lencana-wadah {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pk-lencana {
+  padding: 2px 12px;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  background: var(--warna);
+}
+
+.pk-lencana.pk-tag-sekarang {
+  color: var(--navy);
+  border: 1px solid var(--gold-line);
+  background: var(--gold-light);
+}
+
+.pk-daftar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 8px;
+}
+
+.pk-siswa {
+  min-width: 0;
+  text-align: center;
+}
+
+.pk-siswa .pk-foto,
+.pk-siswa .pk-foto-kosong {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 5px;
+}
+
+.pk-siswa .pk-foto-kosong {
+  font-size: 1.9rem;
+}
+
+.pk-nama {
+  display: block;
+  color: var(--navy);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+.pk-tugas {
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1.5px dashed var(--warna);
+  border-radius: 10px;
+  background: #fbf5e6;
+}
+
+.pk-tugas ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pk-tugas li {
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pk-catatan {
+  margin: 22px 0 0;
+  padding: 10px 16px;
+  text-align: center;
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1.5px solid var(--gold-line);
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+
+/* Pengesahan */
+.pk-tempat {
+  margin: 22px 0 8px;
+  text-align: right;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.pk-pengesahan {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pk-ttd {
+  min-width: 0;
+  padding: 12px 8px;
+  text-align: center;
+  border: 1.5px solid var(--gold-line);
+  border-radius: 14px;
+  background: var(--paper-2);
+}
+
+.pk-keperluan {
+  display: block;
+  color: var(--gold-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pk-jabatan {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pk-ttd .pk-foto,
+.pk-ttd .pk-foto-kosong {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+}
+
+.pk-ttd .pk-foto-kosong {
+  font-size: 1.4rem;
+}
+
+.pk-ruang-ttd {
+  height: 48px;
+}
+
+.pk-nama-ttd {
+  display: block;
+  padding-top: 4px;
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+  border-top: 1.5px dotted var(--navy);
+}
+
+@media (max-width: 860px) {
+  .pk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .pk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pk-jabatan {
+    font-size: 0.8rem;
+  }
+
+  .pk-keperluan {
+    font-size: 0.6rem;
+  }
+
+  .pk-ttd .pk-foto,
+  .pk-ttd .pk-foto-kosong {
+    width: 46px;
+    height: 46px;
+  }
+
+  .pk-nama-ttd {
+    font-size: 0.72rem;
+  }
+}
+
+@media print {
+  .pk-aksi {
+    display: none !important;
+  }
+
+  .pk-kartu,
+  .pk-ttd {
+    break-inside: avoid;
+  }
+}
